@@ -16,6 +16,9 @@
     "main": [
       "malek.mod_science.ModScienceInit"
     ],
+    "modmenu": [
+      "malek.mod_science.compat.modmenu.ModScienceConfigMenu"
+    ],
     "cardinal-components-entity": [
       "malek.mod_science.components.player.madness.Madness",
       "malek.mod_science.components.player.sap.normal_sap.NormalSap",
