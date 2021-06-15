@@ -15,7 +15,10 @@
     ],
     "main": [
       "malek.mod_science.ModScience"
-    ]
+    ],
+      "cardinal-components-entity": [
+        "malek.mod_science.components.player.madness.Madness"
+      ]
   },
   "mixins": [
     "mod_science.mixins.json"
