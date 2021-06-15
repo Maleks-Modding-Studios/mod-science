@@ -35,6 +35,15 @@ public class LeyKnot implements LeyKnotInterface, WorldComponentInitializer, Aut
         return x;
     }
 
+    public void setFields(int x, int z, double sap, double sapRegenAmount, double instability, boolean unravelled) {
+        setX(x);
+        setZ(z);
+        setSap(sap);
+        setSapRegenAmount(sapRegenAmount);
+        setInstability(instability);
+        setUnravelled(unravelled);
+    }
+
     public static LeyKnot get(World world) {
         return LEY_KNOT.get(world);
     }

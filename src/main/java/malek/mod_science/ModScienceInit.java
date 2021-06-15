@@ -1,6 +1,7 @@
 package malek.mod_science;
 
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.ModCompatibility;
@@ -42,6 +43,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         initModCompat();
         ModBlocks.init();
         ModItems.init();
+        ModGeneration.init();
     }
 
     public static ModConfig getConfig() {
