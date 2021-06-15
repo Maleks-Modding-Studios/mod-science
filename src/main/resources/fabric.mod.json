@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "mod_science",
   "version": "${version}",
-  "name": "Mod_science",
+  "name": "Mod Science",
   "description": "",
   "authors": [],
   "contact": {},
@@ -16,15 +16,21 @@
     "main": [
       "malek.mod_science.ModScience"
     ],
-      "cardinal-components-entity": [
-        "malek.mod_science.components.player.madness.Madness"
-      ]
+    "cardinal-components-entity": [
+      "malek.mod_science.components.player.madness.Madness"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "mod_science:madness"
+    ]
   },
   "mixins": [
     "mod_science.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.11.6",
-    "minecraft": "1.17"
+    "fabricloader": ">=0.11.3",
+    "minecraft": "1.17.x",
+    "java": ">=16"
   }
 }
