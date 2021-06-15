@@ -26,15 +26,6 @@ public class ModScience implements LoggerInterface {
     public static ModCompatibility DimensionalDoorsCompat = new ModCompatibility("dimdoors");
     public static ModCompatibility ImmersivePortalsCompat = new ModCompatibility("imm_ptl_core");
 
-    //Config Stuff
-    private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve("dimdoors").toAbsolutePath();
-    private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
-    public static ModConfig getConfig() {
-        return CONFIG_MANAGER.get();
-    }
-    public static Path getConfigRoot() {
-        return CONFIG_ROOT.get();
-    }
 
     //Server And World Stuff
     public static ServerWorld getWorld(RegistryKey<World> key) {

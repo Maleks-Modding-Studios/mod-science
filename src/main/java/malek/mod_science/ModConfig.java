@@ -1,5 +1,6 @@
 package malek.mod_science;
 
+import malek.mod_science.components.player.madness.Madness;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -13,16 +14,72 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static malek.mod_science.ModScience.MOD_ID;
+import static me.shedaniel.autoconfig.annotation.ConfigEntry.*;
+import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.*;
+import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON;
 
 @Config(name = MOD_ID)
 public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.TransitiveObject
     @ConfigEntry.Category("general")
-    private General general = new General();
+    public General general = new General();
+    public MadnessConfig madness = new MadnessConfig();
+
+    private static class MadnessFeature {
+        @Tooltip boolean enable = true;
+        @Tooltip double madnessThreshold = 0.0;
+    }
+
+    private static class MadnessRandomFeature extends MadnessFeature{
+        @Tooltip double chance = 0.0f;
+    }
+
+    public static class MadnessConfig {
+
+        @CollapsibleObject @Tooltip public LowMadness lowMadness = new LowMadness();
+        public static class LowMadness {
+            @Tooltip double lowMadnessThresholdAmount = 0.0;
+
+            @CollapsibleObject @Tooltip public HealGolem healGolem = new HealGolem();
+            @CollapsibleObject @Tooltip public GolemHealth golemHealth = new GolemHealth();
+            @CollapsibleObject @Tooltip public RandomSaturationGain randomSaturationGain = new RandomSaturationGain();
+
+            public static class HealGolem extends MadnessFeature {
+                @Tooltip int healAmount;
+                public HealGolem() {
+                    enable = true;
+                    madnessThreshold = 0.0;
+                    healAmount = 1;
+                }
+            }
+            public static class GolemHealth extends MadnessFeature {
+                @Tooltip int extraHealth;
+                public GolemHealth() {
+                    enable = true;
+                    madnessThreshold = 0.0;
+                    extraHealth = 1;
+                }
+            }
+            public static class RandomSaturationGain extends MadnessRandomFeature {
+                @Tooltip int saturationAmount;
+                public RandomSaturationGain(){
+                    enable = true;
+                    madnessThreshold = 0.0;
+                    chance = 0.1;
+                    saturationAmount = 1;
+                }
+            }
 
 
+        }
+
+        @CollapsibleObject @Tooltip public MediumMadness mediumMadness = new MediumMadness();
+        public static class MediumMadness {
+            @Tooltip double mediumMadnessThresholdAmount = 0.0;
 
 
+        }
+    }
 
 
     public static class General {
@@ -39,7 +96,7 @@ public class ModConfig implements ConfigData {
         }
 
         private Path getConfigPath() {
-            return ModScience.getConfigRoot().resolve(definition.name() + "-config.json5");
+            return ModScienceInit.getConfigRoot().resolve(definition.name() + "-config.json5");
         }
 
         @Override
