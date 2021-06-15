@@ -1,0 +1,169 @@
+package malek.mod_science.components.world.ley_knots;
+
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
+import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
+import malek.mod_science.components.player.sap.wyld_sap.WyldSap;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+
+import static malek.mod_science.ModScience.MOD_ID;
+
+public class LeyKnot implements LeyKnotInterface, WorldComponentInitializer, AutoSyncedComponent {
+    private int x;
+    private int z;
+    private double sap = 0.0;
+    private double sapRegenAmount = 0.0;
+    private double instability = 0.0;
+    private boolean unravelled = false;
+
+    public static final ComponentKey<LeyKnot> LEY_KNOT =
+            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "ley_knot"), LeyKnot.class);
+
+    public static LeyKnot get(World world) {
+        return LEY_KNOT.get(world);
+    }
+    @Override
+    public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
+        registry.register(LEY_KNOT, world -> new LeyKnot());
+    }
+    @Override
+    public void readFromNbt(NbtCompound tag) {
+        x = tag.getInt("x");
+        z = tag.getInt("z");
+        sap = tag.getDouble("sap");
+        sapRegenAmount = tag.getDouble("sap_regen_amount");
+        instability = tag.getDouble("instability");
+        unravelled = tag.getBoolean("unravelled");
+    }
+
+    @Override
+    public void writeToNbt(NbtCompound tag) {
+        tag.putInt("x", x);
+        tag.putInt("z", z);
+        tag.putDouble("sap", sap);
+        tag.putDouble("sap_regen_amount", sapRegenAmount);
+        tag.putDouble("instability", instability);
+        tag.putBoolean("unravelled", unravelled);
+    }
+
+    public static int getX(World world) {
+        return get(world).getX();
+    }
+
+    public static int getZ(World world) {
+        return get(world).getZ();
+    }
+
+    public static double getSap(World world) {
+        return get(world).getSap();
+    }
+
+    public static double getSapRegenAmount(World world) {
+        return get(world).getSapRegenerationAmount();
+    }
+
+    public static double getInstability(World world) {
+        return get(world).getInstability();
+    }
+
+    public static boolean isUnravelled(World world) {
+        return get(world).isUnravelled();
+    }
+
+    public static void setX(World world, int x) {
+        get(world).setX(x);
+    }
+    public static void setZ(World world, int z) {
+        get(world).setZ(z);
+    }
+    public static void setSap(World world, double amount) {
+        get(world).setSap(amount);
+    }
+    public static void setInstability(World world, double amount) {
+        get(world).setInstability(amount);
+    }
+    public static void setSapRegenAmount(World world, double amount) {
+        get(world).setSapRegenAmount(amount);
+    }
+    public static void addSap(World world, int amount) {
+        get(world).addSap(amount);
+    }
+    public static void addInstability(World world, int amount) {
+        get(world).addInstability(amount);
+    }
+    public static void removeSap(World world, int amount) {
+        get(world).removeSap(amount);
+    }
+    public static void removeInstability(World world, int amount) {
+        get(world).removeInstability(amount);
+    }
+    public static boolean isEmpty(World world) {
+        return get(world).isEmpty();
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getZ() {
+        return z;
+    }
+
+    @Override
+    public double getSap() {
+        return sap;
+    }
+
+    @Override
+    public double getSapRegenerationAmount() {
+        return sapRegenAmount;
+    }
+
+    @Override
+    public double getInstability() {
+        return instability;
+    }
+
+    @Override
+    public boolean isUnravelled() {
+        return unravelled;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setZ(int z) {
+        this.z = z;
+    }
+
+    @Override
+    public void setUnravelled(boolean unravelled) {
+        this.unravelled = unravelled;
+    }
+
+    @Override
+    public void setSap(double amount) {
+        sap = amount;
+    }
+
+    @Override
+    public void setInstability(double amount) {
+        instability = amount;
+    }
+
+    @Override
+    public void setSapRegenAmount(double amount) {
+        sapRegenAmount = amount;
+    }
+
+
+}
