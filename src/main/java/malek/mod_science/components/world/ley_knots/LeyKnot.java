@@ -11,7 +11,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import static malek.mod_science.ModScience.MOD_ID;
-
+//TODO: Set up sync between client and server for this, look at madness component for example
+/**
+Ley Knots are positions in the world that hold sap and are some amount unstable, they generate ley lines by
+playing connect the dots. They passivly regenerate sap.
+ */
 public class LeyKnot implements LeyKnotInterface, WorldComponentInitializer, AutoSyncedComponent {
     private int x;
     private int z;
