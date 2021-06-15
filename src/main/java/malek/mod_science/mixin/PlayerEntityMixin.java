@@ -23,8 +23,6 @@ public class PlayerEntityMixin implements LoggerInterface {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void tickMixin(CallbackInfo ci) {
-        log(Madness.get((PlayerEntity)((Object)this)).getMadness() + "");
-        Madness.get((PlayerEntity)((Object)this)).increaseMadness(1);
     }
 
     @Override
