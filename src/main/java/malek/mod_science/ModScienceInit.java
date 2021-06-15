@@ -36,7 +36,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
     @Override
     public void onInitialize() {
         log("UwU Daddy");
-        log(getConfig().madness.lowMadness.lowMadnessThresholdAmount + "");
+        log(getConfig().madness.lowMadness.thresholdAmount + "");
         ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> {
             ModScience.server = minecraftServer;
         });

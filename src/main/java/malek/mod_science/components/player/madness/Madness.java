@@ -6,6 +6,8 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import malek.mod_science.ModConfig;
+import malek.mod_science.ModScienceInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -68,5 +70,27 @@ public class Madness implements MadnessInterface, EntityComponentInitializer, Au
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(MADNESS, player -> new Madness(), RespawnCopyStrategy.ALWAYS_COPY);
 
+    }
+
+    /**
+     * This method returns true if madness is above the low threshold,
+     * including if it is above higher thresholds as well.
+     * @return boolean representing if the threshold is reached
+     */
+    public boolean isLow() {
+        return this.getMadness() >= ModScienceInit.getConfig().madness.lowMadness.thresholdAmount;
+    }
+
+    /**
+     * This method returns true if madness is above the medium threshold,
+     * including if it is above higher thresholds as well.
+     * @return boolean representing if the threshold is reached
+     */
+    public boolean isMedium() {
+        return this.getMadness() >= ModScienceInit.getConfig().madness.mediumMadness.thresholdAmount;
+    }
+
+    public static ModConfig.MadnessConfig getConfig() {
+        return ModScienceInit.getConfig().madness;
     }
 }
