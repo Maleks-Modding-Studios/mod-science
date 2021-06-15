@@ -5,8 +5,10 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
+import it.unimi.dsi.fastutil.Hash;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
@@ -16,32 +18,37 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
 public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitializer, AutoSyncedComponent {
-    private Stack<BlockPos> leyKnots = new Stack<>();
+    private Map<BlockPos, LeyKnot> leyKnots = new HashMap<>();
     public static final ComponentKey<LeyKnotMap> LEY_KNOT_MAP =
             ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "ley_knot_map"), LeyKnotMap.class);
 
 
-    public static Stack<BlockPos> get(World world) {
+    public static Map<BlockPos, LeyKnot> get(World world) {
         return LEY_KNOT_MAP.get(world).leyKnots;
     }
 
     @Override
     public void readFromNbt(NbtCompound tag) {
-        leyKnots = new Stack<>();
+        leyKnots = new HashMap<>();
         NbtList list = tag.getList("ley_knot_map", NbtType.COMPOUND);
-        NbtCompound[] stuff = (NbtCompound[]) list.stream().filter(NbtCompound.class::isInstance).map(NbtCompound.class::cast).toArray();
-        for(NbtCompound compoundTag : stuff) {
-            BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compoundTag.get("block_pos")).getOrThrow(false, (string) -> {}).getFirst();
-            leyKnots.add(blockPos);
+//        NbtCompound[] stuff = (NbtCompound[]) list.stream().filter(NbtCompound.class::isInstance).map(NbtCompound.class::cast).toArray();
+        for(NbtElement element : list) {
+            if(element instanceof NbtCompound) {
+                NbtCompound compound = (NbtCompound) element;
+
+                BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("block_pos")).
+                getOrThrow(false, (string) -> {
+                }).getFirst();
+                LeyKnot knot = new LeyKnot();
+                knot.readFromNbt(compound.getCompound("ley_knot"));
+                leyKnots.put(blockPos, knot);
+            }
         }
     }
 
@@ -53,10 +60,11 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
     @Override
     public void writeToNbt(NbtCompound tag) {
         NbtList listTag;
-        listTag = leyKnots.stream().parallel().map(blockPos -> {
+        listTag = leyKnots.entrySet().stream().parallel().map(blockPos -> {
             NbtCompound mappingTag = new NbtCompound();
-           mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos, NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
-            return mappingTag;
+           mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos.getKey(), NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
+           mappingTag.put("ley_knot", leyKnots.get(blockPos.getKey()).writeToNbt(new NbtCompound()));
+           return mappingTag;
         }).collect(Collectors.toCollection(NbtList::new));
         tag.put("ley_knot_map", listTag);
 

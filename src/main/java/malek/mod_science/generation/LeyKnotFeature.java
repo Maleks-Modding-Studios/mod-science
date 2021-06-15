@@ -22,23 +22,14 @@ public class LeyKnotFeature extends Feature implements LoggerInterface {
     public LeyKnotFeature(Codec<DefaultFeatureConfig> codec) {
         super(codec);
     }
-
+    public static BlockPos lastPos = new BlockPos(0, 0, 0);
     @Override
     public boolean generate(FeatureContext context) {
         if (context.getRandom().nextFloat() <= CHANCE_FOR_LEY_KNOT_TO_GENERATE) {
-
-            for (int i = 0;
-                 i < Math.min(LeyKnotMap.get(context.getWorld().toServerWorld()).size(),
-                         NUMBER_OF_LEY_KNOTS_NEARBY_CHECKED);
-                 i++) {
-                if (LeyKnotMap.get(context.getWorld().toServerWorld())
-                        .peek().getSquaredDistance(context.getOrigin()) <= MIN_DISTANCE_TO_SPAWN) {
-                    return false;
-                }
-                if(LeyKnotMap.get(context.getWorld().toServerWorld()).contains(new BlockPos(context.getOrigin().getX(), 0, context.getOrigin().getY()))) {
-                    return false;
-                }
+            if(context.getOrigin().getSquaredDistance(lastPos) < MIN_DISTANCE_TO_SPAWN) {
+                return false;
             }
+            lastPos = context.getOrigin().mutableCopy();
             if(context.getWorld().isClient()) {
                 return true;
             }
@@ -49,9 +40,10 @@ public class LeyKnotFeature extends Feature implements LoggerInterface {
     }
 
     private void generateLeyKnot(FeatureContext<RandomFeatureConfig> context) {
-        LeyKnot.get(context.getWorld().toServerWorld()).setFields(context.getOrigin().getX(), context.getOrigin().getZ(), 100, 1, 1, false);
-        LeyKnotMap.get(context.getWorld().toServerWorld()).push(new BlockPos(context.getOrigin().getX(), 0, context.getOrigin().getZ()));
-        log("Created Ley Knot At : x, " + LeyKnotMap.get(context.getWorld().toServerWorld()).peek().getX() + ", z, " + LeyKnotMap.get(context.getWorld().toServerWorld()).peek().getX());
+        LeyKnot leyKnot = new LeyKnot();
+        leyKnot.setFields(context.getOrigin().getX(), context.getOrigin().getZ(), 100, 1, 1, false);
+        LeyKnotMap.get(context.getWorld().toServerWorld()).put(new BlockPos(context.getOrigin().getX(), 0, context.getOrigin().getZ()), leyKnot);
+        log("Created Ley Knot At : x, " + context.getOrigin().getX() + ", z, " + context.getOrigin().getZ());
     }
 
     @Override
