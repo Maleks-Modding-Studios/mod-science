@@ -21,6 +21,8 @@ public class PlayerEntityMixin implements LoggerInterface {
     //Also tell ya ma i love her cooking.
     //Mwa
 
+    //hehe. that made my day. thanks malek. - gamma
+
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void tickMixin(CallbackInfo ci) {
     }

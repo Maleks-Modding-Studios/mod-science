@@ -26,23 +26,25 @@ public class ModConfig implements ConfigData {
     public MadnessConfig madness = new MadnessConfig();
 
     private static class MadnessFeature {
-        @Tooltip boolean enable = true;
-        @Tooltip double madnessThreshold = 0.0;
+        @Tooltip public boolean enable = true;
+        @Tooltip public double madnessThreshold = 0.0;
+
     }
 
     private static class MadnessRandomFeature extends MadnessFeature{
-        @Tooltip double chance = 0.0f;
+        @Tooltip public double chance = 0.0f;
     }
 
     public static class MadnessConfig {
 
         @CollapsibleObject @Tooltip public LowMadness lowMadness = new LowMadness();
         public static class LowMadness {
-            @Tooltip double lowMadnessThresholdAmount = 0.0;
+            @Tooltip public double lowMadnessThresholdAmount = 0.0;
 
             @CollapsibleObject @Tooltip public HealGolem healGolem = new HealGolem();
             @CollapsibleObject @Tooltip public GolemHealth golemHealth = new GolemHealth();
             @CollapsibleObject @Tooltip public RandomSaturationGain randomSaturationGain = new RandomSaturationGain();
+
 
             public static class HealGolem extends MadnessFeature {
                 @Tooltip int healAmount;
@@ -52,6 +54,7 @@ public class ModConfig implements ConfigData {
                     healAmount = 1;
                 }
             }
+
             public static class GolemHealth extends MadnessFeature {
                 @Tooltip int extraHealth;
                 public GolemHealth() {
@@ -61,12 +64,12 @@ public class ModConfig implements ConfigData {
                 }
             }
             public static class RandomSaturationGain extends MadnessRandomFeature {
-                @Tooltip int saturationAmount;
+                @Tooltip public int saturationAmount;
                 public RandomSaturationGain(){
                     enable = true;
                     madnessThreshold = 0.0;
                     chance = 0.1;
-                    saturationAmount = 1;
+                    saturationAmount = 10;
                 }
             }
 
@@ -76,7 +79,23 @@ public class ModConfig implements ConfigData {
         @CollapsibleObject @Tooltip public MediumMadness mediumMadness = new MediumMadness();
         public static class MediumMadness {
             @Tooltip double mediumMadnessThresholdAmount = 0.0;
+            @CollapsibleObject @Tooltip public RandomEnchant randomEnchant = new RandomEnchant();
+            @CollapsibleObject @Tooltip public RandomSpectatorSpawn randomSpectatorSpawn = new RandomSpectatorSpawn();
 
+            public class RandomEnchant extends MadnessRandomFeature{
+                public RandomEnchant(){
+                    enable = true;
+                    madnessThreshold = 0.0;
+                    chance = 0.0;
+                }
+            }
+            public class RandomSpectatorSpawn extends MadnessRandomFeature{
+                public RandomSpectatorSpawn(){
+                    enable = true;
+                    madnessThreshold = 0.0;
+                    chance = 0.0;
+                }
+            }
 
         }
     }
