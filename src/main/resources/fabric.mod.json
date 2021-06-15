@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "mod_science",
+  "version": "${version}",
+  "name": "Mod_science",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/mod_science/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "malek.mod_science.client.ModScienceClient"
+    ],
+    "main": [
+      "malek.mod_science.ModScience"
+    ]
+  },
+  "mixins": [
+    "mod_science.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "minecraft": "1.17"
+  }
+}
