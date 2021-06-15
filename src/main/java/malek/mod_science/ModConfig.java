@@ -23,6 +23,8 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.TransitiveObject
     @ConfigEntry.Category("general")
     public General general = new General();
+    @ConfigEntry.Gui.TransitiveObject
+    @ConfigEntry.Category("madness")
     public MadnessConfig madness = new MadnessConfig();
 
     private static class MadnessFeature {
