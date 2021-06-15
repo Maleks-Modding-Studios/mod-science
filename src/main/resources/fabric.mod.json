@@ -14,7 +14,7 @@
       "malek.mod_science.client.ModScienceClient"
     ],
     "main": [
-      "malek.mod_science.ModScience"
+      "malek.mod_science.ModScienceInit"
     ],
     "cardinal-components-entity": [
       "malek.mod_science.components.player.madness.Madness"
