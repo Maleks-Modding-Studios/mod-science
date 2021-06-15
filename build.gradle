@@ -1,19 +1,19 @@
 plugins {
-    id 'fabric-loom' version '0.9-SNAPSHOT'
+    id 'fabric-loom' version '0.8-SNAPSHOT'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
 repositories {
     maven {
         name = 'Ladysnake Mods'
         url = 'https://ladysnake.jfrog.io/artifactory/mods'
-
     }
     maven {
         name 'Matrix'
@@ -26,16 +26,15 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    includeCompile("com.github.DimensionalDevelopment", "Matrix", "1.0.0")
+
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    includeCompile("com.github.DimensionalDevelopment", "Matrix", "1.0.0")
+
     // Replace modImplementation with modApi if you expose components in your own API
-    modImplementation "io.github.onyxstudios:Cardinal-Components-API:3.0.0-nightly.1.17-pre2"
-    // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
-    include "io.github.onyxstudios:Cardinal-Components-API:3.0.0-nightly.1.17-pre2"
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
+    include(modImplementation("io.github.onyxstudios:Cardinal-Components-API:${project.cca_version}"))
 }
+
 def includeCompile(group, artifact, version) {
     project.dependencies {
         modCompileOnly("$group:$artifact:$version") {
@@ -46,6 +45,7 @@ def includeCompile(group, artifact, version) {
         }
         include("$group:$artifact:$version")
     }
+
     project.publishing {
         publications {
             mavenJava(MavenPublication) {
@@ -61,16 +61,12 @@ def includeCompile(group, artifact, version) {
         }
     }
 }
+
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
     }
 }
 
@@ -79,6 +75,9 @@ processResources {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+
+    // Minecraft 1.17 (21w19a) upwards uses Java 16.
+    it.options.release = 16
 }
 
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
