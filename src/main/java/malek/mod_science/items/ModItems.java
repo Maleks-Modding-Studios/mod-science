@@ -1,9 +1,6 @@
 package malek.mod_science.items;
 
 import malek.mod_science.blocks.ModBlocks;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -26,6 +23,7 @@ public final class ModItems {
     private static Item create(Block block) {
         return create(new BlockItem(block, (new Item.Settings()).group(ItemGroup.MISC)));
     }
+
     private static Item create(Item item) {
         if (item instanceof BlockItem) {
             ((BlockItem) item).appendBlocks(Item.BLOCK_ITEMS, item);

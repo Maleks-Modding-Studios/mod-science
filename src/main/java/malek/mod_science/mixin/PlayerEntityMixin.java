@@ -1,6 +1,5 @@
 package malek.mod_science.mixin;
 
-import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.entity.player.PlayerEntity;
 import org.apache.logging.log4j.LogManager;

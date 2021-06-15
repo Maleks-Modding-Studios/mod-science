@@ -50,7 +50,6 @@ repositories {
 //    }
 
 
-
     maven {
         name = 'Ladysnake Mods'
         url = 'https://ladysnake.jfrog.io/artifactory/mods'
@@ -131,22 +130,22 @@ dependencies {
 //	includeCompile("io.github.BoogieMonster1O1", "OpenWorlds", "c57e3ef")
 //	includeCompile("io.github.cottonmc", "LibGui", "4.0.0-alpha.1+21w11a")
     includeCompile("me.shedaniel.cloth", "cloth-config-fabric", "5.0.34")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-base", "3.0.0-nightly.1.17-pre2")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-item", "3.0.0-nightly.1.17-pre2")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-entity", "3.0.0-nightly.1.17-pre2")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-level", "3.0.0-nightly.1.17-pre2")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-util", "3.0.0-nightly.1.17-pre2")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-world", "3.0.0-nightly.1.17-pre2")
-    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-chunk", "3.0.0-nightly.1.17-pre2")
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-base", project.cca_version)
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-item", project.cca_version)
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-entity", project.cca_version)
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-level", project.cca_version)
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-util", project.cca_version)
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-world", project.cca_version)
+    includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-chunk", project.cca_version)
 //	includeCompile("me.sargunvohra.mcmods", "autoconfig1u", "3.3.1")
     includeCompile("dev.hephaestus", "seedy-behavior", "1.0.1")
-    // Dependency of Immersive Portals Core:
+//    // Dependency of Immersive Portals Core:
 //    modImplementation ('com.github.qouteall.ImmersivePortalsMod:imm_ptl_core:1.17-SNAPSHOT'){
 //        exclude(group: "net.fabricmc.fabric-api")
 //        transitive(false)
 //    }
 //
-//// Dependency of the Miscellaneous Utility Library from qouteall
+//    // Dependency of the Miscellaneous Utility Library from qouteall
 //    modImplementation ('com.github.qouteall.ImmersivePortalsMod:q_misc_util:1.17-SNAPSHOT'){
 //        exclude(group: "net.fabricmc.fabric-api")
 //        transitive(false)
@@ -171,17 +170,17 @@ dependencies {
 
     modCompileOnly "me.shedaniel.cloth.api:cloth-datagen-api-v1:2.0.0"
     modRuntime "me.shedaniel.cloth.api:cloth-datagen-api-v1:2.0.0"
-    //modCompileOnly "worldedit:worldedit:7.2.6"
-   // modRuntime "worldedit:worldedit:7.2.6"
+    // modCompileOnly "worldedit:worldedit:7.2.6"
+    // modRuntime "worldedit:worldedit:7.2.6"
 
 //	modImplementation "geckolib:geckolib:3.0.31"
 
-//    datagenImplementation sourceSets.main.output
-//    datagenImplementation sourceSets.main.compileClasspath
-//    datagenRuntimeOnly sourceSets.main.runtimeClasspath
+//  datagenImplementation sourceSets.main.output
+//  datagenImplementation sourceSets.main.compileClasspath
+//  datagenRuntimeOnly sourceSets.main.runtimeClasspath
 
     testImplementation('junit:junit:4.13.2')
-    //testImplementation('net.devtech:PotatoUnit-fabric:1.0.0')
+    // testImplementation('net.devtech:PotatoUnit-fabric:1.0.0')
     testImplementation('net.devtech:PotatoUnit:1.0.2')
 }
 
@@ -206,6 +205,7 @@ processResources {
 artifacts {
     archives jar
 }
+
 /*
 curseforge {
     if (project.hasProperty('curse_api_key')) {
@@ -227,7 +227,6 @@ curseforge {
         forgeGradleIntegration = false
     }
 }
-
  */
 
 test {
@@ -237,7 +236,7 @@ test {
     //useJUnitPlatform()
 }
 
-tasks.test.doFirst {Test test ->
+tasks.test.doFirst { Test test ->
     if (!test.workingDir.exists()) {
         test.workingDir.mkdirs();
     }

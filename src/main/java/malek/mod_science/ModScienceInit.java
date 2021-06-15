@@ -21,14 +21,13 @@ import java.util.function.Supplier;
 import static malek.mod_science.ModScience.MOD_ID;
 
 public class ModScienceInit implements ModInitializer, LoggerInterface {
+    //Config Stuff
+    private static final Supplier<Path> CONFIG_ROOT =
+            () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
+    private static final ConfigHolder<ModConfig> CONFIG_MANAGER =
+            AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
     public static final Set<ModCompatibility> MODS = new HashSet<>();
 
-    //Config Stuff
-    private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
-    private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
-    public static ModConfig getConfig() {
-        return CONFIG_MANAGER.get();
-    }
     public static Path getConfigRoot() {
         return CONFIG_ROOT.get();
     }
@@ -45,12 +44,17 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModItems.init();
     }
 
+    public static ModConfig getConfig() {
+        return CONFIG_MANAGER.get();
+    }
+
     public static void initModCompat() {
         LogManager.getLogger().log(Level.INFO, "Mod Science Enabling Mod Compatibility");
         for (ModCompatibility mod : MODS) {
             if (FabricLoader.getInstance().isModLoaded(mod.getModID())) {
                 mod.enable();
-                LogManager.getLogger().log(Level.INFO, "Mod Science Enabling Mod Compatibility For : " + mod.getModID());
+                LogManager.getLogger()
+                          .log(Level.INFO, "Mod Science Enabling Mod Compatibility For : " + mod.getModID());
             }
         }
     }

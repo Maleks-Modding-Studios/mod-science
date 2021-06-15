@@ -1,6 +1,5 @@
 package malek.mod_science;
 
-import malek.mod_science.components.player.madness.Madness;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -14,9 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static malek.mod_science.ModScience.MOD_ID;
-import static me.shedaniel.autoconfig.annotation.ConfigEntry.*;
-import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.*;
-import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON;
+import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
 
 @Config(name = MOD_ID)
 public class ModConfig implements ConfigData {
@@ -28,28 +26,46 @@ public class ModConfig implements ConfigData {
     public MadnessConfig madness = new MadnessConfig();
 
     private static class MadnessFeature {
-        @Tooltip public boolean enable = true;
-        @Tooltip public double madnessThreshold = 0.0;
+        @Tooltip
+        public boolean enable = true;
+        @Tooltip
+        public double madnessThreshold = 0.0;
 
     }
 
-    private static class MadnessRandomFeature extends MadnessFeature{
-        @Tooltip public double chance = 0.0f;
+    private static class MadnessRandomFeature extends MadnessFeature {
+        @Tooltip
+        public double chance = 0.0f;
     }
 
     public static class MadnessConfig {
 
-        @CollapsibleObject @Tooltip public LowMadness lowMadness = new LowMadness();
-        public static class LowMadness {
-            @Tooltip public double lowMadnessThresholdAmount = 0.0;
+        @CollapsibleObject
+        @Tooltip
+        public LowMadness lowMadness = new LowMadness();
+        @CollapsibleObject
+        @Tooltip
+        public MediumMadness mediumMadness = new MediumMadness();
 
-            @CollapsibleObject @Tooltip public HealGolem healGolem = new HealGolem();
-            @CollapsibleObject @Tooltip public GolemHealth golemHealth = new GolemHealth();
-            @CollapsibleObject @Tooltip public RandomSaturationGain randomSaturationGain = new RandomSaturationGain();
+        public static class LowMadness {
+            @Tooltip
+            public double lowMadnessThresholdAmount = 0.0;
+
+            @CollapsibleObject
+            @Tooltip
+            public HealGolem healGolem = new HealGolem();
+            @CollapsibleObject
+            @Tooltip
+            public GolemHealth golemHealth = new GolemHealth();
+            @CollapsibleObject
+            @Tooltip
+            public RandomSaturationGain randomSaturationGain = new RandomSaturationGain();
 
 
             public static class HealGolem extends MadnessFeature {
-                @Tooltip int healAmount;
+                @Tooltip
+                int healAmount;
+
                 public HealGolem() {
                     enable = true;
                     madnessThreshold = 0.0;
@@ -58,16 +74,21 @@ public class ModConfig implements ConfigData {
             }
 
             public static class GolemHealth extends MadnessFeature {
-                @Tooltip int extraHealth;
+                @Tooltip
+                int extraHealth;
+
                 public GolemHealth() {
                     enable = true;
                     madnessThreshold = 0.0;
                     extraHealth = 1;
                 }
             }
+
             public static class RandomSaturationGain extends MadnessRandomFeature {
-                @Tooltip public int saturationAmount;
-                public RandomSaturationGain(){
+                @Tooltip
+                public int saturationAmount;
+
+                public RandomSaturationGain() {
                     enable = true;
                     madnessThreshold = 0.0;
                     chance = 0.1;
@@ -78,21 +99,26 @@ public class ModConfig implements ConfigData {
 
         }
 
-        @CollapsibleObject @Tooltip public MediumMadness mediumMadness = new MediumMadness();
         public static class MediumMadness {
-            @Tooltip double mediumMadnessThresholdAmount = 0.0;
-            @CollapsibleObject @Tooltip public RandomEnchant randomEnchant = new RandomEnchant();
-            @CollapsibleObject @Tooltip public RandomSpectatorSpawn randomSpectatorSpawn = new RandomSpectatorSpawn();
+            @Tooltip
+            double mediumMadnessThresholdAmount = 0.0;
+            @CollapsibleObject
+            @Tooltip
+            public RandomEnchant randomEnchant = new RandomEnchant();
+            @CollapsibleObject
+            @Tooltip
+            public RandomSpectatorSpawn randomSpectatorSpawn = new RandomSpectatorSpawn();
 
-            public class RandomEnchant extends MadnessRandomFeature{
-                public RandomEnchant(){
+            public class RandomEnchant extends MadnessRandomFeature {
+                public RandomEnchant() {
                     enable = true;
                     madnessThreshold = 0.0;
                     chance = 0.0;
                 }
             }
-            public class RandomSpectatorSpawn extends MadnessRandomFeature{
-                public RandomSpectatorSpawn(){
+
+            public class RandomSpectatorSpawn extends MadnessRandomFeature {
+                public RandomSpectatorSpawn() {
                     enable = true;
                     madnessThreshold = 0.0;
                     chance = 0.0;
@@ -106,6 +132,7 @@ public class ModConfig implements ConfigData {
     public static class General {
 
     }
+
     public static class SubRootJanksonConfigSerializer<T extends ConfigData> implements ConfigSerializer<T> {
         private static final Jankson JANKSON = Jankson.builder().build();
         private final Config definition;
@@ -114,10 +141,6 @@ public class ModConfig implements ConfigData {
         public SubRootJanksonConfigSerializer(Config definition, Class<T> configClass) {
             this.definition = definition;
             this.configClass = configClass;
-        }
-
-        private Path getConfigPath() {
-            return ModScienceInit.getConfigRoot().resolve(definition.name() + "-config.json5");
         }
 
         @Override
@@ -131,6 +154,10 @@ public class ModConfig implements ConfigData {
             } catch (IOException e) {
                 throw new SerializationException(e);
             }
+        }
+
+        private Path getConfigPath() {
+            return ModScienceInit.getConfigRoot().resolve(definition.name() + "-config.json5");
         }
 
         @Override

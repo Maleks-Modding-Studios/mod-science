@@ -5,9 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
@@ -31,6 +29,7 @@ public final class ModBlocks {
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }
+
     @Environment(EnvType.CLIENT)
     public static void initClient() {
 
