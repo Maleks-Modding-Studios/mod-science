@@ -8,6 +8,7 @@ import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import static malek.mod_science.ModScience.MOD_ID;
@@ -25,11 +26,27 @@ public class LeyKnot implements LeyKnotInterface {
     private double instability = 0.0;
     private boolean unravelled = false;
 
+    private BlockPos linkedKnot1;
+    private BlockPos linkedKnot2;
+
+    public void readFromNbt(NbtCompound tag) {
+        x = tag.getInt("x");
+        z = tag.getInt("z");
+        sap = tag.getDouble("sap");
+        sapRegenAmount = tag.getDouble("sap_regen_amount");
+        instability = tag.getDouble("instability");
+        unravelled = tag.getBoolean("unravelled");
+    }
 
 
-    @Override
-    public int getX() {
-        return x;
+    public NbtCompound writeToNbt(NbtCompound tag) {
+        tag.putInt("x", x);
+        tag.putInt("z", z);
+        tag.putDouble("sap", sap);
+        tag.putDouble("sap_regen_amount", sapRegenAmount);
+        tag.putDouble("instability", instability);
+        tag.putBoolean("unravelled", unravelled);
+        return tag;
     }
 
     public void setFields(int x, int z, double sap, double sapRegenAmount, double instability, boolean unravelled) {
@@ -39,6 +56,27 @@ public class LeyKnot implements LeyKnotInterface {
         setSapRegenAmount(sapRegenAmount);
         setInstability(instability);
         setUnravelled(unravelled);
+    }
+
+    public void setLinkedKnot1(BlockPos linkedKnot1) {
+        this.linkedKnot1 = linkedKnot1;
+    }
+
+    public void setLinkedKnot2(BlockPos linkedKnot2) {
+        this.linkedKnot2 = linkedKnot2;
+    }
+
+    public BlockPos getLinkedKnot1() {
+        return linkedKnot1;
+    }
+
+    public BlockPos getLinkedKnot2() {
+        return linkedKnot2;
+    }
+
+    @Override
+    public int getX() {
+        return x;
     }
 
     @Override
@@ -95,89 +133,66 @@ public class LeyKnot implements LeyKnotInterface {
     public void setX(int x) {
         this.x = x;
     }
-//Here lies fallen code, all of which i typed by hand. Watch and mourn, then move on.
-//    public static int getZ(World world) {
-//        return get(world).getZ();
-//    }
-//
-//    public static double getSap(World world) {
-//        return get(world).getSap();
-//    }
-//
-//    public static double getSapRegenAmount(World world) {
-//        return get(world).getSapRegenerationAmount();
-//    }
-//
-//    public static double getInstability(World world) {
-//        return get(world).getInstability();
-//    }
-//
-//    public static boolean isUnravelled(World world) {
-//        return get(world).isUnravelled();
-//    }
-//
-//    public static void setX(World world, int x) {
-//        get(world).setX(x);
-//    }
-//
-//    public static void setZ(World world, int z) {
-//        get(world).setZ(z);
-//    }
-//
-//    public static void setSap(World world, double amount) {
-//        get(world).setSap(amount);
-//    }
-//
-//    public static void setInstability(World world, double amount) {
-//        get(world).setInstability(amount);
-//    }
-//
-//    public static void setSapRegenAmount(World world, double amount) {
-//        get(world).setSapRegenAmount(amount);
-//    }
-//
-//    public static void addSap(World world, int amount) {
-//        get(world).addSap(amount);
-//    }
-//
-//    public static void addInstability(World world, int amount) {
-//        get(world).addInstability(amount);
-//    }
-//
-//    public static void removeSap(World world, int amount) {
-//        get(world).removeSap(amount);
-//    }
-//
-//    public static void removeInstability(World world, int amount) {
-//        get(world).removeInstability(amount);
-//    }
-//
-//    public static boolean isEmpty(World world) {
-//        return get(world).isEmpty();
-//    }
-
-
-
-
-    public void readFromNbt(NbtCompound tag) {
-        x = tag.getInt("x");
-        z = tag.getInt("z");
-        sap = tag.getDouble("sap");
-        sapRegenAmount = tag.getDouble("sap_regen_amount");
-        instability = tag.getDouble("instability");
-        unravelled = tag.getBoolean("unravelled");
-    }
-
-
-    public NbtCompound writeToNbt(NbtCompound tag) {
-        tag.putInt("x", x);
-        tag.putInt("z", z);
-        tag.putDouble("sap", sap);
-        tag.putDouble("sap_regen_amount", sapRegenAmount);
-        tag.putDouble("instability", instability);
-        tag.putBoolean("unravelled", unravelled);
-        return tag;
-    }
+    //Here lies fallen code, all of which i typed by hand. Watch and mourn, then move on.
+    //    public static int getZ(World world) {
+    //        return get(world).getZ();
+    //    }
+    //
+    //    public static double getSap(World world) {
+    //        return get(world).getSap();
+    //    }
+    //
+    //    public static double getSapRegenAmount(World world) {
+    //        return get(world).getSapRegenerationAmount();
+    //    }
+    //
+    //    public static double getInstability(World world) {
+    //        return get(world).getInstability();
+    //    }
+    //
+    //    public static boolean isUnravelled(World world) {
+    //        return get(world).isUnravelled();
+    //    }
+    //
+    //    public static void setX(World world, int x) {
+    //        get(world).setX(x);
+    //    }
+    //
+    //    public static void setZ(World world, int z) {
+    //        get(world).setZ(z);
+    //    }
+    //
+    //    public static void setSap(World world, double amount) {
+    //        get(world).setSap(amount);
+    //    }
+    //
+    //    public static void setInstability(World world, double amount) {
+    //        get(world).setInstability(amount);
+    //    }
+    //
+    //    public static void setSapRegenAmount(World world, double amount) {
+    //        get(world).setSapRegenAmount(amount);
+    //    }
+    //
+    //    public static void addSap(World world, int amount) {
+    //        get(world).addSap(amount);
+    //    }
+    //
+    //    public static void addInstability(World world, int amount) {
+    //        get(world).addInstability(amount);
+    //    }
+    //
+    //    public static void removeSap(World world, int amount) {
+    //        get(world).removeSap(amount);
+    //    }
+    //
+    //    public static void removeInstability(World world, int amount) {
+    //        get(world).removeInstability(amount);
+    //    }
+    //
+    //    public static boolean isEmpty(World world) {
+    //        return get(world).isEmpty();
+    //    }
 
 
 }
