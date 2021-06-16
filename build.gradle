@@ -11,71 +11,25 @@ targetCompatibility = JavaVersion.VERSION_16
 
 repositories {
     mavenCentral()
-
-    maven {
-        url = "https://jitpack.io"
-    }
-
-    maven {
-        url 'https://maven.legacyfabric.net/'
-    }
-
-    maven {
-        name = "Fabric maven"
-        url = "https://maven.fabricmc.net/"
-    }
-
-    maven {
-        name = "Haven's Maven"
-        url = "https://hephaestus.dev/release"
-    }
-
-    maven {
-        url = "https://www.cursemaven.com"
+    maven { url = "https://jitpack.io" }
+    maven { url 'https://maven.legacyfabric.net/' }
+    maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://hephaestus.dev/release" }
+    maven { url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
-
-    maven {
-        url = "https://server.bbkr.space/artifactory/libs-release"
+    maven { url = "https://server.bbkr.space/artifactory/libs-release"
         content {
             includeGroup "io.github.cottonmc"
         }
     }
-
-//    maven {
-//        name = "Ladysnake Libs"
-//        url = "https://dl.bintray.com/ladysnake/libs"
-//    }
-
-
-    maven {
-        name = 'Ladysnake Mods'
-        url = 'https://ladysnake.jfrog.io/artifactory/mods'
-    }
-
-    maven {
-        url = "https://maven.shedaniel.me/"
-    }
-
-//	maven {
-//		url = "https://bai.jfrog.io/artifactory/maven"
-//	}
-
-
-    maven {
-        name = 'TerraformersMC'
-        url = 'https://maven.terraformersmc.com/'
-    }
-
-    maven {
-        name = "Libs"
-        url = "./libs"
-        metadataSources {
-            artifact()
-        }
-    }
+    maven { url = 'https://ladysnake.jfrog.io/artifactory/mods' }
+    maven { url = "https://maven.shedaniel.me/" }
+	maven { url = "https://bai.jfrog.io/artifactory/maven" }
+    maven { url = 'https://maven.terraformersmc.com/' }
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 def includeCompile(group, artifact, version) {
@@ -111,25 +65,25 @@ sourceSets {
             //srcDir "src/main/config"
         }
     }
-    //datagen
+    // datagen
 }
 
 minecraft {
-    //accessWidener = file('src/main/resources/dimdoors.accesswidener')
+    accessWidener = file('src/main/resources/mod_science.accesswidener')
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.17"
-    mappings "net.fabricmc:yarn:1.17+build.5:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.11.3"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.9+1.17"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     includeCompile("com.flowpowered", "flow-math", "1.0.3")
     includeCompile("org.jgrapht", "jgrapht-core", "1.1.0")
     includeCompile("com.github.DimensionalDevelopment", "poly2tri.java", "0.1.1")
-    includeCompile("com.github.DimensionalDevelopment", "Matrix", "1.0.0")
+    includeCompile("com.github.DimensionalDevelopment", "Matrix", project.matrix_version)
 //	includeCompile("io.github.BoogieMonster1O1", "OpenWorlds", "c57e3ef")
 //	includeCompile("io.github.cottonmc", "LibGui", "4.0.0-alpha.1+21w11a")
-    includeCompile("me.shedaniel.cloth", "cloth-config-fabric", "5.0.34")
+    includeCompile("me.shedaniel.cloth", "cloth-config-fabric", project.cloth_config_version)
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-base", project.cca_version)
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-item", project.cca_version)
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-entity", project.cca_version)
@@ -137,19 +91,9 @@ dependencies {
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-util", project.cca_version)
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-world", project.cca_version)
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-chunk", project.cca_version)
-//	includeCompile("me.sargunvohra.mcmods", "autoconfig1u", "3.3.1")
     includeCompile("dev.hephaestus", "seedy-behavior", "1.0.1")
-//    // Dependency of Immersive Portals Core:
-//    modImplementation ('com.github.qouteall.ImmersivePortalsMod:imm_ptl_core:1.17-SNAPSHOT'){
-//        exclude(group: "net.fabricmc.fabric-api")
-//        transitive(false)
-//    }
-//
-//    // Dependency of the Miscellaneous Utility Library from qouteall
-//    modImplementation ('com.github.qouteall.ImmersivePortalsMod:q_misc_util:1.17-SNAPSHOT'){
-//        exclude(group: "net.fabricmc.fabric-api")
-//        transitive(false)
-//    }
+
+    modImplementation("software.bernie.geckolib:geckolib-fabric-1.17:${project.geckolib_version}:dev")
 
     modCompileOnly("com.terraformersmc:modmenu:2.0.0-beta.7") {
         exclude module: "fabric-api"
@@ -158,26 +102,20 @@ dependencies {
         exclude module: "fabric-api"
     }
 
-//    modCompileOnly('mcp.mobius.waila:wthit-fabric:3.5.2') {
-//        exclude module: "modmenu"
-//        exclude module: "fabric-api"
-//    }
-//
-//    modRuntime('mcp.mobius.waila:wthit-fabric:3.5.2') {
-//        exclude module: "modmenu"
-//        exclude module: "fabric-api"
-//    }
+    modRuntime('mcp.mobius.waila:wthit:fabric-3.5.2') {
+        exclude module: "modmenu"
+        exclude module: "fabric-api"
+    }
 
     modCompileOnly "me.shedaniel.cloth.api:cloth-datagen-api-v1:2.0.0"
     modRuntime "me.shedaniel.cloth.api:cloth-datagen-api-v1:2.0.0"
-    // modCompileOnly "worldedit:worldedit:7.2.6"
-    // modRuntime "worldedit:worldedit:7.2.6"
+//    modCompileOnly "worldedit:worldedit:7.2.6"
+//    modRuntime "worldedit:worldedit:7.2.6"
 
-//	modImplementation "geckolib:geckolib:3.0.31"
 
-//  datagenImplementation sourceSets.main.output
-//  datagenImplementation sourceSets.main.compileClasspath
-//  datagenRuntimeOnly sourceSets.main.runtimeClasspath
+//    datagenImplementation sourceSets.main.output
+//    datagenImplementation sourceSets.main.compileClasspath
+//    datagenRuntimeOnly sourceSets.main.runtimeClasspath
 
     testImplementation('junit:junit:4.13.2')
     // testImplementation('net.devtech:PotatoUnit-fabric:1.0.0')
