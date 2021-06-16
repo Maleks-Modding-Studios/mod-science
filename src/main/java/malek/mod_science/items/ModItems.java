@@ -2,6 +2,7 @@ package malek.mod_science.items;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
@@ -49,12 +50,30 @@ public final class ModItems {
 
 
  */
+    private class modItemTest1 {
 
+        public static void init() {
+            for(int i = 0; i < 100; i++) {
+                Registry.register(Registry.ITEM, new Identifier(MOD_ID, "test1"+i), new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+            }
+        }
+    }
+    private class modItemTest2 {
+        public static void init() {
+            for(int i = 0; i < 100; i++) {
+                Registry.register(Registry.ITEM, new Identifier(MOD_ID, "test2"+i), new Item(new FabricItemSettings().group(ItemGroup.MISC)));
+            }
+        }
+    }
 
     public static void init() {
         Matrix.register(ModItems.class, Registry.ITEM);
+        /*
         for(int i = 0; i < 100; i++) {
             Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tester"+i), new Item(new FabricItemSettings()));
         }
+         */
+        new Thread(modItemTest1::init).start();
+        new Thread(modItemTest2::init).start();
     }
 }
