@@ -25,7 +25,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
 
-        int madnessSaturationTick = 0;
+
         if (Madness.get((ServerPlayerEntity) (Object) this).isLow() && random.nextFloat() <= Madness.getConfig().lowMadness.randomSaturationGain.chance) {
             ((PlayerEntity) this.getCameraEntity()).getHungerManager().add(
                     Madness.getConfig().lowMadness.randomSaturationGain.saturationAmount + 1,
