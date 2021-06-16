@@ -43,6 +43,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         });
         initModCompat();
 
+        // Yes -Platymemo
         new Thread(ModItems::init).start();
         new Thread(ModBlocks::init).start();
         new Thread(ModBlockItems::init).start();
