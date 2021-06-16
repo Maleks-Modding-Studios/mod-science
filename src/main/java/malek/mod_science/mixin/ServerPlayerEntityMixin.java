@@ -2,6 +2,8 @@ package malek.mod_science.mixin;
 
 import com.mojang.authlib.GameProfile;
 import malek.mod_science.components.player.madness.Madness;
+import malek.mod_science.util.general.LoggerInterface;
+import malek.mod_science.util.general.PlayerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
@@ -12,6 +14,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity {
+public abstract class ServerPlayerEntityMixin extends PlayerEntity implements LoggerInterface {
     @Shadow
     public abstract ServerWorld getServerWorld();
 
@@ -48,7 +52,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
 
-
+        //log(PlayerUtil.getPlayerFromUuid(((ServerPlayerEntity) (Object) this).getUuid()).getX() + "");
         if (Madness.get((ServerPlayerEntity) (Object) this).isLow() && random.nextFloat() <= Madness.getConfig().lowMadness.randomSaturationGain.chance) {
             ((PlayerEntity) this.getCameraEntity()).getHungerManager().add(
                     Madness.getConfig().lowMadness.randomSaturationGain.saturationAmount + 1,
@@ -72,6 +76,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         }
 
 
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LogManager.getLogger();
     }
 
     @Shadow

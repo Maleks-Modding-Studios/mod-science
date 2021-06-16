@@ -9,6 +9,7 @@ import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
+import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
@@ -18,6 +19,9 @@ public final class ModBlocks {
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE);
     @RegistryEntry("aember")
     public static final Block AEMBER = new Block(ORE);
+
+    @RegistryEntry("multiblock_test")
+    public static final Block TEST = new BlockMultiblockTest(DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);

@@ -1,5 +1,6 @@
 package malek.mod_science.items;
 
+import com.terraformersmc.modmenu.util.mod.Mod;
 import malek.mod_science.blocks.ModBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BlockItem;
@@ -17,6 +18,9 @@ import static malek.mod_science.items.ModItems.MOD_SCIENCE;
 public class ModBlockItems {
     @RegistryEntry("aember")
     public static final Item AEMBER = new BlockItem(ModBlocks.AEMBER, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("test")
+    public static final Item TEST = new BlockItem(ModBlocks.TEST, new FabricItemSettings().group(ItemGroup.MISC));
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
