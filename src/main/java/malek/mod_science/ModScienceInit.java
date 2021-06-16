@@ -43,8 +43,8 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         });
         initModCompat();
 
-        new Thread(ModBlocks::init).start();
         new Thread(ModItems::init).start();
+        new Thread(ModBlocks::init).start();
         new Thread(ModBlockItems::init).start();
         new Thread(ModGeneration::init).start();
     }

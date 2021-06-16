@@ -14,9 +14,12 @@ import static malek.mod_science.ModScience.MOD_ID;
 @Registrar(element = Item.class, modid = MOD_ID)
 public class ModBlockItems {
 
+    /*
     @RegistryEntry("aember")
     public static final Item AEMBER = new BlockItem(ModBlocks.AEMBER, (new Item.Settings()).group(ItemGroup.MISC));
 
+
+     */
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }
