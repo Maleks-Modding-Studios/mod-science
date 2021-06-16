@@ -14,30 +14,20 @@ import org.dimdev.matrix.RegistryEntry;
 import static malek.mod_science.ModScience.MOD_ID;
 
 @Registrar(element = Block.class, modid = MOD_ID)
-public final class ModBlocks extends Thread{
+public final class ModBlocks {
 
     private static final FabricBlockSettings DEFAULT = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F);
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE);
 
     @RegistryEntry("aember")
-    public static final Block AEMBER = register(new Block(ORE));
+    public static final Block AEMBER = new Block(ORE);
 
-    private static Block register(Block block) {
-        return block;
-    }
-
-    public void init() {
+    public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }
 
-
-    public void run() {
-        init();
-        initClient();
-    }
-
     @Environment(EnvType.CLIENT)
-    public void initClient() {
+    public static void initClient() {
 
     }
 }

@@ -2,6 +2,7 @@ package malek.mod_science;
 
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.generation.ModGeneration;
+import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.ModCompatibility;
@@ -41,25 +42,11 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
             ModScience.server = minecraftServer;
         });
         initModCompat();
-        ModBlocks modBlocks = new ModBlocks();
-        ModItems modItems = new ModItems();
-        modItems.run();
-        modBlocks.run();
 
-        while(modBlocks.isAlive() || modBlocks.isAlive()) {
-
-        }
-        try {
-            modItems.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            modBlocks.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ModGeneration.init();
+        new Thread(ModBlocks::init).start();
+        new Thread(ModItems::init).start();
+        new Thread(ModBlockItems::init).start();
+        new Thread(ModGeneration::init).start();
     }
 
     public static ModConfig getConfig() {
