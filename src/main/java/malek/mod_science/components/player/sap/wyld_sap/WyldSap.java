@@ -67,6 +67,5 @@ public class WyldSap implements WyldSapInterface, EntityComponentInitializer, Au
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(WYLD_SAP, player -> new WyldSap(), RespawnCopyStrategy.ALWAYS_COPY);
-
     }
 }

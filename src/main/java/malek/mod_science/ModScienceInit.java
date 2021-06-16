@@ -1,6 +1,7 @@
 package malek.mod_science;
 
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.entities.ModEntities;
 import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
@@ -41,13 +42,13 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> {
             ModScience.server = minecraftServer;
         });
-        initModCompat();
-
+        new Thread(ModScienceInit::initModCompat).start();
         // Yes -Platymemo
         new Thread(ModItems::init).start();
         new Thread(ModBlocks::init).start();
         new Thread(ModBlockItems::init).start();
         new Thread(ModGeneration::init).start();
+        new Thread(ModEntities::init).start();
     }
 
     public static ModConfig getConfig() {

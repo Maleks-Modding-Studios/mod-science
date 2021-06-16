@@ -17,8 +17,5 @@ public final class ModItems {
 
     public static void init() {
         Matrix.register(ModItems.class, Registry.ITEM);
-        for(int i = 1; i <= 100; i++) {
-            Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tester"+i), new Item(new FabricItemSettings()));
-        }
     }
 }
