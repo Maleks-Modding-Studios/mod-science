@@ -41,8 +41,24 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
             ModScience.server = minecraftServer;
         });
         initModCompat();
-        ModBlocks.init();
-        ModItems.init();
+        ModBlocks modBlocks = new ModBlocks();
+        ModItems modItems = new ModItems();
+        modItems.run();
+        modBlocks.run();
+
+        while(modBlocks.isAlive() || modBlocks.isAlive()) {
+
+        }
+        try {
+            modItems.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            modBlocks.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ModGeneration.init();
     }
 

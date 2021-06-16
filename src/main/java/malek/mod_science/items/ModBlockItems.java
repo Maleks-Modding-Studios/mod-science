@@ -1,7 +1,6 @@
 package malek.mod_science.items;
 
 import malek.mod_science.blocks.ModBlocks;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -14,13 +13,17 @@ import org.dimdev.matrix.RegistryEntry;
 import static malek.mod_science.ModScience.MOD_ID;
 
 @Registrar(element = Item.class, modid = MOD_ID)
-public final class ModItems extends Thread{
+public class ModBlockItems extends Thread{
+
     public static final Registry<Item> REGISTRY = Registry.ITEM;
 
-    static FabricItemSettings defaultItem = new FabricItemSettings();
+    @RegistryEntry("aember")
+    public static final Item AEMBER = create(ModBlocks.AEMBER);
 
-    @RegistryEntry("test")
-    public static final Item test = new Item(defaultItem);
+
+    private static Item create(Block block) {
+        return create(new BlockItem(block, (new Item.Settings()).group(ItemGroup.MISC)));
+    }
 
     private static Item create(Item item) {
         if (item instanceof BlockItem) {
@@ -29,12 +32,9 @@ public final class ModItems extends Thread{
 
         return item;
     }
-
-
     public void run() {
         init();
     }
-
     public void init() {
         Matrix.register(ModItems.class, Registry.ITEM);
     }
