@@ -16,6 +16,8 @@ public abstract class Golem extends PathAwareEntity implements GolemInventory {
     //The block the golem turns into when it is solid.
     Block golemBlock;
 
+    //Test commit.
+
     protected final DefaultedList<ItemStack> inventory;
 
     protected Golem(EntityType<? extends PathAwareEntity> entityType, World world, Block golemBlock, int inventorySize) {
