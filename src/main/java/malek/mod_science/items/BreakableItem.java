@@ -35,8 +35,7 @@ public class BreakableItem extends Item {
 
         if (tag.contains("broken")) {
             // TODO play defunct sound
-            return tag.getBoolean("broken")
-                   ? TypedActionResult.fail(stack) : TypedActionResult.pass(stack);
+            return tag.getBoolean("broken") ? TypedActionResult.fail(stack) : TypedActionResult.pass(stack);
         }
 
         return TypedActionResult.pass(stack);

@@ -2,8 +2,6 @@ package malek.mod_science.mixin;
 
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.entity.player.PlayerEntity;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -3,11 +3,8 @@ package malek.mod_science.components.world.ley_knots;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
-import it.unimi.dsi.fastutil.Hash;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -19,17 +16,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
 public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitializer, AutoSyncedComponent {
+    public static final ComponentKey<LeyKnotMap> LEY_KNOT_MAP = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "ley_knot_map"), LeyKnotMap.class);
     private Map<BlockPos, LeyKnot> leyKnots = new HashMap<>();
-    public static final ComponentKey<LeyKnotMap> LEY_KNOT_MAP =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "ley_knot_map"), LeyKnotMap.class);
-
 
     public static Map<BlockPos, LeyKnot> get(World world) {
         return LEY_KNOT_MAP.get(world).leyKnots;
@@ -39,14 +34,11 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
     public void readFromNbt(NbtCompound tag) {
         leyKnots = new HashMap<>();
         NbtList list = tag.getList("ley_knot_map", NbtType.COMPOUND);
-//        NbtCompound[] stuff = (NbtCompound[]) list.stream().filter(NbtCompound.class::isInstance).map(NbtCompound.class::cast).toArray();
-        for(NbtElement element : list) {
-            if(element instanceof NbtCompound) {
+        for (NbtElement element : list) {
+            if (element instanceof NbtCompound) {
                 NbtCompound compound = (NbtCompound) element;
 
-                BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("block_pos")).
-                getOrThrow(false, (string) -> {
-                }).getFirst();
+                BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("block_pos")).getOrThrow(false, pog -> {}).getFirst();
                 LeyKnot knot = new LeyKnot();
                 knot.readFromNbt(compound.getCompound("ley_knot"));
                 leyKnots.put(blockPos, knot);
@@ -57,16 +49,17 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
     /**
      * Writes this component's properties to a {@link }.
      *
-     * @param tag a {@code NbtTag} on which to write this component's serializable data
+     * @param tag
+     *         a {@code NbtCompound} on which to write this component's serializable data
      */
     @Override
     public void writeToNbt(NbtCompound tag) {
         NbtList listTag;
         listTag = leyKnots.entrySet().stream().parallel().map(blockPos -> {
             NbtCompound mappingTag = new NbtCompound();
-           mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos.getKey(), NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
-           mappingTag.put("ley_knot", leyKnots.get(blockPos.getKey()).writeToNbt(new NbtCompound()));
-           return mappingTag;
+            mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos.getKey(), NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
+            mappingTag.put("ley_knot", leyKnots.get(blockPos.getKey()).writeToNbt(new NbtCompound()));
+            return mappingTag;
         }).collect(Collectors.toCollection(NbtList::new));
         tag.put("ley_knot_map", listTag);
 
@@ -91,6 +84,4 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
     public void applySyncPacket(PacketByteBuf buf) {
         AutoSyncedComponent.super.applySyncPacket(buf);
     }
-
-
 }

@@ -17,13 +17,16 @@ import net.minecraft.util.Identifier;
 import static malek.mod_science.ModScience.MOD_ID;
 
 public class Madness implements MadnessInterface, EntityComponentInitializer, AutoSyncedComponent {
-    public static final ComponentKey<Madness> MADNESS =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "madness"), Madness.class);
+    public static final ComponentKey<Madness> MADNESS = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "madness"), Madness.class);
 
     private double madness = 0;
 
     public static Madness get(Entity entity) {
         return MADNESS.get(entity);
+    }
+
+    public static ModConfig.MadnessConfig getConfig() {
+        return ModScienceInit.getConfig().madness;
     }
 
     @Override
@@ -34,6 +37,22 @@ public class Madness implements MadnessInterface, EntityComponentInitializer, Au
     @Override
     public void applySyncPacket(PacketByteBuf buf) {
         madness = buf.readDouble();
+    }
+
+    @Override
+    public void readFromNbt(NbtCompound tag) {
+        this.madness = tag.getDouble("madness");
+    }
+
+    @Override
+    public void writeToNbt(NbtCompound tag) {
+        tag.putDouble("madness", this.madness);
+    }
+
+    @Override
+    public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
+        registry.registerForPlayers(MADNESS, player -> new Madness(), RespawnCopyStrategy.ALWAYS_COPY);
+
     }
 
     @Override
@@ -56,25 +75,10 @@ public class Madness implements MadnessInterface, EntityComponentInitializer, Au
         this.madness -= amount;
     }
 
-    @Override
-    public void readFromNbt(NbtCompound tag) {
-        this.madness = tag.getDouble("madness");
-    }
-
-    @Override
-    public void writeToNbt(NbtCompound tag) {
-        tag.putDouble("madness", this.madness);
-    }
-
-    @Override
-    public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.registerForPlayers(MADNESS, player -> new Madness(), RespawnCopyStrategy.ALWAYS_COPY);
-
-    }
-
     /**
      * This method returns true if madness is above the low threshold,
      * including if it is above higher thresholds as well.
+     *
      * @return boolean representing if the threshold is reached
      */
     public boolean isLow() {
@@ -84,13 +88,10 @@ public class Madness implements MadnessInterface, EntityComponentInitializer, Au
     /**
      * This method returns true if madness is above the medium threshold,
      * including if it is above higher thresholds as well.
+     *
      * @return boolean representing if the threshold is reached
      */
     public boolean isMedium() {
         return this.getMadness() >= ModScienceInit.getConfig().madness.mediumMadness.thresholdAmount;
-    }
-
-    public static ModConfig.MadnessConfig getConfig() {
-        return ModScienceInit.getConfig().madness;
     }
 }

@@ -9,7 +9,6 @@ import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
-import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 

@@ -15,8 +15,7 @@ import net.minecraft.util.Identifier;
 import static malek.mod_science.ModScience.MOD_ID;
 
 public class WyldSap implements WyldSapInterface, EntityComponentInitializer, AutoSyncedComponent {
-    public static final ComponentKey<WyldSap> WYLD_SAP =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "wyld_sap"), WyldSap.class);
+    public static final ComponentKey<WyldSap> WYLD_SAP = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "wyld_sap"), WyldSap.class);
 
     private double wyldSap = 0;
 

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class TameableEntityMixin {
 
     @Inject(method = "canBeLeashedBy", at = @At("HEAD"), cancellable = true)
-    public void canBeLeashedByMixin(CallbackInfoReturnable<Boolean> cir){
+    public void canBeLeashedByMixin(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(true);
     }
 }

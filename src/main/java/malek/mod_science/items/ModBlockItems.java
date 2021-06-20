@@ -1,6 +1,5 @@
 package malek.mod_science.items;
 
-import com.terraformersmc.modmenu.util.mod.Mod;
 import malek.mod_science.blocks.ModBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BlockItem;
@@ -10,7 +9,6 @@ import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
-import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.items.ModItems.MOD_SCIENCE;

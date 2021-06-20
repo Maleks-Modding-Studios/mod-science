@@ -1,18 +1,8 @@
 package malek.mod_science.components.world.ley_knots;
 
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-import static malek.mod_science.ModScience.MOD_ID;
 //TODO: Set up sync between client and server for this, look at madness component for example
 
 /**
@@ -26,7 +16,6 @@ public class LeyKnot implements LeyKnotInterface {
     private double sapRegenAmount = 0.0;
     private double instability = 0.0;
     private boolean unravelled = false;
-
     private BlockPos linkedKnot1;
     private BlockPos linkedKnot2;
 
@@ -38,7 +27,6 @@ public class LeyKnot implements LeyKnotInterface {
         instability = tag.getDouble("instability");
         unravelled = tag.getBoolean("unravelled");
     }
-
 
     public NbtCompound writeToNbt(NbtCompound tag) {
         tag.putInt("x", x);
@@ -59,20 +47,20 @@ public class LeyKnot implements LeyKnotInterface {
         setUnravelled(unravelled);
     }
 
-    public void setLinkedKnot1(BlockPos linkedKnot1) {
-        this.linkedKnot1 = linkedKnot1;
-    }
-
-    public void setLinkedKnot2(BlockPos linkedKnot2) {
-        this.linkedKnot2 = linkedKnot2;
-    }
-
     public BlockPos getLinkedKnot1() {
         return linkedKnot1;
     }
 
+    public void setLinkedKnot1(BlockPos linkedKnot1) {
+        this.linkedKnot1 = linkedKnot1;
+    }
+
     public BlockPos getLinkedKnot2() {
         return linkedKnot2;
+    }
+
+    public void setLinkedKnot2(BlockPos linkedKnot2) {
+        this.linkedKnot2 = linkedKnot2;
     }
 
     @Override
@@ -81,23 +69,23 @@ public class LeyKnot implements LeyKnotInterface {
     }
 
     @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
     public int getZ() {
         return z;
     }
 
     @Override
-    public double getSap() {
-        return sap;
+    public void setZ(int z) {
+        this.z = z;
     }
 
     @Override
     public double getSapRegenerationAmount() {
         return sapRegenAmount;
-    }
-
-    @Override
-    public double getInstability() {
-        return instability;
     }
 
     @Override
@@ -111,13 +99,13 @@ public class LeyKnot implements LeyKnotInterface {
     }
 
     @Override
-    public void setInstability(double amount) {
-        instability = amount;
+    public void setSapRegenAmount(double amount) {
+        sapRegenAmount = amount;
     }
 
     @Override
-    public void setSapRegenAmount(double amount) {
-        sapRegenAmount = amount;
+    public double getSap() {
+        return sap;
     }
 
     @Override
@@ -126,15 +114,15 @@ public class LeyKnot implements LeyKnotInterface {
     }
 
     @Override
-    public void setZ(int z) {
-        this.z = z;
+    public double getInstability() {
+        return instability;
     }
 
     @Override
-    public void setX(int x) {
-        this.x = x;
+    public void setInstability(double amount) {
+        instability = amount;
     }
-    //Here lies fallen code, all of which i typed by hand. Watch and mourn, then move on.
+    // Here lies fallen code, all of which i typed by hand. Watch and mourn, then move on.
     //    public static int getZ(World world) {
     //        return get(world).getZ();
     //    }
@@ -195,7 +183,7 @@ public class LeyKnot implements LeyKnotInterface {
     //        return get(world).isEmpty();
     //    }
 
-    public void serverTick(){
+    public void serverTick() {
 
     }
 

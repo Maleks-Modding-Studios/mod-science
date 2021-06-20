@@ -15,8 +15,7 @@ import net.minecraft.util.Identifier;
 import static malek.mod_science.ModScience.MOD_ID;
 
 public class NormalSap implements NormalSapInterface, EntityComponentInitializer, AutoSyncedComponent {
-    public static final ComponentKey<NormalSap> NORMAL_SAP =
-            ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "normal_sap"), NormalSap.class);
+    public static final ComponentKey<NormalSap> NORMAL_SAP = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "normal_sap"), NormalSap.class);
 
     private double normalSap = 0;
 

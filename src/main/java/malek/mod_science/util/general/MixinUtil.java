@@ -13,8 +13,10 @@ public final class MixinUtil {
      * This is intended to use with accessor Mixins.
      * </p>
      *
-     * @param in  the object to cast
-     * @param <T> the type to cast to
+     * @param in
+     *         the object to cast
+     * @param <T>
+     *         the type to cast to
      * @return the casted object
      */
     @Contract(value = "_->param1", pure = true)

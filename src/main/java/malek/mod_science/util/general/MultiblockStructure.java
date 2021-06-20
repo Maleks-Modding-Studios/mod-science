@@ -1,12 +1,9 @@
 package malek.mod_science.util.general;
 
-import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 public class MultiblockStructure {

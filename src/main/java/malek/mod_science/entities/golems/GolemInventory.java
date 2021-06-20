@@ -7,7 +7,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
 public interface GolemInventory extends Inventory {
+    /**
+     * Creates a new inventory with the specified size.
+     */
+    static GolemInventory ofSize(int size) {
+        return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
+    }
+
     DefaultedList<ItemStack> getItems();
+
     /**
      * Creates an inventory from the item list.
      */
@@ -16,10 +24,12 @@ public interface GolemInventory extends Inventory {
     }
 
     /**
-     * Creates a new inventory with the specified size.
+     * Clears the inventory.
      */
-    static GolemInventory ofSize(int size) {
-        return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
+    @Override
+    default void clear() {
+        getItems().clear();
+        markDirty();
     }
 
     /**
@@ -32,6 +42,7 @@ public interface GolemInventory extends Inventory {
 
     /**
      * Checks if the inventory is empty.
+     *
      * @return true if this inventory has only empty stacks, false otherwise.
      */
     @Override
@@ -55,9 +66,12 @@ public interface GolemInventory extends Inventory {
 
     /**
      * Removes items from an inventory slot.
-     * @param slot  The slot to remove from.
-     * @param count How many items to remove. If there are less items in the slot than what are requested,
-     *              takes all items in that slot.
+     *
+     * @param slot
+     *         The slot to remove from.
+     * @param count
+     *         How many items to remove. If there are less items in the slot than what are requested,
+     *         takes all items in that slot.
      */
     @Override
     default ItemStack removeStack(int slot, int count) {
@@ -72,7 +86,9 @@ public interface GolemInventory extends Inventory {
 
     /**
      * Removes all items from an inventory slot.
-     * @param slot The slot to remove from.
+     *
+     * @param slot
+     *         The slot to remove from.
      */
     @Override
     default ItemStack removeStack(int slot) {
@@ -83,10 +99,13 @@ public interface GolemInventory extends Inventory {
 
     /**
      * Replaces the current stack in an inventory slot with the provided stack.
-     * @param slot  The inventory slot of which to replace the itemstack.
-     * @param stack The replacing itemstack. If the stack is too big for
-     *              this inventory ({@link Inventory#getMaxCountPerStack()}),
-     *              it gets resized to this inventory's maximum amount.
+     *
+     * @param slot
+     *         The inventory slot of which to replace the itemstack.
+     * @param stack
+     *         The replacing itemstack. If the stack is too big for
+     *         this inventory ({@link Inventory#getMaxCountPerStack()}),
+     *         it gets resized to this inventory's maximum amount.
      */
     @Override
     default void setStack(int slot, ItemStack stack) {
@@ -95,18 +114,6 @@ public interface GolemInventory extends Inventory {
         if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
         }
-        markDirty();
-
-
-    }
-
-    /**
-     * Clears the inventory.
-     */
-    @Override
-    default void clear() {
-
-        getItems().clear();
         markDirty();
     }
 
@@ -119,7 +126,6 @@ public interface GolemInventory extends Inventory {
     default void markDirty() {
 
     }
-
 
     /**
      * @return true if the player can use the inventory, false otherwise.

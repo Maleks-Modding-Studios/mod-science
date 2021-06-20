@@ -14,7 +14,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -25,10 +24,8 @@ import static malek.mod_science.ModScience.MOD_ID;
 
 public class ModScienceInit implements ModInitializer, LoggerInterface {
     //Config Stuff
-    private static final Supplier<Path> CONFIG_ROOT =
-            () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
-    private static final ConfigHolder<ModConfig> CONFIG_MANAGER =
-            AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
+    private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
+    private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
     public static final Set<ModCompatibility> MODS = new HashSet<>();
 
     public static Path getConfigRoot() {
@@ -61,8 +58,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         for (ModCompatibility mod : MODS) {
             if (FabricLoader.getInstance().isModLoaded(mod.getModID())) {
                 mod.enable();
-                LogManager.getLogger()
-                          .log(Level.INFO, "Mod Science Enabling Mod Compatibility For : " + mod.getModID());
+                LogManager.getLogger().log(Level.INFO, "Mod Science Enabling Mod Compatibility For : " + mod.getModID());
             }
         }
     }

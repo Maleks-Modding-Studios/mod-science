@@ -1,14 +1,6 @@
-package malek.mod_science.generation.genUtils;//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
-
+package malek.mod_science.generation.genUtils;
 
 import com.mojang.serialization.Codec;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Random;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
@@ -19,8 +11,10 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+import java.util.Objects;
+import java.util.Random;
+
 public class ModScienceScatteredOreFeature extends Feature<OreFeatureConfig> {
-    private static final int field_31515 = 7;
 
     public ModScienceScatteredOreFeature(Codec<OreFeatureConfig> codec) {
         super(codec);
@@ -29,18 +23,16 @@ public class ModScienceScatteredOreFeature extends Feature<OreFeatureConfig> {
     public boolean generate(FeatureContext<OreFeatureConfig> context) {
         StructureWorldAccess structureWorldAccess = context.getWorld();
         Random random = context.getRandom();
-        OreFeatureConfig oreFeatureConfig = (OreFeatureConfig)context.getConfig();
+        OreFeatureConfig oreFeatureConfig = context.getConfig();
         BlockPos blockPos = context.getOrigin();
         int i = random.nextInt(oreFeatureConfig.size + 1);
         Mutable mutable = new Mutable();
 
-        for(int j = 0; j < i; ++j) {
+        for (int j = 0; j < i; ++j) {
             this.setPos(mutable, random, blockPos, Math.min(j, 7));
             BlockState blockState = structureWorldAccess.getBlockState(mutable);
-            Iterator var10 = oreFeatureConfig.targets.iterator();
 
-            while(var10.hasNext()) {
-                Target target = (Target)var10.next();
+            for (Target target : oreFeatureConfig.targets) {
                 Objects.requireNonNull(structureWorldAccess);
                 if (OreFeature.shouldPlace(blockState, structureWorldAccess::getBlockState, random, oreFeatureConfig, target, mutable)) {
                     structureWorldAccess.setBlockState(mutable, target.state, 2);
@@ -60,6 +52,6 @@ public class ModScienceScatteredOreFeature extends Feature<OreFeatureConfig> {
     }
 
     private int getSpread(Random random, int spread) {
-        return Math.round((random.nextFloat() - random.nextFloat()) * (float)spread);
+        return Math.round((random.nextFloat() - random.nextFloat()) * (float) spread);
     }
 }
