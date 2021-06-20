@@ -10,6 +10,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
@@ -32,5 +34,10 @@ public class BlockMultiblockTest extends Block implements LoggerInterface {
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         log(WorldUtil.multiblockMatches(world, pos, multiblockStructure) + "");
         super.onPlaced(world, pos, state, placer, itemStack);
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LogManager.getLogger();
     }
 }

@@ -6,6 +6,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 public class ModScience implements LoggerInterface {
@@ -29,5 +31,10 @@ public class ModScience implements LoggerInterface {
             return server;
         }
         throw new UnsupportedOperationException("Accessed server too early!");
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LogManager.getLogger();
     }
 }

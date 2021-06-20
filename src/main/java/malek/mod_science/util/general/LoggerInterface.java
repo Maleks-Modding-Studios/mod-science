@@ -16,9 +16,7 @@ public interface LoggerInterface {
         }
     }
 
-    default Logger getLogger() {
-        return LogManager.getLogger();
-    }
+     Logger getLogger();
 
     default void normalLog(String message) {
         normalLog(Level.INFO, message);

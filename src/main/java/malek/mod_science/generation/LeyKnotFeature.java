@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,5 +84,9 @@ public class LeyKnotFeature extends Feature<DefaultFeatureConfig> implements Log
             log("Ley Knots are linked in these pos : " + lastPosList.get(0) + lastPosList.get(1) + lastPosList.get(2));
         }
         log("Created Ley Knot At : x, " + targetPos.getX() + ", z, " + targetPos.getZ());
+    }
+    @Override
+    public Logger getLogger() {
+        return LogManager.getLogger();
     }
 }

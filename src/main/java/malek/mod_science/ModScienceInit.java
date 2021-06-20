@@ -2,6 +2,9 @@ package malek.mod_science;
 
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.entities.ModEntities;
+import malek.mod_science.fluids.ModBuckets;
+import malek.mod_science.fluids.ModFluidBlocks;
+import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
@@ -14,6 +17,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -47,6 +51,11 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModBlockItems.init();
         ModGeneration.init();
         ModEntities.init();
+
+        //ModFluids
+        ModFluids.init();
+        ModFluidBlocks.init();
+        ModBuckets.init();
     }
 
     public static ModConfig getConfig() {
@@ -61,5 +70,9 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
                 LogManager.getLogger().log(Level.INFO, "Mod Science Enabling Mod Compatibility For : " + mod.getModID());
             }
         }
+    }
+    @Override
+    public Logger getLogger() {
+        return LogManager.getLogger();
     }
 }
