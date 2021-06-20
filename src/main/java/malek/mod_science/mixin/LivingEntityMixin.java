@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-
     @Shadow
     @Nullable
     protected PlayerEntity attackingPlayer;

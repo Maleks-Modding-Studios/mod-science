@@ -14,9 +14,4 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
     public void onInitializeClient() {
 
     }
-
-    @Override
-    public Logger getLogger() {
-        return LogManager.getLogger();
-    }
 }

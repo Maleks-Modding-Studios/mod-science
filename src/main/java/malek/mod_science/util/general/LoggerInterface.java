@@ -2,6 +2,7 @@ package malek.mod_science.util.general;
 
 import malek.mod_science.ModScience;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public interface LoggerInterface {
@@ -15,7 +16,9 @@ public interface LoggerInterface {
         }
     }
 
-    Logger getLogger();
+    default Logger getLogger() {
+        return LogManager.getLogger();
+    }
 
     default void normalLog(String message) {
         normalLog(Level.INFO, message);

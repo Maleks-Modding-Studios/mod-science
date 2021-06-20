@@ -66,9 +66,4 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
             }
         }
     }
-
-    @Override
-    public Logger getLogger() {
-        return LogManager.getLogger();
-    }
 }

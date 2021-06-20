@@ -34,9 +34,4 @@ public class BlockMultiblockTest extends Block implements LoggerInterface {
         log(WorldUtil.multiblockMatches(world, pos, multiblockStructure)+"");
         super.onPlaced(world, pos, state, placer, itemStack);
     }
-
-    @Override
-    public Logger getLogger() {
-        return LogManager.getLogger();
-    }
 }

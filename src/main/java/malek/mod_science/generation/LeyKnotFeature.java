@@ -90,9 +90,4 @@ public class LeyKnotFeature extends Feature<DefaultFeatureConfig> implements Log
         }
         log("Created Ley Knot At : x, " + targetPos.getX() + ", z, " + targetPos.getZ());
     }
-
-    @Override
-    public Logger getLogger() {
-        return LogManager.getLogger();
-    }
 }

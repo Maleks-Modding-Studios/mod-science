@@ -32,10 +32,4 @@ public class ModScience implements LoggerInterface {
         }
         throw new UnsupportedOperationException("Accessed server too early!");
     }
-
-
-    @Override
-    public Logger getLogger() {
-        return LogManager.getLogger();
-    }
 }
