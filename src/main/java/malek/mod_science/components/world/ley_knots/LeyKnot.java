@@ -3,6 +3,7 @@ package malek.mod_science.components.world.ley_knots;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import net.minecraft.nbt.NbtCompound;
@@ -193,6 +194,10 @@ public class LeyKnot implements LeyKnotInterface {
     //    public static boolean isEmpty(World world) {
     //        return get(world).isEmpty();
     //    }
+
+    public void serverTick(){
+
+    }
 
 
 }

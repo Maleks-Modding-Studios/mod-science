@@ -7,8 +7,7 @@
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
-    "TameableEntityMixin",
-    "MobEntityMixin"
+    "TameableEntityMixin"
   ],
   "client": [
   ],

@@ -20,6 +20,7 @@ public class MobEntityMixin {
 
     @Inject(method = "detachLeash", at = @At("HEAD"))
     public void thingyMixin(CallbackInfo info){
-        assert this.holdingEntity==null;
+        //assert this.holdingEntity==null;
+
     }
 }

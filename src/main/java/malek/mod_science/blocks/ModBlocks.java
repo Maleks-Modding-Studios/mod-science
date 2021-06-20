@@ -23,6 +23,9 @@ public final class ModBlocks {
     @RegistryEntry("multiblock_test")
     public static final Block TEST = new BlockMultiblockTest(DEFAULT);
 
+    @RegistryEntry("shadowsilk_ore")
+    public static final Block SHADOW_ORE = new Block(ORE);
+
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }

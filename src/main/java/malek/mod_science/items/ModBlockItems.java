@@ -10,6 +10,7 @@ import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
+import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.items.ModItems.MOD_SCIENCE;
@@ -21,6 +22,9 @@ public class ModBlockItems {
 
     @RegistryEntry("test")
     public static final Item TEST = new BlockItem(ModBlocks.TEST, new FabricItemSettings().group(ItemGroup.MISC));
+
+    @RegistryEntry("shadowsilk_ore_item")
+    public static final Item SHADOWSILK_ORE_ITEM = new BlockItem(ModBlocks.SHADOW_ORE, new FabricItemSettings().group(MOD_SCIENCE));
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);

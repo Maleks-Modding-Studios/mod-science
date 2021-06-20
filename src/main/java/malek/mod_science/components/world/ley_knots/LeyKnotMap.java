@@ -3,6 +3,8 @@ package malek.mod_science.components.world.ley_knots;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
+import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import it.unimi.dsi.fastutil.Hash;
@@ -89,4 +91,6 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
     public void applySyncPacket(PacketByteBuf buf) {
         AutoSyncedComponent.super.applySyncPacket(buf);
     }
+
+
 }
