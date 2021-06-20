@@ -35,7 +35,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
 
 
 
-    static List<Text> whisperText = new ArrayList<>();
+    private static List<Text> whisperText = new ArrayList<>();
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);

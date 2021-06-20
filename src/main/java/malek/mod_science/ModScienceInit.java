@@ -37,8 +37,9 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
 
     @Override
     public void onInitialize() {
-        log("UwU Daddy");
-        log(getConfig().madness.lowMadness.thresholdAmount + "");
+        log("Initializing Mod Science. Have fun playing our mod!");
+        log(getConfig().madness.lowMadness.thresholdAmount + " is the current Low Madness threshold amount");
+        log(getConfig().madness.mediumMadness.thresholdAmount + " is the current Medium Madness threshold amount");
         ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> {
             ModScience.server = minecraftServer;
         });
@@ -56,7 +57,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
     }
 
     public static void initModCompat() {
-        LogManager.getLogger().log(Level.INFO, "Mod Science Enabling Mod Compatibility");
+        LogManager.getLogger().log(Level.INFO, "Mod Science is Enabling Mod Compatibility");
         for (ModCompatibility mod : MODS) {
             if (FabricLoader.getInstance().isModLoaded(mod.getModID())) {
                 mod.enable();
