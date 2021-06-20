@@ -12,7 +12,7 @@ import static malek.mod_science.fluids.ModFluids.STILL_REWATER;
 
 public class ModFluidBlocks {
 
-    public static Block REWATER;
+    public static FluidBlock REWATER;
     public static void init() {
         REWATER =  Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "rewater"), new FluidBlock(STILL_REWATER, FabricBlockSettings.copy(Blocks.WATER)){});
     }

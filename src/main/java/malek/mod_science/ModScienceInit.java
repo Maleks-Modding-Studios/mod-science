@@ -44,6 +44,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> {
             ModScience.server = minecraftServer;
         });
+
         new Thread(ModScienceInit::initModCompat).start();
         // Yes -Platymemo
         ModItems.init();

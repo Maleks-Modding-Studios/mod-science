@@ -20,11 +20,6 @@ import org.apache.logging.log4j.Logger;
 public class Rewater extends BaseFluid implements LoggerInterface {
 
 
-    @Override
-    public Vec3d getVelocity(BlockView world, BlockPos pos, FluidState state) {
-        Vec3d vec3d = super.getVelocity(world, pos, state);
-        return vec3d;
-    }
 
 
     @Override

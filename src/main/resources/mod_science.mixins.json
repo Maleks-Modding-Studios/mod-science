@@ -4,6 +4,7 @@
   "package": "malek.mod_science.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "EntityMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
