@@ -1,0 +1,18 @@
+{
+  "values": [
+    "minecraft:grass",
+    "minecraft:tall_grass",
+    "minecraft:fern",
+    "minecraft:dead_bush",
+    "minecraft:hanging_roots",
+    "minecraft:vine",
+    "minecraft:tripwire",
+    "#minecraft:wool",
+    "minecraft:cobweb",
+    "minecraft:redstone_wire",
+    "minecraft:glow_lichen",
+    "minecraft:hay_block",
+    "#minecraft:leaves",
+    "#minecraft:flowers"
+  ]
+}
