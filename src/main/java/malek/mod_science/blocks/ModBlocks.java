@@ -19,8 +19,8 @@ public final class ModBlocks {
     private static final FabricBlockSettings DEFAULT = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F);
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES);
 
-    @RegistryEntry("aember")
-    public static final Block AEMBER = new Block(ORE);
+    @RegistryEntry("aember_ore")
+    public static final Block AEMBER_ORE = new Block(ORE);
 
     @RegistryEntry("multiblock_test")
     public static final Block TEST = new BlockMultiblockTest(DEFAULT);
