@@ -22,7 +22,7 @@ public class ModBlockItems {
     public static final Item TEST = new BlockItem(ModBlocks.TEST, new FabricItemSettings().group(ItemGroup.MISC));
 
     @RegistryEntry("shadowsilk_ore_item")
-    public static final Item SHADOWSILK_ORE_ITEM = new BlockItem(ModBlocks.SHADOW_ORE, new FabricItemSettings().group(MOD_SCIENCE));
+    public static final Item SHADOWSILK_ORE_ITEM = new BlockItem(ModBlocks.SHADOWSILK_STONE_ORE, new FabricItemSettings().group(MOD_SCIENCE));
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
