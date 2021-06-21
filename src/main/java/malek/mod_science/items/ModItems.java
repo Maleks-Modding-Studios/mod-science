@@ -25,7 +25,23 @@ public final class ModItems {
 
     @RegistryEntry("void_dust")
     public static final Item VOID_DUST = new Item(DEFAULT);
+    
+    // aember items start
+    @RegistryEntry("aember")
+    public static final Item AEMBER = new Item(DEFAULT);
 
+    @RegistryEntry("blue_aember")
+    public static final Item BLUE_AEMBER = new Item(DEFAULT);
+
+    @RegistryEntry("golden_aember")
+    public static final Item GOLDEN_AEMBER = new Item(DEFAULT);
+
+    @RegistryEntry("jet_black_aember")
+    public static final Item JET_BLACK_AEMBER = new Item(DEFAULT);
+
+    @RegistryEntry("white_aember")
+    public static final Item WHITE_AEMBER = new Item(DEFAULT);
+    // aember items end
 
     public static void init() {
         Matrix.register(ModItems.class, Registry.ITEM);
