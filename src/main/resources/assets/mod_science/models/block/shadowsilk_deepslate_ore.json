@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mod_science:block/shadowsilk_deepslate_ore"
+  }
+}
