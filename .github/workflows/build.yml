@@ -4,7 +4,13 @@
 # against bad commits.
 
 name: build
-on: [pull_request, push, workflow_dispatch]
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # This runs at 00:00 UTC each day.
+    - cron:  '0 0 * * *'
 
 jobs:
   build:
