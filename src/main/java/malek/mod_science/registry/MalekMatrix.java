@@ -55,7 +55,7 @@ public class MalekMatrix {
             }
         });
 
-        // TODO Can we delete this? -Whang
+        // TODO Can we delete this? -Platy
         /*
         Arrays.stream(clazz.getFields())
               .filter(field -> field.isAnnotationPresent(RegistryEntry.class)

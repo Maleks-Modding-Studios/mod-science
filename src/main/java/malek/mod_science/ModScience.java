@@ -18,7 +18,7 @@ public class ModScience implements LoggerInterface {
     //Mod Compatibility
     public static ModCompatibility DimensionalDoorsCompat = new ModCompatibility("dimdoors");
     public static ModCompatibility ImmersivePortalsCompat = new ModCompatibility("imm_ptl_core");
-    public static MinecraftServer server;
+    private static MinecraftServer server;
 
     //Server And World Stuff
     public static ServerWorld getWorld(RegistryKey<World> key) {
@@ -36,5 +36,13 @@ public class ModScience implements LoggerInterface {
     @Override
     public Logger getLogger() {
         return LogManager.getLogger();
+    }
+
+    public static void setServer(MinecraftServer server) {
+        ModScience.server = server;
+    }
+
+    public static void clearServer(MinecraftServer server) {
+        ModScience.server = null;
     }
 }

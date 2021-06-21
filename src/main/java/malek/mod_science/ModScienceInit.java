@@ -41,12 +41,11 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         log("Initializing Mod Science. Have fun playing our mod!");
         log(getConfig().madness.lowMadness.thresholdAmount + " is the current Low Madness threshold amount");
         log(getConfig().madness.mediumMadness.thresholdAmount + " is the current Medium Madness threshold amount");
-        ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> {
-            ModScience.server = minecraftServer;
-        });
+        ServerLifecycleEvents.SERVER_STARTING.register(ModScience::setServer);
+        ServerLifecycleEvents.SERVER_STOPPED.register(ModScience::clearServer);
 
         new Thread(ModScienceInit::initModCompat).start();
-        // Yes -Platymemo
+        // Yes -Platy
         ModItems.init();
         ModBlocks.init();
         ModBlockItems.init();
