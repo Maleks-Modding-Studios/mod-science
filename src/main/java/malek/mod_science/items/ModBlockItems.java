@@ -22,8 +22,8 @@ public class ModBlockItems {
     @RegistryEntry("shadowsilk_deepslate_ore")
     public static final Item SHADOWSILK_DEEPSLATE_ORE = new BlockItem(ModBlocks.SHADOWSILK_DEEPSLATE_ORE, DEFAULT);
 
-    @RegistryEntry("aember")
-    public static final Item AEMBER = new BlockItem(ModBlocks.AEMBER, new FabricItemSettings().group(MOD_SCIENCE));
+    @RegistryEntry("aember_ore")
+    public static final Item AEMBER_ORE = new BlockItem(ModBlocks.AEMBER_ORE, new FabricItemSettings().group(MOD_SCIENCE));
 
     @RegistryEntry("test")
     public static final Item TEST = new BlockItem(ModBlocks.TEST, new FabricItemSettings().group(ItemGroup.MISC));
