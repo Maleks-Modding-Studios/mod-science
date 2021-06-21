@@ -26,11 +26,11 @@ public class ItemEntityMixin implements LoggerInterface {
         else if(itemEntity.isOnFire()) {
             itemEntity.setOnFire(false);
         }
-        if(itemEntity.isOnFire()) {
-            if(itemEntity.getFireTicks() >= 500) {
-                itemEntity.setOnFireFromLava();
-            }
-        }
+//        if(itemEntity.isOnFire()) {
+//            if(itemEntity.getFireTicks() >= 500) {
+//                itemEntity.setOnFireFromLava();
+//            }
+//        }
     }
 
 

@@ -18,6 +18,7 @@ import static malek.mod_science.ModScience.MOD_ID;
 public final class ModBlocks {
     private static final FabricBlockSettings DEFAULT = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F);
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES);
+
     @RegistryEntry("aember")
     public static final Block AEMBER = new Block(ORE);
 
@@ -25,10 +26,10 @@ public final class ModBlocks {
     public static final Block TEST = new BlockMultiblockTest(DEFAULT);
 
     @RegistryEntry("shadowsilk_stone_ore")
-    public static final Block SHADOWSILK_STONE_ORE = new Block(ORE);
+    public static final Block SHADOWSILK_STONE_ORE = new ShadowSilkOre(ORE);
 
     @RegistryEntry("shadowsilk_deepslate_ore")
-    public static final Block SHADOWSILK_DEEPSLATE_ORE = new Block(ORE);
+    public static final Block SHADOWSILK_DEEPSLATE_ORE = new ShadowSilkOre(ORE);
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);

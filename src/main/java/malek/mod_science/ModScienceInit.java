@@ -1,6 +1,7 @@
 package malek.mod_science;
 
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.blocks.blockentities.ModBlockEntities;
 import malek.mod_science.entities.ModEntities;
 import malek.mod_science.fluids.ModBuckets;
 import malek.mod_science.fluids.ModFluidBlocks;
@@ -51,11 +52,14 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModBlockItems.init();
         ModGeneration.init();
         ModEntities.init();
+        ModBlockEntities.init();
 
         //ModFluids
         ModFluids.init();
         ModFluidBlocks.init();
         ModBuckets.init();
+
+
     }
 
     public static ModConfig getConfig() {
