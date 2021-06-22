@@ -30,6 +30,9 @@ public class ModBlockItems {
 
     @RegistryEntry("shadowsilk_stone_ore")
     public static final Item SHADOWSILK_ORE_ITEM = new BlockItem(ModBlocks.SHADOWSILK_STONE_ORE, new FabricItemSettings().group(MOD_SCIENCE));
+    
+     @RegistryEntry("flourcane_item")
+    public static final Item FLOURCANE_ITEM = new BlockItem(ModBlocks.FLOURCANE_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
