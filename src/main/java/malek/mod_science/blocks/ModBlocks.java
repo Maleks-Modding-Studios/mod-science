@@ -30,6 +30,9 @@ public final class ModBlocks {
 
     @RegistryEntry("shadowsilk_deepslate_ore")
     public static final Block SHADOWSILK_DEEPSLATE_ORE = new ShadowSilkOre(ORE);
+    
+    @RegistryEntry("flourcane")
+    public static final Block FLOURCANE_BLOCK = new FlourcaneBlock(FabricBlockSettings.of(Material.PLANT).strength(0.3F,0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
