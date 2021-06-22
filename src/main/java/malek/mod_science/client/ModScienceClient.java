@@ -35,6 +35,11 @@ import static malek.mod_science.ModScience.MOD_ID;
 public class ModScienceClient implements ClientModInitializer, LoggerInterface {
     @Override
     public void onInitializeClient() {
+        
+        // rendering cutouts and transparent blocks
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOURCANE_BLOCK, RenderLayer.getCutout());
+
+        // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
     }
