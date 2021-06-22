@@ -42,6 +42,9 @@ public final class ModItems {
     @RegistryEntry("white_aember")
     public static final Item WHITE_AEMBER = new Item(DEFAULT);
     // aember items end
+    
+    @RegistryEntry("shear_force")
+    public static final Item SHEAR_FORCE = new ShearForce(new FabricItemSettings().group(MOD_SCIENCE));
 
     public static void init() {
         Matrix.register(ModItems.class, Registry.ITEM);
