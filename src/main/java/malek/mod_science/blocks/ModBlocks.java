@@ -5,8 +5,10 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
 import net.minecraft.item.PickaxeItem;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
@@ -18,6 +20,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 public final class ModBlocks {
     private static final FabricBlockSettings DEFAULT = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F);
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES);
+
+    @RegistryEntry("matter_cavitation_chamber")
+    public static final Block MATTER_CAVITATION_CHAMBER = new MatterCavitationChamberBlock(DEFAULT);
 
     @RegistryEntry("aember_ore")
     public static final Block AEMBER_ORE = new Block(ORE);
