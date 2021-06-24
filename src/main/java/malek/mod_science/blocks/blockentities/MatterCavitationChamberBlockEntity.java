@@ -1,8 +1,11 @@
 package malek.mod_science.blocks.blockentities;
 
+import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
+import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.MatterCavitationChamberScreen;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
+import me.shedaniel.clothconfig2.api.TickableWidget;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -10,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -24,21 +28,28 @@ import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CAV
 
 public class MatterCavitationChamberBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+    public int recipeTick;
+//    public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
+//        if(world.isClient())
+//            return;
+//        ((MatterCavitationChamberBlockEntity)t).tick(world, blockPos, state);
+//    }
 
-    public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
-        if(world.isClient())
-            return;
-        ((MatterCavitationChamberBlockEntity)t).tick(world, blockPos, state);
+
+    @Override
+    public void onOpen(PlayerEntity player) {
+        for(int recipeLoopController = 0; recipeLoopController<9; recipeLoopController++) {
+            if(inventory.get(recipeLoopController).isOf(Items.COBBLESTONE) && inventory.get(recipeLoopController).getCount() == 64){
+                inventory.set(recipeLoopController, ModItems.SINGULITE_INGOT.getDefaultStack());
+            }
+        }
     }
-
 
     public MatterCavitationChamberBlockEntity(BlockPos pos, BlockState state) {
         super(MATTER_CAVITATION_CHAMBER_BLOCK_ENTITY, pos, state);
     }
 
-    private void tick(World world, BlockPos blockPos, BlockState state){
 
-    }
 
 
 

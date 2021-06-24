@@ -15,6 +15,7 @@ public class MatterCavitationChamberScreen extends HandledScreen<ScreenHandler> 
 
     public MatterCavitationChamberScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+        this.backgroundHeight += 50;
     }
 
     @Override

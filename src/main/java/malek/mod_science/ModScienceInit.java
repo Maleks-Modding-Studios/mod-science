@@ -34,7 +34,7 @@ import java.util.function.Supplier;
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CHAMBER;
 
-public class ModScienceInit implements ModInitializer, ClientModInitializer, LoggerInterface {
+public class ModScienceInit implements ModInitializer, LoggerInterface {
     //Config Stuff
     private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
@@ -93,8 +93,8 @@ public class ModScienceInit implements ModInitializer, ClientModInitializer, Log
         return LogManager.getLogger();
     }
 
-    @Override
-    public void onInitializeClient() {
-        ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
-    }
+//    @Override
+//    public void onInitializeClient() {
+//
+//    }
 }
