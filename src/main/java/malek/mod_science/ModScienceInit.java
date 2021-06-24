@@ -10,12 +10,18 @@ import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
+import malek.mod_science.util.general.MatterCavitationChamberScreen;
+import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
 import malek.mod_science.util.general.ModCompatibility;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.screen.ScreenHandlerType;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,15 +32,21 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static malek.mod_science.ModScience.MOD_ID;
+import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CHAMBER;
 
-public class ModScienceInit implements ModInitializer, LoggerInterface {
+public class ModScienceInit implements ModInitializer, ClientModInitializer, LoggerInterface {
     //Config Stuff
     private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
     public static final Set<ModCompatibility> MODS = new HashSet<>();
+    public static final ScreenHandlerType<MatterCavitationChamberScreenHandler> MATTER_CAVITATION_CHAMBER_SCREEN;
 
     public static Path getConfigRoot() {
         return CONFIG_ROOT.get();
+    }
+
+    static {
+        MATTER_CAVITATION_CHAMBER_SCREEN = ScreenHandlerRegistry.registerSimple(MATTER_CHAMBER, MatterCavitationChamberScreenHandler::new);
     }
 
     @Override
@@ -60,6 +72,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModBuckets.init();
 
 
+
     }
 
     public static ModConfig getConfig() {
@@ -78,5 +91,10 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
     @Override
     public Logger getLogger() {
         return LogManager.getLogger();
+    }
+
+    @Override
+    public void onInitializeClient() {
+        ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
     }
 }

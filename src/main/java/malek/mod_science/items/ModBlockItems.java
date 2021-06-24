@@ -28,6 +28,9 @@ public class ModBlockItems {
     @RegistryEntry("test")
     public static final Item TEST = new BlockItem(ModBlocks.TEST, new FabricItemSettings().group(ItemGroup.MISC));
 
+    @RegistryEntry("matter_cavitation_chamber")
+    public static final Item MATTER_CAVITATION_CHAMBER_ITEM = new BlockItem(ModBlocks.MATTER_CAVITATION_CHAMBER, new FabricItemSettings().group(MOD_SCIENCE));
+
     @RegistryEntry("shadowsilk_stone_ore")
     public static final Item SHADOWSILK_ORE_ITEM = new BlockItem(ModBlocks.SHADOWSILK_STONE_ORE, new FabricItemSettings().group(MOD_SCIENCE));
     

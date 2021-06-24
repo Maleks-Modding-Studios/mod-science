@@ -1,5 +1,6 @@
 package malek.mod_science.client;
 
+import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.util.general.LoggerInterface;
 import net.fabricmc.api.ClientModInitializer;

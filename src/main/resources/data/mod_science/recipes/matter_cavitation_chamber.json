@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CMC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "M": {
+      "item": "mod_science:gravitic_nucleus"
+    }
+  },
+  "result": {
+    "item": "mod_science:matter_cavitation_chamber",
+    "count": 1
+  }
+}
