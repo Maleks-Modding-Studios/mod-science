@@ -84,6 +84,9 @@ public final class ModItems {
     public static final Item ADMINTIUM_INGOT = new Item(new FabricItemSettings().group(MOD_SCIENCE));
     //end metal crafting items
 
+    @RegistryEntry("gravitic_nucleus")
+    public static final Item GRAVITIC_NUCLEUS = new Item(new FabricItemSettings().maxCount(1).group(MOD_SCIENCE));
+
 
     public static void init() {
         Matrix.register(ModItems.class, Registry.ITEM);

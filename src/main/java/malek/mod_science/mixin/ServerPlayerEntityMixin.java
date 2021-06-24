@@ -3,6 +3,7 @@ package malek.mod_science.mixin;
 import com.mojang.authlib.GameProfile;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.components.player.madness.Whispers;
+import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,6 +32,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
+        if(this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)){
+            this.setFireTicks(1);//no touchy
+        }
         if (Madness.get(MixinUtil.cast(this)).isLow() && random.nextFloat() <= Madness.getConfig().lowMadness.randomSaturationGain.chance) {
             this.getHungerManager().add(Madness.getConfig().lowMadness.randomSaturationGain.saturationAmount + 1, 1.0F);
         }
