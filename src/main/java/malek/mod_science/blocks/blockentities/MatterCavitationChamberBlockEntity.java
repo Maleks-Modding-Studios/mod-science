@@ -29,20 +29,24 @@ import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CAV
 public class MatterCavitationChamberBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
     public int recipeTick;
-//    public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
-//        if(world.isClient())
-//            return;
-//        ((MatterCavitationChamberBlockEntity)t).tick(world, blockPos, state);
-//    }
+    public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
+        if(world.isClient()) {
+            return;
+        }else {
+            ((MatterCavitationChamberBlockEntity) t).tick();
+        }
+    }
 
-
-    @Override
-    public void onOpen(PlayerEntity player) {
+    public void tick() {
         for(int recipeLoopController = 0; recipeLoopController<9; recipeLoopController++) {
             if(inventory.get(recipeLoopController).isOf(Items.COBBLESTONE) && inventory.get(recipeLoopController).getCount() == 64){
-                inventory.set(recipeLoopController, ModItems.SINGULITE_INGOT.getDefaultStack());
+                if(recipeTick == 120) {
+                    inventory.set(recipeLoopController, ModItems.SINGULITE_INGOT.getDefaultStack());
+                    recipeTick = 0;
+                }
             }
         }
+        recipeTick++;
     }
 
     public MatterCavitationChamberBlockEntity(BlockPos pos, BlockState state) {

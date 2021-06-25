@@ -1,11 +1,14 @@
 package malek.mod_science.blocks;
 
 import malek.mod_science.blocks.blockentities.MatterCavitationChamberBlockEntity;
+import malek.mod_science.blocks.blockentities.ShadowSilkOreBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -64,6 +67,11 @@ public class MatterCavitationChamberBlock extends BlockWithEntity implements Blo
     @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return MatterCavitationChamberBlockEntity::tick;
     }
 
 
