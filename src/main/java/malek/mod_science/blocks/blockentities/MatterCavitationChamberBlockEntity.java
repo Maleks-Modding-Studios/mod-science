@@ -113,33 +113,6 @@ public class MatterCavitationChamberBlockEntity extends BlockEntity implements N
         BlockPos pos1 = pos.up();
         return pos1;
     }
-    @Nullable
-    private static Inventory getInventoryAt(World world, BlockPos pos, double x, double y, double z) {
-        //*insert more overengineered Mojank code*
-        Inventory inventory = null;
-        BlockPos blockPos = pos;
-        BlockState blockState = world.getBlockState(blockPos);
-        Block block = blockState.getBlock();
-        if (block instanceof InventoryProvider) {
-            inventory = ((InventoryProvider)block).getInventory(blockState, world, blockPos);
-        } else if (blockState.hasBlockEntity()) {
-            BlockEntity blockEntity = world.getBlockEntity(blockPos);
-            if (blockEntity instanceof Inventory) {
-                inventory = (Inventory)blockEntity;
-                if (inventory instanceof ChestBlockEntity && block instanceof ChestBlock) {
-                    inventory = ChestBlock.getInventory((ChestBlock)block, blockState, world, blockPos, true);
-                }
-            }
-        }
 
-        if (inventory == null) {
-            List<Entity> list = world.getOtherEntities((Entity)null, new Box(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntityPredicates.VALID_INVENTORIES);
-            if (!list.isEmpty()) {
-                inventory = (Inventory)list.get(world.random.nextInt(list.size()));
-            }
-        }
-
-        return (Inventory)inventory;
-    }
 
 }
