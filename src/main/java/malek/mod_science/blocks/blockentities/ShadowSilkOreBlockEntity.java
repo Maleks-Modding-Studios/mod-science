@@ -25,7 +25,7 @@ public class ShadowSilkOreBlockEntity extends BlockEntity implements LoggerInter
 
     private void tick(World world, BlockPos blockPos, BlockState state) {
         if(world.isSkyVisible(blockPos.add(0, 1, 0))) {
-            world.createExplosion(new TntEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), null), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0F, Explosion.DestructionType.BREAK);
+            world.createExplosion(new TntEntity(world, blockPos.getX()+0.5, blockPos.getY()+0.5, blockPos.getZ()+0.5, null), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0F, Explosion.DestructionType.BREAK);
         }
     }
 

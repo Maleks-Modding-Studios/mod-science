@@ -6,23 +6,33 @@ import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.MatterCavitationChamberScreen;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
 import me.shedaniel.clothconfig2.api.TickableWidget;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CAVITATION_CHAMBER_BLOCK_ENTITY;
 
@@ -40,13 +50,20 @@ public class MatterCavitationChamberBlockEntity extends BlockEntity implements N
     public void tick() {
         for(int recipeLoopController = 0; recipeLoopController<9; recipeLoopController++) {
             if(inventory.get(recipeLoopController).isOf(Items.COBBLESTONE) && inventory.get(recipeLoopController).getCount() == 64){
-                if(recipeTick == 120) {
+
+                if(recipeTick >= 120) {
+
+
                     inventory.set(recipeLoopController, ModItems.SINGULITE_INGOT.getDefaultStack());
                     recipeTick = 0;
+                }else{
+                    recipeTick++;
                 }
+
             }
         }
-        recipeTick++;
+
+
     }
 
     public MatterCavitationChamberBlockEntity(BlockPos pos, BlockState state) {
@@ -91,4 +108,38 @@ public class MatterCavitationChamberBlockEntity extends BlockEntity implements N
         Inventories.writeNbt(nbt, this.inventory);
         return nbt;
     }
+
+    public BlockPos getBlockUp(BlockPos pos){
+        BlockPos pos1 = pos.up();
+        return pos1;
+    }
+    @Nullable
+    private static Inventory getInventoryAt(World world, BlockPos pos, double x, double y, double z) {
+        //*insert more overengineered Mojank code*
+        Inventory inventory = null;
+        BlockPos blockPos = pos;
+        BlockState blockState = world.getBlockState(blockPos);
+        Block block = blockState.getBlock();
+        if (block instanceof InventoryProvider) {
+            inventory = ((InventoryProvider)block).getInventory(blockState, world, blockPos);
+        } else if (blockState.hasBlockEntity()) {
+            BlockEntity blockEntity = world.getBlockEntity(blockPos);
+            if (blockEntity instanceof Inventory) {
+                inventory = (Inventory)blockEntity;
+                if (inventory instanceof ChestBlockEntity && block instanceof ChestBlock) {
+                    inventory = ChestBlock.getInventory((ChestBlock)block, blockState, world, blockPos, true);
+                }
+            }
+        }
+
+        if (inventory == null) {
+            List<Entity> list = world.getOtherEntities((Entity)null, new Box(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntityPredicates.VALID_INVENTORIES);
+            if (!list.isEmpty()) {
+                inventory = (Inventory)list.get(world.random.nextInt(list.size()));
+            }
+        }
+
+        return (Inventory)inventory;
+    }
+
 }
