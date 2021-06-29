@@ -33,7 +33,10 @@ public class ModBlockItems {
     
     @RegistryEntry("flourcane_item")
     public static final Item FLOURCANE_ITEM = new BlockItem(ModBlocks.FLOURCANE_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
-
+    
+     @RegistryEntry("spircle_ore")
+    public static final Item SPIRCALE_ORE = new BlockItem(ModBlocks.SPIRACLE_ORE, DEFAULT);
+    
     @RegistryEntry("potato_ore_item")
     public static final Item POTATO_ORE_ITEM = new BlockItem(ModBlocks.POTATO_ORE, new FabricItemSettings().group(MOD_SCIENCE));
 
