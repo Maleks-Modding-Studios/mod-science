@@ -1,12 +1,10 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.sound.BlockSoundGroup;
@@ -21,9 +19,6 @@ import static malek.mod_science.ModScience.MOD_ID;
 public final class ModBlocks {
     private static final FabricBlockSettings DEFAULT = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F);
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES);
-
-    @RegistryEntry("matter_cavitation_chamber")
-    public static final Block MATTER_CAVITATION_CHAMBER = new MatterCavitationChamberBlock(DEFAULT);
 
     @RegistryEntry("aember_ore")
     public static final Block AEMBER_ORE = new Block(ORE);
@@ -40,8 +35,9 @@ public final class ModBlocks {
     @RegistryEntry("flourcane")
     public static final Block FLOURCANE_BLOCK = new FlourcaneBlock(FabricBlockSettings.of(Material.PLANT).strength(0.3F,0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
 
-    @RegistryEntry("spircle_ore")
-    public static final Block SPIRACLE_ORE = new SpircleOre(ORE);
+    @RegistryEntry("potato_ore")
+    public static final Block POTATO_ORE = new PotatoOre(FabricBlockSettings.of(Material.SOIL).strength(1, 0.5F).sounds(BlockSoundGroup.GRAVEL).breakByTool(FabricToolTags.SHOVELS, 0));
+
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
