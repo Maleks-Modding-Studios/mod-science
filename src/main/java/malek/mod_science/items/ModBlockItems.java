@@ -1,6 +1,8 @@
 package malek.mod_science.items;
 
+import com.terraformersmc.modmenu.util.mod.Mod;
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -34,8 +36,11 @@ public class ModBlockItems {
     @RegistryEntry("shadowsilk_stone_ore")
     public static final Item SHADOWSILK_ORE_ITEM = new BlockItem(ModBlocks.SHADOWSILK_STONE_ORE, new FabricItemSettings().group(MOD_SCIENCE));
     
-     @RegistryEntry("flourcane_item")
+    @RegistryEntry("flourcane_item")
     public static final Item FLOURCANE_ITEM = new BlockItem(ModBlocks.FLOURCANE_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("spircle_ore")
+    public static final Item SPIRCALE_ORE = new BlockItem(ModBlocks.SPIRACLE_ORE, DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
