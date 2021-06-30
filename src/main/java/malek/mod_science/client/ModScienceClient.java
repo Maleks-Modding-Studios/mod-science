@@ -39,7 +39,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 public class ModScienceClient implements ClientModInitializer, LoggerInterface {
     @Override
     public void onInitializeClient() {
-        
+        //Sets up rendering for item predicate based models, similar to how crossbows and bows show different items based on if they are loaded or not
+        ItemModelProvider.registerModels();
+
         // rendering cutouts and transparent blocks
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOURCANE_BLOCK, RenderLayer.getCutout());
 
