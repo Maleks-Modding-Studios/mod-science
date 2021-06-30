@@ -1,5 +1,6 @@
 package malek.mod_science.items;
 
+import malek.mod_science.items.orbs_of_power.MoltenCore;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.ai.brain.task.FarmerVillagerTask;
@@ -86,6 +87,10 @@ public final class ModItems {
 
     @RegistryEntry("gravitic_nucleus")
     public static final Item GRAVITIC_NUCLEUS = new Item(new FabricItemSettings().maxCount(1).group(MOD_SCIENCE));
+
+    @RegistryEntry("molten_core")
+    public static final Item MOLTEN_CORE = new MoltenCore(new FabricItemSettings().group(MOD_SCIENCE).fireproof());
+
 
 
     public static void init() {
