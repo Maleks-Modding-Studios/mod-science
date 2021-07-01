@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mod_science:item/molten_core_inert"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "charged": 1
+      },
+      "model": "mod_science:item/molten_core_charged"
+    }]
+
+}

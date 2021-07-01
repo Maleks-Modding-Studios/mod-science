@@ -34,6 +34,7 @@ public class ItemEntityMixin implements LoggerInterface {
         ItemEntity itemEntity = MixinUtil.cast(this);
         Item thisItem = itemEntity.getStack().getItem();
         if (Arrays.stream(itemsThatWeDoStuffWith).anyMatch((item -> item == thisItem))) {
+            //If the item is on of the items that set on fire when exposed to sunlight, then we do that.
             if (Arrays.stream(itemsThatBurnInSunlight).anyMatch((item -> item == thisItem))) {
                 if (itemEntity.getEntityWorld().isSkyVisible(itemEntity.getBlockPos())) {
                     if (!itemEntity.isOnFire()) itemEntity.setOnFireFor(3);
@@ -41,10 +42,12 @@ public class ItemEntityMixin implements LoggerInterface {
                     itemEntity.setOnFire(false);
                 }
             }
+            //If a uncharged molten core is in a lava block, it turns into a charged core, and destroys the lava.
             if (thisItem == ModItems.MOLTEN_CORE
                 && !ChargeableItem.isCharged(itemEntity.getStack())
                 && itemEntity.getEntityWorld().getBlockState(itemEntity.getBlockPos()).getBlock() == Blocks.LAVA) {
                 ChargeableItem.setCharged(itemEntity.getStack(), true);
+                itemEntity.getEntityWorld().setBlockState(itemEntity.getBlockPos(), Blocks.AIR.getDefaultState(), 3);
             }
 
 
