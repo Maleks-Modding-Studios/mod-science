@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/tinted_cross",
-  "textures": {
-    "cross": "mod_science:block/flourcane_middle"
-  }
-}
