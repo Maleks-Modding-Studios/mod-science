@@ -14,7 +14,6 @@ public class ModScience implements LoggerInterface {
     public static final boolean ENABLE_DEBUG_LOGGING = true;
     public static final String MOD_ID = "mod_science";
 
-
     //Mod Compatibility
     public static ModCompatibility DimensionalDoorsCompat = new ModCompatibility("dimdoors");
     public static ModCompatibility ImmersivePortalsCompat = new ModCompatibility("imm_ptl_core");
