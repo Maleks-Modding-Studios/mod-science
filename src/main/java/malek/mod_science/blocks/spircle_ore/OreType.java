@@ -18,7 +18,7 @@ public enum OreType implements StringIdentifiable {
             case REDSTONE -> "redstone";
         };
     }
-    static class SpircleOreProperties {
+    public static class SpircleOreProperties {
         public static final EnumProperty<OreType> ORE_TYPE = EnumProperty.of("ore_type", OreType.class);
     }
 }
