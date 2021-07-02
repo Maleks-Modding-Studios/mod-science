@@ -2,7 +2,7 @@
   "variants": {
     "ore_type=redstone": { "model": "minecraft:block/redstone_ore" },
     "ore_type=diamond": { "model": "minecraft:block/diamond_ore" },
-    "ore_type=lapi": { "model": "minecraft:block/lapis_ore" },
+    "ore_type=lapis": { "model": "minecraft:block/lapis_ore" },
     "ore_type=emerald": { "model": "minecraft:block/emerald_ore" }
   }
 }

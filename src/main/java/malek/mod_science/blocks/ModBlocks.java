@@ -1,5 +1,6 @@
 package malek.mod_science.blocks;
 
+import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -36,7 +37,7 @@ public final class ModBlocks {
     public static final Block FLOURCANE_BLOCK = new FlourcaneBlock(FabricBlockSettings.of(Material.PLANT).strength(0.3F,0.5F).noCollision().ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
     
     @RegistryEntry("spircle_ore")
-    public static final Block SPIRCALE_ORE = new Block(ORE);
+    public static final Block SPIRCALE_ORE = new SpircleOre(ORE);
     
     @RegistryEntry("potato_ore")
     public static final Block POTATO_ORE = new PotatoOre(FabricBlockSettings.of(Material.SOIL).strength(1, 0.5F).sounds(BlockSoundGroup.GRAVEL).breakByTool(FabricToolTags.SHOVELS, 0));
