@@ -1,10 +1,15 @@
 package malek.mod_science.items;
 
+import malek.mod_science.event.ItemEntityTickEvent;
+import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.items.orbs_of_power.MoltenCore;
+import malek.mod_science.tags.ModScienceTags;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.brain.task.FarmerVillagerTask;
 import net.minecraft.item.*;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
@@ -91,10 +96,31 @@ public final class ModItems {
     @RegistryEntry("molten_core")
     public static final Item MOLTEN_CORE = new MoltenCore(new FabricItemSettings().group(MOD_SCIENCE).fireproof());
 
-
+    private static void registerEvents() {
+        ItemEntityTickEvent.EVENT.register(itemEntity -> {
+            if (itemEntity.getStack().isOf(MOLTEN_CORE)
+                && !ChargeableItem.isCharged(itemEntity.getStack())
+                && itemEntity.getEntityWorld().getBlockState(itemEntity.getBlockPos()).getBlock() == Blocks.LAVA) {
+                    ChargeableItem.setCharged(itemEntity.getStack(), true);
+                    itemEntity.getEntityWorld().setBlockState(itemEntity.getBlockPos(), Blocks.AIR.getDefaultState(), 3);
+            }
+            return ActionResult.PASS;
+        });
+        ItemEntityTickEvent.EVENT.register(itemEntity -> {
+            if (itemEntity.getStack().isIn(ModScienceTags.BURNS_IN_SUNLIGHT)) {
+                if (itemEntity.getEntityWorld().isSkyVisible(itemEntity.getBlockPos())) {
+                    if (!itemEntity.isOnFire()) itemEntity.setOnFireFor(3);
+                } else if (itemEntity.isOnFire()) {
+                    itemEntity.setOnFire(false);
+                }
+            }
+            return ActionResult.PASS;
+        });
+    }
 
     public static void init() {
         Matrix.register(ModItems.class, Registry.ITEM);
+        registerEvents();
     }
 
 }
