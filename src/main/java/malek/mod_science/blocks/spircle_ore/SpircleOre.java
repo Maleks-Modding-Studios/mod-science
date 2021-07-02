@@ -24,6 +24,7 @@ public class SpircleOre extends Block {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getDefaultState().with(ORE_TYPE, (OreType) (ORE_TYPE.getValues().toArray()[random.nextInt(ORE_TYPE.getValues().size()-1)]));
     }
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
         stateManager.add(ORE_TYPE);
