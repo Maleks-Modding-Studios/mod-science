@@ -2,10 +2,7 @@ package malek.mod_science.blocks;
 
 import malek.mod_science.blocks.blockentities.ShadowSilkOreBlockEntity;
 import malek.mod_science.util.general.LoggerInterface;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,7 +17,10 @@ public class ShadowSilkOre extends BlockWithEntity implements BlockEntityProvide
     public ShadowSilkOre(Settings settings) {
         super(settings);
     }
-
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {

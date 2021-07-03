@@ -1,5 +1,8 @@
 package malek.mod_science.blocks;
 
+import malek.mod_science.blocks.power.FirePowerGenerator;
+import malek.mod_science.blocks.power.FirePowerHolder;
+import malek.mod_science.blocks.power.FirePowerPipe;
 import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -44,6 +47,15 @@ public final class ModBlocks {
 
     @RegistryEntry("matter_cavitation_chamber")
     public static final Block MATTER_CAVITATION_CHAMBER = new MatterCavitationChamberBlock(DEFAULT);
+
+    @RegistryEntry("receiver")
+    public static final Block FIRE_POWER_HOLDER = new FirePowerHolder(DEFAULT);
+
+    @RegistryEntry("pipe")
+    public static final Block FIRE_POWER_PIPE = new FirePowerPipe(DEFAULT);
+
+    @RegistryEntry("generator")
+    public static final Block FIRE_POWER_GENERATOR = new FirePowerGenerator(DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);

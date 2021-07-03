@@ -33,6 +33,7 @@ import java.util.function.Supplier;
 
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CHAMBER;
+import static malek.mod_science.util.general.WorldUtil.toBinary;
 
 public class ModScienceInit implements ModInitializer, LoggerInterface {
     //Config Stuff
@@ -70,6 +71,19 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModFluids.init();
         ModFluidBlocks.init();
         ModBuckets.init();
+
+        for (int i1 = 0; i1 < 8; i1++) {
+            String binary = toBinary(i1, 3);
+            String[] nums = {binary};
+            char[] num = nums[0].toCharArray();
+            int x = 1 + (-2 * Integer.parseInt(String.valueOf(num[0])));
+            int y = 1 + (-2 * Integer.parseInt(String.valueOf(num[1])));
+            int z = 1 + (-2 * Integer.parseInt(String.valueOf(num[2])));
+            if(x == y && y == z) {
+                continue;
+            }
+            System.out.println("x : " +x +  " y : " + y + " z : " + z);
+        }
 
 
 
