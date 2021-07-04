@@ -1,8 +1,8 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.power.FirePowerGenerator;
-import malek.mod_science.blocks.power.FirePowerHolder;
-import malek.mod_science.blocks.power.FirePowerPipe;
+import malek.mod_science.blocks.power.FireGenerator;
+import malek.mod_science.blocks.power.FireReceiver;
+import malek.mod_science.blocks.power.IPowerPipe;
 import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,7 +10,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
@@ -49,13 +48,13 @@ public final class ModBlocks {
     public static final Block MATTER_CAVITATION_CHAMBER = new MatterCavitationChamberBlock(DEFAULT);
 
     @RegistryEntry("receiver")
-    public static final Block FIRE_POWER_HOLDER = new FirePowerHolder(DEFAULT);
+    public static final Block FIRE_POWER_HOLDER = new FireReceiver(DEFAULT);
 
     @RegistryEntry("pipe")
-    public static final Block FIRE_POWER_PIPE = new FirePowerPipe(DEFAULT);
+    public static final Block FIRE_POWER_PIPE = new IPowerPipe(DEFAULT);
 
     @RegistryEntry("generator")
-    public static final Block FIRE_POWER_GENERATOR = new FirePowerGenerator(DEFAULT);
+    public static final Block FIRE_POWER_GENERATOR = new FireGenerator(DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
