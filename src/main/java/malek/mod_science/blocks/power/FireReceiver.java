@@ -5,7 +5,9 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -17,6 +19,26 @@ public class FireReceiver extends BlockWithEntity implements IPowerBlock, BlockE
     public FireReceiver(Settings settings) {
         super(settings);
     }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        if(!world.isClient()) {
+            FindPathToReceivers.resetNetworkSearch(world, pos);
+        }
+    }
+
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if(!world.isClient()) {
+            FindPathToReceivers.resetNetworkSearch(world, pos);
+        }
+
+        super.onBreak(world, pos, state, player);
+    }
+
+
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world.isClient) {

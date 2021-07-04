@@ -1,8 +1,6 @@
 package malek.mod_science.blocks.power;
 
-import malek.mod_science.power.FindPathToReceivers;
-import malek.mod_science.power.IPowerBlock;
-import malek.mod_science.power.PowerBlockType;
+import malek.mod_science.power.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -10,18 +8,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.system.CallbackI;
 
-public class FireGenerator extends Block implements IPowerBlock {
-    public FireGenerator(Settings settings) {
+
+public class PowerPipe extends Block implements IPowerBlock, IPowerCarrier {
+
+    public PowerPipe(Settings settings) {
         super(settings);
     }
 
-
-    @Override
-    public PowerBlockType getPowerType() {
-        return PowerBlockType.GENERATOR;
-    }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
@@ -39,5 +37,30 @@ public class FireGenerator extends Block implements IPowerBlock {
         }
 
         super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    public double getFireEfficiency() {
+        return 1;
+    }
+
+    @Override
+    public double getLightEfficiency() {
+        return 1;
+    }
+
+    @Override
+    public double getArcEfficiency() {
+        return 1;
+    }
+
+    @Override
+    public double getTimeEfficiency() {
+        return 1;
+    }
+
+    @Override
+    public PowerBlockType getPowerType() {
+        return PowerBlockType.PIPE;
     }
 }
