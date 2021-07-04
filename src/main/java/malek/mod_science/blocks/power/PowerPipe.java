@@ -40,22 +40,22 @@ public class PowerPipe extends Block implements IPowerBlock, IPowerCarrier {
     }
 
     @Override
-    public double getFireEfficiency() {
+    public int getFireEfficiency() {
         return 1;
     }
 
     @Override
-    public double getLightEfficiency() {
+    public int getLightEfficiency() {
         return 1;
     }
 
     @Override
-    public double getArcEfficiency() {
+    public int getArcEfficiency() {
         return 1;
     }
 
     @Override
-    public double getTimeEfficiency() {
+    public int getTimeEfficiency() {
         return 1;
     }
 

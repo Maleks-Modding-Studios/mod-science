@@ -33,7 +33,16 @@ public class FindPowerPathsToGenerators {
                 if (recursionDepth > MAX_RECURSION_DEPTH) {
                     return;
                 }
-                this.lookForPath(world, new PowerPath(optional.get(), powerPath));
+                PowerPath temp = new PowerPath(optional.get(), powerPath);
+                if (((IPowerBlock) world.getBlockState(powerPath.currentPos).getBlock()).getPowerType() == PowerBlockType.PIPE) {
+                    IPowerCarrier carrier = (IPowerCarrier) world.getBlockState(powerPath.currentPos).getBlock();
+                    //System.out.println(carrier.getArcEfficiency());
+                    temp.arcEfficiency.incValue(carrier.getArcEfficiency());
+                    temp.timeEfficiency.incValue(carrier.getTimeEfficiency());
+                    temp.lightEfficiency.incValue(carrier.getLightEfficiency());
+                    temp.fireEfficiency.incValue(carrier.getFireEfficiency());
+                }
+                this.lookForPath(world, temp);
             }
         }
     }
@@ -58,14 +67,11 @@ public class FindPowerPathsToGenerators {
     }
 
     private boolean isValidCarrier(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() instanceof IPowerBlock
-               && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.PIPE
-               || ((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
+        return world.getBlockState(pos).getBlock() instanceof IPowerBlock && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.PIPE || ((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
     }
 
     private boolean isValidEndpoint(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() instanceof IPowerBlock
-               && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
+        return world.getBlockState(pos).getBlock() instanceof IPowerBlock && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
     }
 
 }

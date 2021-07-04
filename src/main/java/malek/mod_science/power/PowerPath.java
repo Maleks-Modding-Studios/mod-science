@@ -3,24 +3,24 @@ package malek.mod_science.power;
 import net.minecraft.util.math.BlockPos;
 
 public class PowerPath {
-    int lowEff = 0;
-    int mediumEff = 0;
-    int highEff = 0;
     public BlockPos currentPos;
+    public PowerEff fireEfficiency = new PowerEff();
+    public PowerEff lightEfficiency = new PowerEff();
+    public PowerEff arcEfficiency = new PowerEff();
+    public PowerEff timeEfficiency = new PowerEff();
     public PowerPath(BlockPos currentPos) {
         this.currentPos = currentPos;
     }
     PowerPath(BlockPos pos, PowerPath path) {
         this.currentPos = pos;
-        this.lowEff = path.lowEff;
-        this.mediumEff = path.mediumEff;
-        this.highEff = path.highEff;
+        fireEfficiency = new PowerEff(path.fireEfficiency);
+        lightEfficiency = new PowerEff(path.lightEfficiency);
+        arcEfficiency = new PowerEff(path.arcEfficiency);
+        timeEfficiency = new PowerEff(path.timeEfficiency);
     }
-    public PowerPath copy(){
-        PowerPath clone = new PowerPath(this.currentPos);
-        clone.lowEff = lowEff;
-        clone.mediumEff = mediumEff;
-        clone.highEff = highEff;
-        return clone;
+    @Override
+    public String toString() {
+        return "Position : "+ this.currentPos.toString() + " fireEff : [" + fireEfficiency.toString() + "], " + " lightEff : [" +lightEfficiency.toString() + "], "
+                + " arcEff : [" + arcEfficiency.toString() + "], " + " timeEff : [" + timeEfficiency.toString() + "]";
     }
 }
