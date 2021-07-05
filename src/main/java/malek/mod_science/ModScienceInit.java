@@ -21,6 +21,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.tag.FabricTag;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.screen.ScreenHandlerType;
@@ -97,6 +98,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModFluids.init();
         ModFluidBlocks.init();
         ModBuckets.init();
+
 
         //ModBiomes.init();
         //ModDimensions.init();
