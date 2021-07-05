@@ -52,8 +52,6 @@ public class MatterCavitationChamberBlockEntity extends BlockEntity implements N
             if(inventory.get(recipeLoopController).isOf(Items.COBBLESTONE) && inventory.get(recipeLoopController).getCount() == 64){
 
                 if(recipeTick >= 120) {
-
-
                     inventory.set(recipeLoopController, ModItems.SINGULITE_INGOT.getDefaultStack());
                     recipeTick = 0;
                 }else{

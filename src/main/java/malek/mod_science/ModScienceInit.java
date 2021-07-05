@@ -1,7 +1,10 @@
 package malek.mod_science;
 
+import malek.mod_science.biomes.VoidChunkGenerator;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.blockentities.ModBlockEntities;
+import malek.mod_science.commands.ModCommands;
+import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.entities.ModEntities;
 import malek.mod_science.fluids.ModBuckets;
 import malek.mod_science.fluids.ModFluidBlocks;
@@ -10,18 +13,26 @@ import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
-import malek.mod_science.util.general.MatterCavitationChamberScreen;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
 import malek.mod_science.util.general.ModCompatibility;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.Entity;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.TeleportTarget;
+import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionOptions;
+import net.minecraft.world.dimension.DimensionType;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +45,7 @@ import java.util.function.Supplier;
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CHAMBER;
 import static malek.mod_science.util.general.WorldUtil.toBinary;
+import static net.minecraft.entity.EntityType.COW;
 
 public class ModScienceInit implements ModInitializer, LoggerInterface {
     //Config Stuff
@@ -49,7 +61,20 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
     static {
         MATTER_CAVITATION_CHAMBER_SCREEN = ScreenHandlerRegistry.registerSimple(MATTER_CHAMBER, MatterCavitationChamberScreenHandler::new);
     }
+    public static final RegistryKey<DimensionOptions> DIMENSION_KEY = RegistryKey.of(
+            Registry.DIMENSION_KEY,
+            new Identifier(MOD_ID, "void")
+    );
 
+    public static RegistryKey<World> WORLD_KEY = RegistryKey.of(
+            Registry.WORLD_KEY,
+            DIMENSION_KEY.getValue()
+    );
+
+    public static final RegistryKey<DimensionType> DIMENSION_TYPE_KEY = RegistryKey.of(
+            Registry.DIMENSION_TYPE_KEY,
+            new Identifier(MOD_ID, "void_type")
+    );
     @Override
     public void onInitialize() {
         log("Initializing Mod Science. Have fun playing our mod!");
@@ -72,6 +97,10 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModFluidBlocks.init();
         ModBuckets.init();
 
+        //ModBiomes.init();
+        //ModDimensions.init();
+        //TheRoomDimension.init();
+
         for (int i1 = 0; i1 < 8; i1++) {
             String binary = toBinary(i1, 3);
             String[] nums = {binary};
@@ -84,8 +113,36 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
             }
             System.out.println("x : " +x +  " y : " + y + " z : " + z);
         }
+        Registry.register(Registry.CHUNK_GENERATOR, new Identifier(MOD_ID, "void"), VoidChunkGenerator.CODEC);
+        WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier(MOD_ID, "the_void"));
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            ServerWorld overworld = server.getWorld(World.OVERWORLD);
+            ServerWorld world = server.getWorld(WORLD_KEY);
+              server.getWorlds().forEach( (world1) -> System.out.println(world1.getRegistryKey()));
+               if (world == null) throw new AssertionError("Test world doesn't exist.");
+
+            Entity entity = COW.create(overworld);
+
+            if (!entity.world.getRegistryKey().equals(World.OVERWORLD)) throw new AssertionError("Entity starting world isn't the overworld");
+
+            TeleportTarget target = new TeleportTarget(Vec3d.ZERO, new Vec3d(1, 1, 1), 45f, 60f);
+
+            Entity teleported = FabricDimensions.teleport(entity, world, target);
+
+            if (teleported == null) throw new AssertionError("Entity didn't teleport");
+
+            if (!teleported.world.getRegistryKey().equals(WORLD_KEY)) throw new AssertionError("Target world not reached.");
+
+            if (!teleported.getPos().equals(target.position)) throw new AssertionError("Target Position not reached.");
+        });
+
+//        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) ->
+//                                                           dispatcher.register(literal("fabric_dimension_test").executes(TheRoomDimension.this::swapTargeted))
+//        );
 
 
+        ModCommands.init();
 
     }
 
