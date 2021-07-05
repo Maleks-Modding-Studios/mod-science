@@ -4,6 +4,7 @@ import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.ModCompatibility;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public class ModScience implements LoggerInterface {
     public static final boolean ENABLE_DEBUG_LOGGING = true;
     public static final String MOD_ID = "mod_science";
-
+    public static final Identifier ModScienceId(String path){
+        return new Identifier(MOD_ID, path);
+    }
     //Mod Compatibility
     public static ModCompatibility DimensionalDoorsCompat = new ModCompatibility("dimdoors");
     public static ModCompatibility ImmersivePortalsCompat = new ModCompatibility("imm_ptl_core");
