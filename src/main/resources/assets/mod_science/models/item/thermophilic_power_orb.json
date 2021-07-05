@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mod_science:item/empty_orb"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "power_level": 0.01
+      },
+      "model": "mod_science:item/thermophilic_power_orb_half"
+    },
+    {
+      "predicate": {
+        "power_level": 1
+      },
+      "model": "mod_science:item/thermophilic_power_orb_full"
+    }
+  ]
+
+}

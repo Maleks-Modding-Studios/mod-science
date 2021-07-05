@@ -3,6 +3,8 @@ package malek.mod_science.items;
 import malek.mod_science.event.ItemEntityTickEvent;
 import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.items.orbs_of_power.MoltenCore;
+import malek.mod_science.items.orbs_of_power.TempItem;
+import malek.mod_science.items.orbs_of_power.ThermophilicPowerOrb;
 import malek.mod_science.tags.ModScienceTags;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -95,6 +97,28 @@ public final class ModItems {
 
     @RegistryEntry("molten_core")
     public static final Item MOLTEN_CORE = new MoltenCore(new FabricItemSettings().group(MOD_SCIENCE).fireproof());
+
+    @RegistryEntry("ender_star")
+    public static final Item ENDER_STAR = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("thermophilic_power_orb")
+    public static final Item THERMOPHILIC_POWER_ORB = new ThermophilicPowerOrb(new FabricItemSettings().group(MOD_SCIENCE).fireproof());
+
+    @RegistryEntry("calamity_star")
+    public static final Item CALAMITY_STAR = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("leyden_jar")
+    public static final Item LEYDEN_JAR = new TempItem(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("heart_star")
+    public static final Item HEART_STAR = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("void_star")
+    public static final Item VOID_STAR = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("sap_capsule")
+    public static final Item SAP_CAPSULE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
 
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
