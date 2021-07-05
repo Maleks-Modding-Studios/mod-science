@@ -2,6 +2,7 @@ package malek.mod_science.power;
 
 import io.netty.util.internal.ConcurrentSet;
 import malek.mod_science.blocks.power.FireReceiverBlockEntity;
+import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
@@ -29,10 +30,11 @@ public class FindPathToReceivers {
         }
     }
 
+    //looks for a path
     protected void lookForPath(World world, PowerPath powerPath) {
         if (isValidEndpoint(world, powerPath.currentPos)) {
-//            System.out.println(world.getBlockState(powerPath.currentPos));
-//            System.out.println(powerPath.currentPos);
+            System.out.println(world.getBlockState(powerPath.currentPos));
+            System.out.println(powerPath.currentPos);
             paths.add(powerPath);
         } else {
             findTargets(world, powerPath);
@@ -67,20 +69,19 @@ public class FindPathToReceivers {
 
     Optional<BlockPos> getIfMatches(World world, BlockPos pos) {
         if (isValidCarrier(world, pos)) {
-            //System.out.println(world.getBlockState(pos));
+            System.out.println(world.getBlockState(pos));
             return Optional.of(pos);
         }
         return Optional.empty();
     }
 
+    //checks if it is a valid pipe or generator, to carry the path
     private boolean isValidCarrier(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() instanceof IPowerBlock
-               && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.PIPE
-                   || ((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.RECEIVER);
+        return (world.getBlockState(pos).isIn(ModScienceTags.PIPE) || world.getBlockState(pos).isIn(ModScienceTags.GENERATOR));
     }
 
+    //cheks if it is a valid machine to connect to
     private boolean isValidEndpoint(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() instanceof IPowerBlock
-               && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.RECEIVER);
+        return world.getBlockState(pos).isIn(ModScienceTags.PIPE_CONNECTS_TO);
     }
 }
