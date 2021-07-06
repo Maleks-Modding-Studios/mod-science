@@ -21,20 +21,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ServerPlayerInteractionManagerMixin {
     @Shadow
     protected ServerWorld world;
+
     @Inject(method = "tryBreakBlock", at = @At("HEAD"), cancellable = true)
     public void tryBreakBlockMixin(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if(world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY))
-            cir.setReturnValue(false);
-    }
-    @Inject(method = "tryBreakBlock", at = @At("HEAD"), cancellable = true)
-    public void interactItem(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if(world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY))
-            cir.setReturnValue(false);
-    }
-    @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
-    public void interactBlock(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if(world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY) && !(world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock))
-            cir.setReturnValue(ActionResult.PASS);
+        if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) cir.setReturnValue(false);
     }
 
+    @Inject(method = "tryBreakBlock", at = @At("HEAD"), cancellable = true)
+    public void interactItem(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) cir.setReturnValue(false);
+    }
+
+    @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
+    public void interactBlock(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+        if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
+            if (world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock) {
+                teleportPlayerBack(player, world);
+            } else {
+                cir.setReturnValue(ActionResult.PASS);
+            }
+
+        }
+
+
+    }
+    private void teleportPlayerBack(ServerPlayerEntity player, World world) {
+        if(player.getSpawnPointPosition() != null)
+            player.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), player.getSpawnPointPosition().getX(), player.getSpawnPointPosition().getY(), player.getSpawnPointPosition().getZ(), 0F, 0F);
+        else
+            player.teleport(player.getServer().getOverworld(), player.getServer().getOverworld().getSpawnPos().getX(), player.getServer().getOverworld().getSpawnPos().getY(), player.getServer().getOverworld().getSpawnPos().getZ(), 0f, 0f);
+    }
 }

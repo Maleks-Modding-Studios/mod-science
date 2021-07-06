@@ -49,6 +49,9 @@ public class ModBlockItems {
     @RegistryEntry("generator")
     public static final Item POWER_GENERATOR = new BlockItem(ModBlocks.FIRE_POWER_GENERATOR, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("matter_cavitation_chamber")
+    public static final Item MATTER_CAVITATION_CHAMBER = new BlockItem(ModBlocks.MATTER_CAVITATION_CHAMBER, new FabricItemSettings().group(MOD_SCIENCE));
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

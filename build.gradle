@@ -12,6 +12,10 @@ targetCompatibility = JavaVersion.VERSION_16
 repositories {
     mavenCentral()
     maven {
+        name = "BuildCraft"
+        url = "https://mod-buildcraft.com/maven"
+    }
+    maven {
         url = 'https://jitpack.io'
         content {
             includeGroup 'com.github.DimensionalDevelopment'
@@ -80,6 +84,11 @@ minecraft {
 }
 
 dependencies {
+    dependencies.ext.lib = { dep, optional = false ->
+        modImplementation(dep) {
+
+        }
+    }
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -100,6 +109,9 @@ dependencies {
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-world", project.cca_version)
     includeCompile("io.github.onyxstudios.Cardinal-Components-API", "cardinal-components-chunk", project.cca_version)
     includeCompile("dev.hephaestus", "seedy-behavior", "1.0.1")
+    dependencies.ext.lib("alexiil.mc.lib:libblockattributes-core:${project.lba_version}")
+    dependencies.ext.lib("alexiil.mc.lib:libblockattributes-fluids:${project.lba_version}")
+    dependencies.ext.lib("alexiil.mc.lib:libblockattributes-items:${project.lba_version}")
 
     modImplementation("software.bernie.geckolib:geckolib-fabric-1.17:${project.geckolib_version}:dev")
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}")
