@@ -17,20 +17,20 @@ import static malek.mod_science.ModScience.MOD_ID;
 
 public final class ModBiomes {
     public static final RegistryKey<Biome> PERSONAL_WHITE_VOID_KEY;
-    public static final RegistryKey<Biome> PUBLIC_BLACK_VOID_KEY;
-    public static final RegistryKey<Biome> DUNGEON_DANGEROUS_BLACK_VOID_KEY;
-    public static final RegistryKey<Biome> LIMBO_KEY;
+//    public static final RegistryKey<Biome> PUBLIC_BLACK_VOID_KEY;
+//    public static final RegistryKey<Biome> DUNGEON_DANGEROUS_BLACK_VOID_KEY;
+//    public static final RegistryKey<Biome> LIMBO_KEY;
     public static final Biome PERSONAL_WHITE_VOID_BIOME;
-    public static final Biome PUBLIC_BLACK_VOID_BIOME;
-    public static final Biome DUNGEON_DANGEROUS_BLACK_VOID_BIOME;
+//    public static final Biome PUBLIC_BLACK_VOID_BIOME;
+//    public static final Biome DUNGEON_DANGEROUS_BLACK_VOID_BIOME;
     //public static final Biome LIMBO_BIOME;
 
     public static void init() {
         //Registry.register(BuiltinRegistries.BIOME, LIMBO_KEY.getValue(), LIMBO_BIOME);
         Registry.register(BuiltinRegistries.BIOME, PERSONAL_WHITE_VOID_KEY.getValue(), PERSONAL_WHITE_VOID_BIOME);
-        Registry.register(BuiltinRegistries.BIOME, PUBLIC_BLACK_VOID_KEY.getValue(), PUBLIC_BLACK_VOID_BIOME);
-        Registry.register(BuiltinRegistries.BIOME, DUNGEON_DANGEROUS_BLACK_VOID_KEY.getValue(), DUNGEON_DANGEROUS_BLACK_VOID_BIOME);
-        // only ever needed if the biome api is broken
+//        Registry.register(BuiltinRegistries.BIOME, PUBLIC_BLACK_VOID_KEY.getValue(), PUBLIC_BLACK_VOID_BIOME);
+//        Registry.register(BuiltinRegistries.BIOME, DUNGEON_DANGEROUS_BLACK_VOID_KEY.getValue(), DUNGEON_DANGEROUS_BLACK_VOID_BIOME);
+//        // only ever needed if the biome api is broken
         //        BuiltinBiomesAccessor.getIdMap().put(BuiltinRegistries.BIOME.getRawId(LIMBO_BIOME), LIMBO_KEY);
         //        BuiltinBiomesAccessor.getIdMap().put(BuiltinRegistries.BIOME.getRawId(PERSONAL_WHITE_VOID_BIOME), PERSONAL_WHITE_VOID_KEY);
         //        BuiltinBiomesAccessor.getIdMap().put(BuiltinRegistries.BIOME.getRawId(PUBLIC_BLACK_VOID_BIOME), PUBLIC_BLACK_VOID_KEY);
@@ -72,13 +72,13 @@ public final class ModBiomes {
                 .spawnSettings(new SpawnSettings.Builder().build())
                 .temperature(0.8f)
                 .temperatureModifier(Biome.TemperatureModifier.NONE);
-        PERSONAL_WHITE_VOID_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID+"white_void"));
-        PUBLIC_BLACK_VOID_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID+"black_void"));
-        DUNGEON_DANGEROUS_BLACK_VOID_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID+"dangerous_black_void"));
-        LIMBO_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID, "limbo"));
+        PERSONAL_WHITE_VOID_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID, "white_void"));
+//        PUBLIC_BLACK_VOID_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID, "black_void"));
+//        DUNGEON_DANGEROUS_BLACK_VOID_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID+"dangerous_black_void"));
+//        LIMBO_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(MOD_ID, "limbo"));
         PERSONAL_WHITE_VOID_BIOME = voidBiomeBuilder.effects(createEffect(true)).build();
-        PUBLIC_BLACK_VOID_BIOME = voidBiomeBuilder.effects(createEffect(false)).build();
-        DUNGEON_DANGEROUS_BLACK_VOID_BIOME = voidBiomeBuilder.effects(createEffect(false)).build();
+//        PUBLIC_BLACK_VOID_BIOME = voidBiomeBuilder.effects(createEffect(false)).build();
+//        DUNGEON_DANGEROUS_BLACK_VOID_BIOME = voidBiomeBuilder.effects(createEffect(false)).build();
         /*
         LIMBO_BIOME = new Biome.Builder()
                 .category(Biome.Category.NONE)

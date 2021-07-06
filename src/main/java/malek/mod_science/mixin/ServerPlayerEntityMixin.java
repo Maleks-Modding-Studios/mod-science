@@ -3,13 +3,17 @@ package malek.mod_science.mixin;
 import com.mojang.authlib.GameProfile;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.components.player.madness.Whispers;
+import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.items.ModItems;
+import malek.mod_science.sounds.ModSounds;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
+import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
@@ -29,7 +33,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
-
+    boolean play = false;
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
         if(this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)){
@@ -48,6 +52,16 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
                 if (this.random.nextInt(10000) == 0) {
                     entity.sendMessage(Whispers.getWhisperText(this.random.nextInt(4), MixinUtil.cast(this), this.getMainHandStack()), MessageType.CHAT, entity.getUuid());
                 }
+            }
+        }
+        if(getServerWorld().getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
+            ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object)this;
+            playerEntity.getAbilities().invulnerable = true;
+            playerEntity.sendAbilitiesUpdate();
+            playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
+            if(!play) {
+                getServerWorld().playSound(null, playerEntity.getBlockPos(), ModSounds.ELEVATOR_MUSIC, SoundCategory.MASTER, 0.2F, 1f);
+                play = true;
             }
         }
     }

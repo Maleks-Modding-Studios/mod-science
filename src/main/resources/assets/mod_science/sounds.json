@@ -1,0 +1,7 @@
+{
+  "elevator_music" : {
+    "sounds" : [
+      "mod_science:elevator_music"
+    ]
+  }
+}

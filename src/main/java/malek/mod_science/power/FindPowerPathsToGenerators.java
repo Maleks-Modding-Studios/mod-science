@@ -1,6 +1,7 @@
 package malek.mod_science.power;
 
 import io.netty.util.internal.ConcurrentSet;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -36,7 +37,6 @@ public class FindPowerPathsToGenerators {
                 PowerPath temp = new PowerPath(optional.get(), powerPath);
                 if (((IPowerBlock) world.getBlockState(powerPath.currentPos).getBlock()).getPowerType() == PowerBlockType.PIPE) {
                     IPowerCarrier carrier = (IPowerCarrier) world.getBlockState(powerPath.currentPos).getBlock();
-                    //System.out.println(carrier.getArcEfficiency());
                     temp.arcEfficiency.incValue(carrier.getArcEfficiency());
                     temp.timeEfficiency.incValue(carrier.getTimeEfficiency());
                     temp.lightEfficiency.incValue(carrier.getLightEfficiency());
@@ -59,10 +59,8 @@ public class FindPowerPathsToGenerators {
     }
 
     Optional<BlockPos> getIfMatches(World world, BlockPos pos) {
-        if (isValidCarrier(world, pos)) {
-            //System.out.println(world.getBlockState(pos));
+        if (isValidCarrier(world, pos))
             return Optional.of(pos);
-        }
         return Optional.empty();
     }
 
