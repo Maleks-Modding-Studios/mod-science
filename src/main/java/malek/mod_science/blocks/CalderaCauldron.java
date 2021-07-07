@@ -47,13 +47,15 @@ public class CalderaCauldron extends BlockWithEntity implements BlockEntityProvi
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
-            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
             if( player.getInventory().getMainHandStack().getItem() instanceof BucketItem) {
                 BucketItem bucket = (BucketItem) player.getInventory().getMainHandStack().getItem();
                 CalderaCauldronBlockEntity calderaCauldronBlockEntity = (CalderaCauldronBlockEntity) world.getBlockEntity(pos);
                 if(player.getInventory().getMainHandStack().getItem() == Items.BUCKET) {
-                    player.getInventory().setStack(player.getInventory().selectedSlot, new ItemStack(Items.WATER_BUCKET, 1));
+                    if(!calderaCauldronBlockEntity.fluidInv.getInvFluid(0).isEmpty()) {
+                        player.getInventory().setStack(player.getInventory().selectedSlot, new ItemStack(calderaCauldronBlockEntity.fluidInv.getInvFluid(0).fluidKey.getRawFluid().getBucketItem(), 1));
+                        calderaCauldronBlockEntity.fluidInv.extract(FluidAmount.BUCKET);
+                        calderaCauldronBlockEntity.sync();
+                    }
                 } else {
                     if(calderaCauldronBlockEntity.fluidInv.insert(
                             FluidKeys.get(

@@ -49,6 +49,7 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
 
         // rendering cutouts and transparent blocks
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOURCANE_BLOCK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CALDERA_CAULDRON, RenderLayer.getCutout());
 
         // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);

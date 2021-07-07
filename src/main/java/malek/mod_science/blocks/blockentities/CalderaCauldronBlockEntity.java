@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 
 public class CalderaCauldronBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
 
-    private static final FluidAmount CAPACITY = FluidAmount.BUCKET.mul(16);
+    public static final FluidAmount CAPACITY = FluidAmount.BUCKET.mul(1);
 
     public final SimpleFixedFluidInv fluidInv;
 
@@ -85,21 +85,16 @@ public class CalderaCauldronBlockEntity extends BlockEntity implements BlockEnti
 
     @Override
     public NbtCompound toClientTag(NbtCompound tag) {
+        super.writeNbt(tag);
         tag = super.writeNbt(tag);
         FluidVolume invFluid = fluidInv.getInvFluid(0);
-        if (!invFluid.isEmpty()) {
-            tag.put("fluid", invFluid.toTag());
-        }
-        return tag;
+        tag.put("fluid", invFluid.toTag());
+        return writeNbt(tag);
     }
 
     @Override
     public void fromClientTag(NbtCompound tag) {
-        super.readNbt(tag);
-        if (tag.contains("fluid")) {
-            FluidVolume fluid = FluidVolume.fromTag(tag.getCompound("fluid"));
-            fluidInv.setInvFluid(0, fluid, Simulation.ACTION);
-        }
+        readNbt(tag);
     }
 
     public void onPlacedBy(LivingEntity placer, ItemStack stack) {}
