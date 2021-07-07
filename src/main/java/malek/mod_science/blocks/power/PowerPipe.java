@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.system.CallbackI;
 
 
-public class PowerPipe extends Block implements IPowerBlock, IPowerCarrier {
+public abstract class PowerPipe extends Block implements IPowerBlock, IPowerCarrier {
 
     public PowerPipe(Settings settings) {
         super(settings);
@@ -37,26 +37,6 @@ public class PowerPipe extends Block implements IPowerBlock, IPowerCarrier {
         }
 
         super.onBreak(world, pos, state, player);
-    }
-
-    @Override
-    public int getFireEfficiency() {
-        return 1;
-    }
-
-    @Override
-    public int getLightEfficiency() {
-        return 1;
-    }
-
-    @Override
-    public int getArcEfficiency() {
-        return 1;
-    }
-
-    @Override
-    public int getTimeEfficiency() {
-        return 1;
     }
 
     @Override

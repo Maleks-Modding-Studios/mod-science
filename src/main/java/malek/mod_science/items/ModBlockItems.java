@@ -43,8 +43,8 @@ public class ModBlockItems {
     @RegistryEntry("receiver")
     public static final Item POWER_HOLDER = new BlockItem(ModBlocks.FIRE_POWER_HOLDER, new FabricItemSettings().group(MOD_SCIENCE));
 
-    @RegistryEntry("pipe")
-    public static final Item POWER_PIPE = new BlockItem(ModBlocks.FIRE_POWER_PIPE, new FabricItemSettings().group(MOD_SCIENCE));
+    @RegistryEntry("steam_pipe")
+    public static final Item POWER_PIPE = new BlockItem(ModBlocks.STEAM_PIPE, new FabricItemSettings().group(MOD_SCIENCE));
 
     @RegistryEntry("generator")
     public static final Item POWER_GENERATOR = new BlockItem(ModBlocks.FIRE_POWER_GENERATOR, new FabricItemSettings().group(MOD_SCIENCE));

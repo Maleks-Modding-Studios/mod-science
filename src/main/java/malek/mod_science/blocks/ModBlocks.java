@@ -3,6 +3,7 @@ package malek.mod_science.blocks;
 import malek.mod_science.blocks.power.FireGenerator;
 import malek.mod_science.blocks.power.FireReceiver;
 import malek.mod_science.blocks.power.PowerPipe;
+import malek.mod_science.blocks.power.SteamPipe;
 import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -50,8 +51,8 @@ public final class ModBlocks {
     @RegistryEntry("receiver")
     public static final Block FIRE_POWER_HOLDER = new FireReceiver(DEFAULT);
 
-    @RegistryEntry("pipe")
-    public static final Block FIRE_POWER_PIPE = new PowerPipe(DEFAULT);
+    @RegistryEntry("steam_pipe")
+    public static final Block STEAM_PIPE = new SteamPipe(DEFAULT);
 
     @RegistryEntry("generator")
     public static final Block FIRE_POWER_GENERATOR = new FireGenerator(DEFAULT);

@@ -2,12 +2,15 @@ package malek.mod_science.power;
 
 import net.minecraft.util.math.BlockPos;
 
+
 public class PowerPath {
     public BlockPos currentPos;
     public PowerEff fireEfficiency = new PowerEff();
     public PowerEff lightEfficiency = new PowerEff();
     public PowerEff arcEfficiency = new PowerEff();
     public PowerEff timeEfficiency = new PowerEff();
+    public PowerEff fluidEfficiency = new PowerEff();
+    public PowerEff sapEfficiency = new PowerEff();
     public PowerPath(BlockPos currentPos) {
         this.currentPos = currentPos;
     }

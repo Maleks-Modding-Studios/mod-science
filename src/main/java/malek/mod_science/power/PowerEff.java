@@ -1,5 +1,7 @@
 package malek.mod_science.power;
 
+import malek.mod_science.blocks.power.Efficiency;
+
 public class PowerEff {
     public int lowEff = 0;
     public int mediumEff = 0;
@@ -16,20 +18,20 @@ public class PowerEff {
     public String toString() {
         return "low:"+lowEff+", medium:"+mediumEff+", high:"+highEff;
     }
-    public void incValue(int i) {
-        switch (i) {
-            case -1 :
+    public void incValue(Efficiency efficiency) {
+        switch (efficiency) {
+            case NONE :
                 lowEff = -1;
                 mediumEff = -1;
                 highEff = -1;
                 break;
-            case 1 :
+            case LOW :
                 lowEff++;
                 break;
-            case 2:
+            case MEDIUM:
                 mediumEff++;
                 break;
-            case 3 :
+            case HIGH:
                 highEff++;
                 break;
         }

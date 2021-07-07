@@ -1,0 +1,14 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "mod_science:block/wires/steam_pipe/mid", "uvlock": true}
+    },
+    {"when" : {"north_connected": "true"}, "apply" : {"model": "mod_science:block/wires/steam_pipe/north", "uvlock":  true}},
+    {"when" : {"south_connected": "true"}, "apply" : {"model": "mod_science:block/wires/steam_pipe/south", "uvlock":  true}},
+    {"when" : {"west_connected": "true"}, "apply" : {"model": "mod_science:block/wires/steam_pipe/west", "uvlock":  true}},
+    {"when" : {"east_connected": "true"}, "apply" : {"model": "mod_science:block/wires/steam_pipe/east", "uvlock":  true}},
+    {"when" : {"up_connected": "true"}, "apply" : {"model": "mod_science:block/wires/steam_pipe/up", "uvlock":  true}},
+    {"when" : {"down_connected": "true"}, "apply" : {"model": "mod_science:block/wires/steam_pipe/down", "uvlock":  true}}
+
+  ]
+}
