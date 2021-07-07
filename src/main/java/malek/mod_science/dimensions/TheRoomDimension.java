@@ -34,13 +34,14 @@ public class TheRoomDimension {
             Registry.DIMENSION_TYPE_KEY,
             new Identifier(MOD_ID, "void_type")
     );
+    public static ServerWorld world;
     public static void init() {
-        Registry.register(Registry.CHUNK_GENERATOR, new Identifier(MOD_ID, "void"), VoidChunkGenerator.CODEC);
+        Registry.register(Registry.CHUNK_GENERATOR, new Identifier(MOD_ID, "white_void"), VoidChunkGenerator.CODEC);
         WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier(MOD_ID, "the_void"));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            ServerWorld overworld = server.getWorld(World.OVERWORLD);
-            ServerWorld world = server.getWorld(WORLD_KEY);
+           /* ServerWorld overworld = server.getWorld(World.OVERWORLD);
+            world = server.getWorld(WORLD_KEY);
             server.getWorlds().forEach( (world1) -> System.out.println(world1.getRegistryKey()));
             if (world == null) throw new AssertionError("Test world doesn't exist.");
 
@@ -58,7 +59,10 @@ public class TheRoomDimension {
 
             if (!teleported.getPos().equals(target.position)) throw new AssertionError("Target Position not reached.");
 
+            */
+
         });
+        //Registry.register(Registry.CHUNK_GENERATOR, new Identifier(MOD_ID, "white_void"), VoidChunkGenerator.CODEC);
     }
 
 

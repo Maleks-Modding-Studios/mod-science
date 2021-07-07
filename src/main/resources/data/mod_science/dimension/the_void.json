@@ -1,10 +1,9 @@
 {
   "generator": {
-    "type": "mod_science:void",
-    "custom_bool": true,
+    "type": "mod_science:white_void",
     "biome_source": {
       "type": "minecraft:fixed",
-      "biome": "minecraft:plains"
+      "biome": "mod_science:white_void"
     }
   },
   "type": "mod_science:void_type"

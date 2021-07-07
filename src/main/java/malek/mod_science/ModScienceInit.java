@@ -1,5 +1,6 @@
 package malek.mod_science;
 
+import malek.mod_science.biomes.ModBiomes;
 import malek.mod_science.biomes.VoidChunkGenerator;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.blockentities.ModBlockEntities;
@@ -12,12 +13,15 @@ import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
+import malek.mod_science.sounds.ModSounds;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
 import malek.mod_science.util.general.ModCompatibility;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
+import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
@@ -98,7 +102,8 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModFluids.init();
         ModFluidBlocks.init();
         ModBuckets.init();
-
+        ModSounds.init();
+        ModBiomes.init();
 
         //ModBiomes.init();
         //ModDimensions.init();
@@ -121,7 +126,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
 //        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) ->
 //                                                           dispatcher.register(literal("fabric_dimension_test").executes(TheRoomDimension.this::swapTargeted))
 //        );
-
+        //OverworldBiomes.addContinentalBiome(ModBiomes.PERSONAL_WHITE_VOID_KEY, OverworldClimate.COOL, 200D);
         TheRoomDimension.init();
         ModCommands.init();
 

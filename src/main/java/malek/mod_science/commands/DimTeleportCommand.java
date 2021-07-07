@@ -14,6 +14,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EulerAngle;
 import net.minecraft.util.math.Vec3d;
 
@@ -55,7 +56,8 @@ public class DimTeleportCommand {
         );
     }
     private static int teleport(Entity entity, ServerWorld dimension, Vec3d pos) {
-        entity.moveToWorld(dimension);
+        ((ServerPlayerEntity)(entity)).teleport(dimension, pos.x, pos.y, pos.z, 0f, 0f);
+        //entity.moveToWorld(dimension);
 //        if(entity instanceof PlayerEntity) {
 //            DimensionalRegistry.getRiftRegistry().setOverworldRift(entity.getUuid(), new Location((ServerWorld) entity.getEntityWorld(), entity.getBlockPos()));
 //        }
