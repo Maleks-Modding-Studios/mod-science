@@ -112,6 +112,7 @@ dependencies {
     dependencies.ext.lib("alexiil.mc.lib:libblockattributes-core:${project.lba_version}")
     dependencies.ext.lib("alexiil.mc.lib:libblockattributes-fluids:${project.lba_version}")
     dependencies.ext.lib("alexiil.mc.lib:libblockattributes-items:${project.lba_version}")
+    dependencies.ext.lib("alexiil.mc.lib:libnetworkstack-base:${project.libnetworkstack_version}")
 
     modImplementation("software.bernie.geckolib:geckolib-fabric-1.17:${project.geckolib_version}:dev")
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}")

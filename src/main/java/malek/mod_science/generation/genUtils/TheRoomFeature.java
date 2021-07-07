@@ -60,6 +60,8 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
         return (chunkPos.x == 0 && chunkPos.z == 0); //landHeight > 100;
     }
 
+
+
     /**
      * Handles calling up the structure's pieces class and height that structure will spawn at.
      */

@@ -52,6 +52,9 @@ public class ModBlockItems {
     @RegistryEntry("matter_cavitation_chamber")
     public static final Item MATTER_CAVITATION_CHAMBER = new BlockItem(ModBlocks.MATTER_CAVITATION_CHAMBER, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("caldera_cauldron")
+    public static final Item CALDERA_CAULDRON = new BlockItem(ModBlocks.CALDERA_CAULDRON, new FabricItemSettings().group(MOD_SCIENCE));
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

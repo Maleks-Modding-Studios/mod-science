@@ -2,6 +2,9 @@ package malek.mod_science.client;
 
 import malek.mod_science.ModScienceInit;
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.blocks.blockentities.CalderaCauldronBlockEntity;
+import malek.mod_science.blocks.blockentities.ModBlockEntities;
+import malek.mod_science.blocks.blockentities.blockentityrenderers.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreen;
@@ -11,12 +14,14 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluid;
@@ -49,6 +54,8 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
+
+        BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CALDERA_CAULDRON_BLOCK_ENTITY, CalderaCauldronBlockEntityRenderer::new);
     }
     public static void setupReverseFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {
         final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_still");

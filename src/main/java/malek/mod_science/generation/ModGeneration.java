@@ -5,6 +5,7 @@ import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.generation.genUtils.ModScienceScatteredOreFeature;
 import malek.mod_science.generation.genUtils.OreBlockStates;
 import malek.mod_science.generation.genUtils.SpiracleOreFeature;
+import malek.mod_science.generation.genUtils.TheRoomFeature;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Block;
@@ -35,6 +36,7 @@ public class ModGeneration {
     public static final ConfiguredFeature<?, ?> CONFIGURED_SHADOWSILK_DEEPSLATE_ORE_GEN = SHADOWSILK_ORE_GEN.configure(new OreFeatureConfig(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, OreBlockStates.SHADOWSILK_DEEPSLATE_ORE_STATE, 8, 0.5F)).triangleRange(YOffset.fixed(-64), YOffset.fixed(10)).repeat(200).spreadHorizontally();
     public static final ConfiguredFeature<?, ?> CONFIGURED_POTATO_ORE_GEN = POTATO_ORE_GEN.configure(new OreFeatureConfig(POTATO_TARGETS, ModBlocks.POTATO_ORE.getDefaultState(), 17, 0.5F)).triangleRange(YOffset.fixed(50), YOffset.fixed(256)).repeat(20).spreadHorizontally();
     public static final ConfiguredFeature<?, ?> CONFIGURED_SPIRACLE_ORE_GEN = SPIRACLE_ORE_GEN.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ModBlocks.SPIRCALE_ORE.getDefaultState(), 10, 0.1F)).triangleRange(YOffset.fixed(0), YOffset.fixed(40)).repeat(15).spreadHorizontally();
+
 
 
 

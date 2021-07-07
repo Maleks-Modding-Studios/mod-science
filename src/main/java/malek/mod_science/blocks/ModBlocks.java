@@ -56,6 +56,9 @@ public final class ModBlocks {
     @RegistryEntry("generator")
     public static final Block FIRE_POWER_GENERATOR = new FireGenerator(DEFAULT);
 
+    @RegistryEntry("caldera_cauldron")
+    public static final Block CALDERA_CAULDRON = new CalderaCauldron(DEFAULT);
+
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }
