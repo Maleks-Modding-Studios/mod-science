@@ -6,6 +6,7 @@ import malek.mod_science.blocks.blockentities.CalderaCauldronBlockEntity;
 import malek.mod_science.blocks.blockentities.ModBlockEntities;
 import malek.mod_science.blocks.blockentities.blockentityrenderers.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.fluids.ModFluids;
+import malek.mod_science.screens.ModScreensClient;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreen;
 import net.fabricmc.api.ClientModInitializer;
@@ -50,13 +51,15 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         // rendering cutouts and transparent blocks
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOURCANE_BLOCK, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CALDERA_CAULDRON, RenderLayer.getCutout());
-
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STEAM_PIPE, RenderLayer.getTranslucent());
         // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CALDERA_CAULDRON_BLOCK_ENTITY, CalderaCauldronBlockEntityRenderer::new);
+
+        ModScreensClient.init();
     }
     public static void setupReverseFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {
         final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_still");

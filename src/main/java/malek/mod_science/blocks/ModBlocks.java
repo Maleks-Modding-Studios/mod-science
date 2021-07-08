@@ -9,10 +9,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
@@ -52,13 +53,16 @@ public final class ModBlocks {
     public static final Block FIRE_POWER_HOLDER = new FireReceiver(DEFAULT);
 
     @RegistryEntry("steam_pipe")
-    public static final Block STEAM_PIPE = new SteamPipe(DEFAULT);
+    public static final Block STEAM_PIPE = new SteamPipe(FabricBlockSettings.of(Material.GLASS).nonOpaque().strength(0.1F, 0.1F));
 
     @RegistryEntry("generator")
     public static final Block FIRE_POWER_GENERATOR = new FireGenerator(DEFAULT);
 
     @RegistryEntry("caldera_cauldron")
     public static final Block CALDERA_CAULDRON = new CalderaCauldron(FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES).nonOpaque().requiresTool());
+
+    @RegistryEntry("transfusion_matrix")
+    public static final Block TRANSFUSION_MATRIX = new TransfusionMatrixBlock(DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
@@ -67,5 +71,16 @@ public final class ModBlocks {
     @Environment(EnvType.CLIENT)
     public static void initClient() {
 
+    }
+
+    class Never implements AbstractBlock.ContextPredicate {
+
+        public static boolean test2(BlockState state, BlockView blockView, BlockPos pos) {
+            return false;
+        }
+        @Override
+        public boolean test(BlockState state, BlockView world, BlockPos pos) {
+            return false;
+        }
     }
 }
