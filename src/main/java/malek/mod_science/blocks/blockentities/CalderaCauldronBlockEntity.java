@@ -43,7 +43,7 @@ public class CalderaCauldronBlockEntity extends BlockEntity implements BlockEnti
 
     private void tick(World world, BlockPos blockPos, BlockState state) {
         //System.out.println("HI");
-        System.out.println(fluidInv.getInvFluid(0).amount());
+        //System.out.println(fluidInv.getInvFluid(0).amount());
     }
 
     @Override

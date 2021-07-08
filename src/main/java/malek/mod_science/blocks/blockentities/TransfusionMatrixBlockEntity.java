@@ -4,6 +4,7 @@ import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.screens.TranfusionMatrixGuiDescription;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.LoggerInterface;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -31,8 +33,14 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
     private static final int MAX_PROGRESS = 500;
     private int currentProgress = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
     public TransfusionMatrixBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TRANSFUSION_MATRIX_BLOCK_ENTITY, pos, state);
+        this.x = this.getPos().getX();
+        this.y = this.getPos().getY();
+        this.z = this.getPos().getZ();
     }
     public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
         if(world.isClient())
@@ -43,6 +51,8 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     private void tick(World world, BlockPos blockPos, BlockState state) {
 
     }
+
+    public BlockPos positionOfFluid = null;
 
     @Override
     public Logger getLogger() {
@@ -73,22 +83,27 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {
-            if(index == 0) {
-                return MAX_PROGRESS;
+            switch (index) {
+                case 0: return getPos().getX();
+                case 1 : return getPos().getY();
+                case 2 : return getPos().getZ();
             }
-            return currentProgress;
+            return 0;
         }
 
         @Override
         public void set(int index, int value) {
-            if(index == 1) {
-                currentProgress = value;
+            switch (index) {
+                case 0: x = value; break;
+                case 1 : y = value; break;
+                case 2 : z = value; break;
             }
+
         }
 
         @Override
         public int size() {
-            return 2;
+            return 3;
         }
     };
 
@@ -112,4 +127,6 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     public boolean canExtract(int slot, ItemStack stack, Direction direction) {
         return true;
     }
+
+
 }
