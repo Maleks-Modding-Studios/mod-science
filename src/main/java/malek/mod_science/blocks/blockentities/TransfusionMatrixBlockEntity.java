@@ -1,6 +1,8 @@
 package malek.mod_science.blocks.blockentities;
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
+import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.blocks.TransfusionMatrixBlock;
 import malek.mod_science.screens.TranfusionMatrixGuiDescription;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.LoggerInterface;
@@ -31,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
-    private static final int MAX_PROGRESS = 500;
+    private static final int MAX_PROGRESS = 20;
     private int currentProgress = 0;
     int x = 0;
     int y = 0;
@@ -49,7 +51,32 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     }
 
     private void tick(World world, BlockPos blockPos, BlockState state) {
-
+            TransfusionMatrixBlock block = (TransfusionMatrixBlock) state.getBlock();
+        for (Direction direction : Direction.values()) {
+            if (world.getBlockState(getPos().offset(direction)).getBlock() == ModBlocks.CALDERA_CAULDRON) {
+                positionOfFluid = getPos().offset(direction);
+                break;
+            }
+        }
+                if(positionOfFluid != null) {
+                for(TransfusionMatrixRecipe recipe : TransfusionMatrixRecipe.RECIPES) {
+                    if(recipe.matches(new RecipeItem(getItems().get(0).getItem(), getItems().get(0).getCount()), ((CalderaCauldronBlockEntity)world.getBlockEntity(positionOfFluid)).fluidInv.getInvFluid(0))) {
+                        System.out.println("inc");
+                        currentProgress++;
+                    }
+                }
+            }
+            if(currentProgress == MAX_PROGRESS) {
+                if(positionOfFluid != null) {
+                    for(TransfusionMatrixRecipe recipe : TransfusionMatrixRecipe.RECIPES) {
+                        if(recipe.matches(new RecipeItem(getItems().get(0).getItem(), getItems().get(0).getCount()), ((CalderaCauldronBlockEntity)world.getBlockEntity(positionOfFluid)).fluidInv.getInvFluid(0))) {
+                            getItems().set(1, new ItemStack(recipe.output.item, recipe.output.amount));
+                            getItems().get(0).decrement(1);
+                            ((CalderaCauldronBlockEntity)world.getBlockEntity(positionOfFluid)).fluidInv.extract(recipe.fluidVolume.amount());
+                        }
+                    }
+                }
+            }
     }
 
     public BlockPos positionOfFluid = null;
