@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 
 import malek.mod_science.ModScience;
 import malek.mod_science.ModScienceInit;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.structure.MarginedStructureStart;
@@ -28,6 +29,7 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import org.apache.logging.log4j.Level;
+import org.lwjgl.system.CallbackI;
 
 public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
     public TheRoomFeature(Codec<DefaultFeatureConfig> codec) {
@@ -57,7 +59,15 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
 //        
 //        // Now we test to make sure our structure is not spawning on water or other fluids.
 //        // You can do height check instead too to make it spawn at high elevations.
-        return (chunkPos.x == 0 && chunkPos.z == 0); //landHeight > 100;
+//        ChunkPos target = new ChunkPos(0,0);
+//        System.out.println("attempthing to gen");
+//        System.out.println(target);
+//        return (chunkPos.equals(target)); //landHeight > 100;
+
+        System.out.println("why");
+        return true;
+
+        
     }
 
 
@@ -83,7 +93,7 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            BlockPos.Mutable blockpos = new BlockPos.Mutable(x, 0, z);
+            BlockPos.Mutable blockpos = new BlockPos.Mutable(x, 5, z);
 
             /*
              * If you are doing Nether structures, you'll probably want to spawn your structure on top of ledges.
@@ -122,7 +132,7 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
                     this.random,
                     false, // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.
                     // Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
-                    true, // Place at heightmap (top land). Set this to false for structure to be place at the passed in blockpos's Y value instead.
+                    false, // Place at heightmap (top land). Set this to false for structure to be place at the passed in blockpos's Y value instead.
                     // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
                     heightLimitView);
             // **THE FOLLOWING TWO LINES ARE OPTIONAL**
