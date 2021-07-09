@@ -45,29 +45,33 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long seed, ChunkRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, DefaultFeatureConfig featureConfig, HeightLimitView heightLimitView) {
         BlockPos centerOfChunk = new BlockPos((chunkPos.x << 4) + 7, 0, (chunkPos.z << 4) + 7);
-//
-//        // Grab height of land. Will stop at first non-air block.
-//        int landHeight = 1;
-//
-//        // Grabs column of blocks at given position. In overworld, this column will be made of stone, water, and air.
-//        // In nether, it will be netherrack, lava, and air. End will only be endstone and air. It depends on what block
-//        // the chunk generator will place for that dimension.
-//        VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
-//
-//        // Combine the column of blocks with land height and you get the top block itself which you can test.
-//        BlockState topBlock = columnOfBlocks.getState(centerOfChunk.up(landHeight));
-//        
-//        // Now we test to make sure our structure is not spawning on water or other fluids.
-//        // You can do height check instead too to make it spawn at high elevations.
-//        ChunkPos target = new ChunkPos(0,0);
-//        System.out.println("attempthing to gen");
-//        System.out.println(target);
-//        return (chunkPos.equals(target)); //landHeight > 100;
 
-        System.out.println("why");
+        // Grab height of land. Will stop at first non-air block.
+        int landHeight = 1;
+
+        // Grabs column of blocks at given position. In overworld, this column will be made of stone, water, and air.
+        // In nether, it will be netherrack, lava, and air. End will only be endstone and air. It depends on what block
+        // the chunk generator will place for that dimension.
+        VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
+
+        // Combine the column of blocks with land height and you get the top block itself which you can test.
+        BlockState topBlock = columnOfBlocks.getState(centerOfChunk.up(landHeight));
+
+        // Now we test to make sure our structure is not spawning on water or other fluids.
+        // You can do height check instead too to make it spawn at high elevations.
         return true;
+        /*
+        ChunkPos target = new ChunkPos(0,0);
+        System.out.println("attempthing to gen");
+        System.out.println(target);
+        return (chunkPos.equals(target)); //landHeight > 100;
 
-        
+         */
+
+//        System.out.println("why");
+//        return true;
+
+
     }
 
 
@@ -121,18 +125,19 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
                                                                                                       10);
 
             // All a structure has to do is call this method to turn it into a jigsaw based structure!
+
             StructurePoolBasedGenerator.method_30419(
                     dynamicRegistryManager,
                     structureSettingsAndStartPool,
                     PoolStructurePiece::new,
                     chunkGenerator,
                     structureManager,
-                    blockpos, // Position of the structure. Y value is ignored if last parameter is set to true.
+                    blockpos.add(0, 40, 0), // Position of the structure. Y value is ignored if last parameter is set to true.
                     this, // The class instance that holds the list that will be populated with the jigsaw pieces after this method.
                     this.random,
                     false, // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.
                     // Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
-                    false, // Place at heightmap (top land). Set this to false for structure to be place at the passed in blockpos's Y value instead.
+                    true, // Place at heightmap (top land). Set this to false for structure to be place at the passed in blockpos's Y value instead.
                     // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
                     heightLimitView);
             // **THE FOLLOWING TWO LINES ARE OPTIONAL**

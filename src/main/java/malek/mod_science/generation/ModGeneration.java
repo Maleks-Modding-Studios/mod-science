@@ -55,7 +55,7 @@ public class ModGeneration {
 //    }
 
     public static void init() {
-        FabricStructureBuilder.create(ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(new StructureConfig(1, 0, 399920384)).superflatFeature(THE_ROOM_FEATURE.configure(FeatureConfig.DEFAULT)).adjustsSurface().register();
+        //FabricStructureBuilder.create(ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(new StructureConfig(1, 0, 399920384)).superflatFeature(THE_ROOM_FEATURE.configure(FeatureConfig.DEFAULT)).adjustsSurface().register();
         Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "ley_knot_gen"), LEY_KNOT_GEN);
         Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "shadowsilk_ore_gen"), SHADOWSILK_ORE_GEN);
         Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "potato_ore_gen"), POTATO_ORE_GEN);
@@ -72,16 +72,22 @@ public class ModGeneration {
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, fetus.getValue(), CONFIGURED_SHADOWSILK_DEEPSLATE_ORE_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, potat.getValue(), CONFIGURED_POTATO_ORE_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, spiracle.getValue(), CONFIGURED_SPIRACLE_ORE_GEN);
-        Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE_CONFIGURED);
+       Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE_CONFIGURED);
+        RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured  = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
+                                                                                     ModScience.ModScienceId("the_room_structure"));
 
-
-        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);
+                BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);
 
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, fetus);
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, yeetus);
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, spiracle);
+        BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);
 
 //        BiomeModifications.addFeature(BiomeSelectors.includeByKey(PERSONAL_WHITE_VOID_KEY), GenerationStep.Feature.SURFACE_STRUCTURES, eeeeee);
+        setupStructures();
+    }
 
+    public static void setupStructures() {
+        FabricStructureBuilder.create(ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(10, 5, 1111111323).superflatFeature(THE_ROOM_FEATURE.configure(FeatureConfig.DEFAULT)).adjustsSurface().register();
     }
 }

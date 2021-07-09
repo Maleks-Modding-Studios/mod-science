@@ -21,6 +21,8 @@ import malek.mod_science.util.general.ModCompatibility;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
@@ -39,6 +41,7 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.GenerationStep;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -106,7 +109,6 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModSounds.init();
         ModBiomes.init();
         ModScreens.init();
-
         //ModBiomes.init();
         //ModDimensions.init();
         //TheRoomDimension.init();
