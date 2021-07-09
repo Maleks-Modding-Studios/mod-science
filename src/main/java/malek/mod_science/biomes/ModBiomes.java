@@ -1,5 +1,6 @@
 package malek.mod_science.biomes;
 
+import malek.mod_science.generation.ModGeneration;
 import net.minecraft.block.Blocks;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.util.Identifier;
@@ -10,6 +11,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
@@ -17,7 +20,11 @@ import static malek.mod_science.ModScience.MOD_ID;
 
 public final class ModBiomes {
     public static final RegistryKey<Biome> PERSONAL_WHITE_VOID_KEY;
-//    public static final RegistryKey<Biome> PUBLIC_BLACK_VOID_KEY;
+    protected static void addTheRoomStructure(GenerationSettings.Builder builder){
+        builder.structureFeature(ModGeneration.THE_ROOM_FEATURE_CONFIGURED);
+    }
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> VOID_SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), Blocks.VOID_AIR.getDefaultState()));
+                    //    public static final RegistryKey<Biome> PUBLIC_BLACK_VOID_KEY;
 //    public static final RegistryKey<Biome> DUNGEON_DANGEROUS_BLACK_VOID_KEY;
 //    public static final RegistryKey<Biome> LIMBO_KEY;
     public static final Biome PERSONAL_WHITE_VOID_BIOME;
@@ -35,6 +42,7 @@ public final class ModBiomes {
         //        BuiltinBiomesAccessor.getIdMap().put(BuiltinRegistries.BIOME.getRawId(PERSONAL_WHITE_VOID_BIOME), PERSONAL_WHITE_VOID_KEY);
         //        BuiltinBiomesAccessor.getIdMap().put(BuiltinRegistries.BIOME.getRawId(PUBLIC_BLACK_VOID_BIOME), PUBLIC_BLACK_VOID_KEY);
         //        BuiltinBiomesAccessor.getIdMap().put(BuiltinRegistries.BIOME.getRawId(DUNGEON_DANGEROUS_BLACK_VOID_BIOME), DUNGEON_DANGEROUS_BLACK_VOID_KEY);
+
     }
 
     private static BiomeEffects createEffect(boolean white) {
@@ -52,21 +60,15 @@ public final class ModBiomes {
     }
 
     static {
+        GenerationSettings.Builder VOID_GEN_SETTINGS_BUILDER = new GenerationSettings.Builder();
+        addTheRoomStructure(VOID_GEN_SETTINGS_BUILDER);
+        VOID_GEN_SETTINGS_BUILDER.surfaceBuilder(VOID_SURFACE_BUILDER);
+
         Biome.Builder voidBiomeBuilder = new Biome.Builder()
                 .category(Biome.Category.NONE)
                 .depth(0)
                 .downfall(0)
-                .generationSettings(new GenerationSettings.Builder().surfaceBuilder(
-                        SurfaceBuilder.DEFAULT.withConfig(
-                                new TernarySurfaceConfig(
-                                        Blocks.AIR.getDefaultState(),
-                                        Blocks.AIR.getDefaultState(),
-                                        Blocks.VOID_AIR.getDefaultState()
-                                )
-                        )
-                                    )
-                                                                    .build()
-                )
+                .generationSettings(VOID_GEN_SETTINGS_BUILDER.build())
                 .precipitation(Biome.Precipitation.NONE)
                 .scale(0)
                 .spawnSettings(new SpawnSettings.Builder().build())
@@ -79,7 +81,9 @@ public final class ModBiomes {
         PERSONAL_WHITE_VOID_BIOME = voidBiomeBuilder.effects(createEffect(true)).build();
 //        PUBLIC_BLACK_VOID_BIOME = voidBiomeBuilder.effects(createEffect(false)).build();
 //        DUNGEON_DANGEROUS_BLACK_VOID_BIOME = voidBiomeBuilder.effects(createEffect(false)).build();
+
         /*
+
         LIMBO_BIOME = new Biome.Builder()
                 .category(Biome.Category.NONE)
                 .depth(0.1f)
