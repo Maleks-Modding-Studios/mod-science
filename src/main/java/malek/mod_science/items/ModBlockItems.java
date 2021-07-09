@@ -55,6 +55,9 @@ public class ModBlockItems {
     @RegistryEntry("caldera_cauldron")
     public static final Item CALDERA_CAULDRON = new BlockItem(ModBlocks.CALDERA_CAULDRON, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("transfusion_matrix")
+    public static final Item TRANSFUSION_MATRIX = new BlockItem(ModBlocks.TRANSFUSION_MATRIX, new FabricItemSettings().group(MOD_SCIENCE));
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

@@ -13,6 +13,7 @@ import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
+import malek.mod_science.screens.ModScreens;
 import malek.mod_science.sounds.ModSounds;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
@@ -104,6 +105,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModBuckets.init();
         ModSounds.init();
         ModBiomes.init();
+        ModScreens.init();
 
         //ModBiomes.init();
         //ModDimensions.init();
