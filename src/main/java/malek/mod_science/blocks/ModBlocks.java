@@ -1,9 +1,6 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.power.FireGenerator;
-import malek.mod_science.blocks.power.FireReceiver;
-import malek.mod_science.blocks.power.PowerPipe;
-import malek.mod_science.blocks.power.SteamPipe;
+import malek.mod_science.blocks.power.*;
 import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -63,6 +60,39 @@ public final class ModBlocks {
 
     @RegistryEntry("transfusion_matrix")
     public static final Block TRANSFUSION_MATRIX = new TransfusionMatrixBlock(DEFAULT);
+
+    @RegistryEntry("pipe")
+    public static final Block PIPE = new PowerPipe(DEFAULT) {
+        @Override
+        public Efficiency getFireEfficiency() {
+            return Efficiency.LOW;
+        }
+
+        @Override
+        public Efficiency getLightEfficiency() {
+            return Efficiency.LOW;
+        }
+
+        @Override
+        public Efficiency getArcEfficiency() {
+            return Efficiency.LOW;
+        }
+
+        @Override
+        public Efficiency getTimeEfficiency() {
+            return Efficiency.LOW;
+        }
+
+        @Override
+        public Efficiency getFluidEfficiency() {
+            return Efficiency.LOW;
+        }
+
+        @Override
+        public Efficiency getSapEfficiency() {
+            return Efficiency.LOW;
+        }
+    };
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);

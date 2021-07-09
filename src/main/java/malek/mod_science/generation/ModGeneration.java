@@ -72,7 +72,7 @@ public class ModGeneration {
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, fetus.getValue(), CONFIGURED_SHADOWSILK_DEEPSLATE_ORE_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, potat.getValue(), CONFIGURED_POTATO_ORE_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, spiracle.getValue(), CONFIGURED_SPIRACLE_ORE_GEN);
-        Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ModScience.ModScienceId("configured_the_room_feature"), THE_ROOM_FEATURE_CONFIGURED);
+        Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE_CONFIGURED);
 
 
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);

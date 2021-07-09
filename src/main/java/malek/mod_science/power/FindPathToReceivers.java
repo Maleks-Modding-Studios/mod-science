@@ -18,6 +18,7 @@ public class FindPathToReceivers {
     int recursionDepth = 0;
 
     public static void resetNetworkSearch(World world, BlockPos pos) {
+        /*
         FindPathToReceivers findPathToReceivers = new FindPathToReceivers();
         findPathToReceivers.findTargets(world, new PowerPath(pos));
         for(PowerPath path : findPathToReceivers.paths) {
@@ -28,6 +29,7 @@ public class FindPathToReceivers {
                 ((FireReceiverBlockEntity) world.getBlockEntity(path.currentPos)).markNetworkDirty();
             }
         }
+         */
     }
 
     //looks for a path
@@ -69,7 +71,7 @@ public class FindPathToReceivers {
 
     Optional<BlockPos> getIfMatches(World world, BlockPos pos) {
         if (isValidCarrier(world, pos)) {
-            System.out.println(world.getBlockState(pos));
+            //System.out.println(world.getBlockState(pos));
             return Optional.of(pos);
         }
         return Optional.empty();
@@ -77,11 +79,11 @@ public class FindPathToReceivers {
 
     //checks if it is a valid pipe or generator, to carry the path
     private boolean isValidCarrier(World world, BlockPos pos) {
-        return (world.getBlockState(pos).isIn(ModScienceTags.PIPE) || world.getBlockState(pos).isIn(ModScienceTags.GENERATOR));
+        return (world.getBlockState(pos).isIn(ModScienceTags.PIPE) || world.getBlockState(pos).isIn(ModScienceTags.RECEIVER));
     }
 
     //cheks if it is a valid machine to connect to
     private boolean isValidEndpoint(World world, BlockPos pos) {
-        return world.getBlockState(pos).isIn(ModScienceTags.PIPE_CONNECTS_TO);
+        return world.getBlockState(pos).isIn(ModScienceTags.RECEIVER);
     }
 }
