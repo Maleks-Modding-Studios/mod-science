@@ -59,7 +59,7 @@ public final class ModBlocks {
     public static final Block CALDERA_CAULDRON = new CalderaCauldron(FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES).nonOpaque().requiresTool());
 
     @RegistryEntry("transfusion_matrix")
-    public static final Block TRANSFUSION_MATRIX = new TransfusionMatrixBlock(DEFAULT);
+    public static final Block TRANSFUSION_MATRIX = new TransfusionMatrixBlock(DEFAULT.nonOpaque());
 
     @RegistryEntry("pipe")
     public static final Block PIPE = new PowerPipe(DEFAULT) {
