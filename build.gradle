@@ -39,7 +39,8 @@ repositories {
     maven { url = 'https://ladysnake.jfrog.io/artifactory/mods' }
     maven { url = 'https://maven.shedaniel.me/' }
 	maven { url = 'https://bai.jfrog.io/artifactory/maven' }
-    maven { url = 'https://maven.terraformersmc.com/' }
+    // Changed because maven went down
+    maven { url = 'https://maven.quiltmc.org/repository/release/' }
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven {
         name = "CottonMC"

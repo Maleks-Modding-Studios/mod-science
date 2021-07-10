@@ -6,6 +6,7 @@ import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.blockentities.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
 import malek.mod_science.dimensions.TheRoomDimension;
+import malek.mod_science.effects.ModEffects;
 import malek.mod_science.entities.ModEntities;
 import malek.mod_science.fluids.ModBuckets;
 import malek.mod_science.fluids.ModFluidBlocks;
@@ -101,6 +102,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModGeneration.init();
         ModEntities.init();
         ModBlockEntities.init();
+        ModEffects.init();
 
         //ModFluids
         ModFluids.init();

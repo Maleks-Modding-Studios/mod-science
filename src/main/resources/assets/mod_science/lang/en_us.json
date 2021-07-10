@@ -9,6 +9,8 @@
   "block.mod_science.flourcane" : "Flourcane",
   "block.mod_science.potato_ore": "Potato Ore",
 
+  "effect.mod_science.slippery": "Slippery",
+
   "item.mod_science.shadowsilk_stone_ore" : "Shadowsilk Ore",
   "item.mod_science.shadowsilk_deepslate_ore" : "Deepslate Shadowsilk Ore",
   "item.mod_science.aember" : "Aember Gem",
