@@ -10,7 +10,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public abstract class Recipe {
+public abstract class TransfusionRecipe {
     Inventory inventory;
     SimpleFixedFluidInv fluidInv;
     Item item;
@@ -18,7 +18,7 @@ public abstract class Recipe {
     FluidVolume fluidVolume;
     Predicate<ItemStack> isValid;
     Consumer<ItemStack> consumer;
-    public Recipe(Inventory inventory, SimpleFixedFluidInv fluidInv, Item item, FluidVolume fluidVolume, Item output, Predicate<ItemStack> isValid, Consumer<ItemStack> consumer) {
+    public TransfusionRecipe(Inventory inventory, SimpleFixedFluidInv fluidInv, Item item, FluidVolume fluidVolume, Item output, Predicate<ItemStack> isValid, Consumer<ItemStack> consumer) {
         this.inventory = inventory;
         this.fluidInv = fluidInv;
         this.fluidVolume = fluidVolume;

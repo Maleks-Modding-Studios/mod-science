@@ -5,6 +5,7 @@ import malek.mod_science.biomes.VoidChunkGenerator;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.blockentities.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
+import malek.mod_science.custom_recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
 import malek.mod_science.entities.ModEntities;
@@ -111,28 +112,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModSounds.init();
         ModBiomes.init();
         ModScreens.init();
-        //ModBiomes.init();
-        //ModDimensions.init();
-        //TheRoomDimension.init();
-
-        for (int i1 = 0; i1 < 8; i1++) {
-            String binary = toBinary(i1, 3);
-            String[] nums = {binary};
-            char[] num = nums[0].toCharArray();
-            int x = 1 + (-2 * Integer.parseInt(String.valueOf(num[0])));
-            int y = 1 + (-2 * Integer.parseInt(String.valueOf(num[1])));
-            int z = 1 + (-2 * Integer.parseInt(String.valueOf(num[2])));
-            if(x == y && y == z) {
-                continue;
-            }
-            System.out.println("x : " +x +  " y : " + y + " z : " + z);
-        }
-
-
-//        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) ->
-//                                                           dispatcher.register(literal("fabric_dimension_test").executes(TheRoomDimension.this::swapTargeted))
-//        );
-        //OverworldBiomes.addContinentalBiome(ModBiomes.PERSONAL_WHITE_VOID_KEY, OverworldClimate.COOL, 200D);
+        ModRecipes.init();
         TheRoomDimension.init();
         ModCommands.init();
 

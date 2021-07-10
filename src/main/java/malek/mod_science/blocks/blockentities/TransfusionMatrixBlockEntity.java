@@ -7,9 +7,9 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.blocks.TransfusionMatrixBlock;
-import malek.mod_science.custom_recipes.ExtractionRecipe;
-import malek.mod_science.custom_recipes.InsertionRecipe;
-import malek.mod_science.custom_recipes.Recipe;
+import malek.mod_science.custom_recipes.TransfusionExtractionRecipe;
+import malek.mod_science.custom_recipes.TransfusionInsertionRecipe;
+import malek.mod_science.custom_recipes.TransfusionRecipe;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.item_nbt.ChargeableItem;
@@ -58,8 +58,8 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
     public static final FluidAmount CAPACITY = FluidAmount.BUCKET.mul(1);
 
-    public final Set<Recipe> INSERTION_RECIPES = new HashSet<>();
-    public final Set<Recipe> EXTRACTION_RECIPE = new HashSet<>();
+    public final Set<TransfusionRecipe> INSERTION_RECIPES = new HashSet<>();
+    public final Set<TransfusionRecipe> EXTRACTION_RECIPE = new HashSet<>();
     TranfusionMatrixMode mode = INSERT;
     public final SimpleFixedFluidInv fluidInv;
     private static final int MAX_PROGRESS = 20;
@@ -74,7 +74,7 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
         addInsertRecipe(Items.EMERALD, FluidKeys.get(ModFluids.STILL_ENDER_DEW).withAmount(FluidAmount.BUCKET), ModItems.KEYSTONE);
     }
     public void addInsertRecipe(Item item, FluidVolume fluidVolume, Item item2, Predicate<ItemStack> predicate, Consumer<ItemStack> consumer) {
-        INSERTION_RECIPES.add(new InsertionRecipe(this, fluidInv, item, fluidVolume, item2, predicate, consumer));
+        INSERTION_RECIPES.add(new TransfusionInsertionRecipe(this, fluidInv, item, fluidVolume, item2, predicate, consumer));
     }
     public void addInsertRecipe(Item item, FluidVolume fluidVolume, Item item2) {
         addInsertRecipe(item, fluidVolume, item2, (s) -> true);
@@ -93,7 +93,7 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
         addExtractRecipe(item, fluidVolumem, item2, predicate, (s) -> {});
     }
     public void addExtractRecipe(Item item, FluidVolume fluidVolume, Item item2, Predicate<ItemStack> predicate, Consumer<ItemStack> consumer) {
-        EXTRACTION_RECIPE.add(new ExtractionRecipe(this, fluidInv, item, fluidVolume, item2, predicate, consumer));
+        EXTRACTION_RECIPE.add(new TransfusionExtractionRecipe(this, fluidInv, item, fluidVolume, item2, predicate, consumer));
     }
 
 
@@ -116,13 +116,13 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
                 this.sync();
             }
             if(mode == INSERT) {
-                for(Recipe insertionRecipe : INSERTION_RECIPES) {
+                for(TransfusionRecipe insertionRecipe : INSERTION_RECIPES) {
                     if(insertionRecipe.matches()) {
                         insertionRecipe.doRecipe();
                     }
                 }
             } else {
-                for(Recipe extractionRecipe : EXTRACTION_RECIPE) {
+                for(TransfusionRecipe extractionRecipe : EXTRACTION_RECIPE) {
                     if(extractionRecipe.matches()) {
                         extractionRecipe.doRecipe();
                     }
