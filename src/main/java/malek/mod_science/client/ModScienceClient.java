@@ -5,6 +5,7 @@ import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.blockentities.CalderaCauldronBlockEntity;
 import malek.mod_science.blocks.blockentities.ModBlockEntities;
 import malek.mod_science.blocks.blockentities.blockentityrenderers.CalderaCauldronBlockEntityRenderer;
+import malek.mod_science.blocks.blockentities.blockentityrenderers.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.screens.ModScreensClient;
 import malek.mod_science.util.general.LoggerInterface;
@@ -52,12 +53,14 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOURCANE_BLOCK, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CALDERA_CAULDRON, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STEAM_PIPE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANSFUSION_MATRIX, RenderLayer.getTranslucent());
         // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CALDERA_CAULDRON_BLOCK_ENTITY, CalderaCauldronBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.TRANSFUSION_MATRIX_BLOCK_ENTITY, TranfusionMatrixBlockEntityRenderer::new);
 
         ModScreensClient.init();
     }

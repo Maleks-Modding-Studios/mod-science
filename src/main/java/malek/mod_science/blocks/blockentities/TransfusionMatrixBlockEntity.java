@@ -1,5 +1,7 @@
 package malek.mod_science.blocks.blockentities;
 
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.TransfusionMatrixBlock;
@@ -13,6 +15,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -32,13 +35,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
-public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory {
+public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory, BlockEntityClientSerializable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
     private static final int MAX_PROGRESS = 20;
     private int currentProgress = 0;
     int x = 0;
     int y = 0;
     int z = 0;
+    boolean isDirty = false;
     public TransfusionMatrixBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TRANSFUSION_MATRIX_BLOCK_ENTITY, pos, state);
         this.x = this.getPos().getX();
@@ -53,34 +57,12 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
 
     private void tick(World world, BlockPos blockPos, BlockState state) {
             TransfusionMatrixBlock block = (TransfusionMatrixBlock) state.getBlock();
-        for (Direction direction : Direction.values()) {
-            if (world.getBlockState(getPos().offset(direction)).getBlock() == ModBlocks.CALDERA_CAULDRON) {
-                positionOfFluid = getPos().offset(direction);
-                break;
-            }
-        }
-                if(positionOfFluid != null) {
-                for(TransfusionMatrixRecipe recipe : TransfusionMatrixRecipe.RECIPES) {
-                    if(recipe.matches(new RecipeItem(getItems().get(0).getItem(), getItems().get(0).getCount()), ((CalderaCauldronBlockEntity)world.getBlockEntity(positionOfFluid)).fluidInv.getInvFluid(0))) {
-                        System.out.println("inc");
-                        currentProgress++;
-                    }
-                }
-            }
-            if(currentProgress == MAX_PROGRESS) {
-                if(positionOfFluid != null) {
-                    for(TransfusionMatrixRecipe recipe : TransfusionMatrixRecipe.RECIPES) {
-                        if(recipe.matches(new RecipeItem(getItems().get(0).getItem(), getItems().get(0).getCount()), ((CalderaCauldronBlockEntity)world.getBlockEntity(positionOfFluid)).fluidInv.getInvFluid(0))) {
-                            getItems().set(1, new ItemStack(recipe.output.item, recipe.output.amount));
-                            getItems().get(0).decrement(1);
-                            ((CalderaCauldronBlockEntity)world.getBlockEntity(positionOfFluid)).fluidInv.extract(recipe.fluidVolume.amount());
-                        }
-                    }
-                }
+            if(isDirty) {
+                this.isDirty = false;
+                this.sync();
             }
     }
 
-    public BlockPos positionOfFluid = null;
 
     @Override
     public Logger getLogger() {
@@ -94,7 +76,7 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
 
     @Override
     public PropertyDelegate getPropertyDelegate() {
-        return propertyDelegate;
+        return null;
     }
 
     @Override
@@ -108,32 +90,6 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
         return new TranfusionMatrixGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
     }
 
-    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            switch (index) {
-                case 0: return getPos().getX();
-                case 1 : return getPos().getY();
-                case 2 : return getPos().getZ();
-            }
-            return 0;
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch (index) {
-                case 0: x = value; break;
-                case 1 : y = value; break;
-                case 2 : z = value; break;
-            }
-
-        }
-
-        @Override
-        public int size() {
-            return 3;
-        }
-    };
 
     @Override
     public int[] getAvailableSlots(Direction var1) {
@@ -159,6 +115,7 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     public ItemStack putItemInPlayerHand(PlayerEntity playerEntity) {
         ItemStack stack = new ItemStack(this.getItems().get(0).getItem(), this.getItems().get(0).getCount());
         this.getItems().set(0, ItemStack.EMPTY);
+        markDirty();
         return stack;
     }
 
@@ -168,7 +125,36 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
         }
         this.getItems().set(0, stack);
         playerEntity.getInventory().setStack(playerEntity.getInventory().selectedSlot, ItemStack.EMPTY);
+        markDirty();
     }
 
+    @Override
+    public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
+        Inventories.readNbt(tag, this.inventory);
+    }
+    @Override
+    public NbtCompound writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
+        tag = super.writeNbt(tag);
+        Inventories.writeNbt(tag, this.inventory);
+        return tag;
+    }
 
+    @Override
+    public void fromClientTag(NbtCompound tag) {
+        clear();
+        Inventories.readNbt(tag, this.inventory);
+    }
+
+    @Override
+    public NbtCompound toClientTag(NbtCompound tag) {
+        writeNbt(tag);
+        return tag;
+    }
+
+    @Override
+    public void markDirty() {
+        isDirty = true;
+    }
 }
