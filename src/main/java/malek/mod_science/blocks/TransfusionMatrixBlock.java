@@ -43,7 +43,13 @@ public class TransfusionMatrixBlock extends ModBlockWithEntity implements BlockE
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         // You need a Block.createScreenHandlerFactory implementation that delegates to the block entity,
         // such as the one from BlockWithEntity
-        player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+        //player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+        TransfusionMatrixBlockEntity blockEntity = (TransfusionMatrixBlockEntity) world.getBlockEntity(pos);
+        if(player.getInventory().getMainHandStack().isEmpty()) {
+            player.getInventory().setStack(player.getInventory().selectedSlot, blockEntity.putItemInPlayerHand(player));
+        } else {
+            blockEntity.takeItemFromPlayerHand(player, player.getInventory().getMainHandStack());
+        }
         return ActionResult.SUCCESS;
     }
 }

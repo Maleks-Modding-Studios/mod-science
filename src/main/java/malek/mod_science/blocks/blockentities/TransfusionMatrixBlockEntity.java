@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -153,6 +154,20 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction direction) {
         return true;
+    }
+
+    public ItemStack putItemInPlayerHand(PlayerEntity playerEntity) {
+        ItemStack stack = new ItemStack(this.getItems().get(0).getItem(), this.getItems().get(0).getCount());
+        this.getItems().set(0, ItemStack.EMPTY);
+        return stack;
+    }
+
+    public void takeItemFromPlayerHand(PlayerEntity playerEntity, ItemStack stack) {
+        if(!this.getItems().get(0).isEmpty()) {
+            return;
+        }
+        this.getItems().set(0, stack);
+        playerEntity.getInventory().setStack(playerEntity.getInventory().selectedSlot, ItemStack.EMPTY);
     }
 
 
