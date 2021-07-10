@@ -119,6 +119,9 @@ public final class ModItems {
     @RegistryEntry("sap_capsule")
     public static final Item SAP_CAPSULE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("keystone")
+    public static final Item KEYSTONE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
 
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {

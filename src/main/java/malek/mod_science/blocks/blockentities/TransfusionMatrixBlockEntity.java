@@ -10,6 +10,7 @@ import malek.mod_science.blocks.TransfusionMatrixBlock;
 import malek.mod_science.custom_recipes.ExtractionRecipe;
 import malek.mod_science.custom_recipes.InsertionRecipe;
 import malek.mod_science.custom_recipes.Recipe;
+import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.screens.TranfusionMatrixGuiDescription;
@@ -69,6 +70,8 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
         addInsertRecipe(Items.GOLD_INGOT, FluidKeys.get(Fluids.WATER).withAmount(FluidAmount.BUCKET), ModItems.AMALGAMETAL);
         addExtractRecipe(ModItems.MOLTEN_CORE, FluidKeys.get(Fluids.LAVA).withAmount(FluidAmount.BUCKET), ModItems.MOLTEN_CORE, ChargeableItem::isCharged);
         addInsertRecipe(ModItems.MOLTEN_CORE, FluidKeys.get(Fluids.LAVA).withAmount(FluidAmount.BUCKET), ModItems.MOLTEN_CORE, (s) -> !ChargeableItem.isCharged(s), (s) -> ChargeableItem.setCharged(s, true));
+        addInsertRecipe(ModItems.SINGULITE_INGOT, FluidKeys.get(Fluids.WATER).withAmount(FluidAmount.BUCKET), ModItems.AMALGAMETAL);
+        addInsertRecipe(Items.EMERALD, FluidKeys.get(ModFluids.STILL_ENDER_DEW).withAmount(FluidAmount.BUCKET), ModItems.KEYSTONE);
     }
     public void addInsertRecipe(Item item, FluidVolume fluidVolume, Item item2, Predicate<ItemStack> predicate, Consumer<ItemStack> consumer) {
         INSERTION_RECIPES.add(new InsertionRecipe(this, fluidInv, item, fluidVolume, item2, predicate, consumer));

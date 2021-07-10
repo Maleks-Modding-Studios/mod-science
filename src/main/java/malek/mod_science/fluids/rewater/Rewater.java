@@ -1,4 +1,4 @@
-package malek.mod_science.fluids.Rewater;
+package malek.mod_science.fluids.rewater;
 
 import malek.mod_science.fluids.BaseFluid;
 import malek.mod_science.fluids.ModBuckets;
@@ -11,9 +11,6 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.BlockView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
