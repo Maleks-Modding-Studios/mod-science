@@ -6,6 +6,7 @@
   "mixins": [
     "BlockMixin",
     "BucketItemMixin",
+    "ClientPlayerInteractionManagerMixin",
     "EntityMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",

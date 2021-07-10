@@ -88,6 +88,6 @@ public class ModGeneration {
     }
 
     public static void setupStructures() {
-        FabricStructureBuilder.create(ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(10, 5, 1111111323).superflatFeature(THE_ROOM_FEATURE.configure(FeatureConfig.DEFAULT)).adjustsSurface().register();
+        FabricStructureBuilder.create(ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(1, 0, 1111111323).superflatFeature(THE_ROOM_FEATURE.configure(FeatureConfig.DEFAULT)).adjustsSurface().register();
     }
 }

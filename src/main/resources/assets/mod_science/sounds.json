@@ -3,5 +3,10 @@
     "sounds" : [
       "mod_science:elevator_music"
     ]
+  },
+  "elevator_ding" : {
+    "sounds" : [
+      "mod_science:elevator_ding"
+    ]
   }
 }

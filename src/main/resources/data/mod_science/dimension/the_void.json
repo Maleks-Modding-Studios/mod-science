@@ -51,8 +51,8 @@
       "structures": {
         "structures": {
           "mod_science:the_room_structure": {
-            "spacing": 10,
-            "separation": 5,
+            "spacing": 1,
+            "separation": 0,
             "salt": 0
           }
         }

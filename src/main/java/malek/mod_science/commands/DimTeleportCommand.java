@@ -5,11 +5,16 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import malek.mod_science.ModScience;
 import malek.mod_science.ModScienceInit;
+import malek.mod_science.components.player.timeout.Timeout;
+import malek.mod_science.dimensions.TheRoomDimension;
+import malek.mod_science.generation.genUtils.TheRoomFeature;
+import malek.mod_science.util.general.MixinUtil;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -56,7 +61,12 @@ public class DimTeleportCommand {
         );
     }
     private static int teleport(Entity entity, ServerWorld dimension, Vec3d pos) {
-        ((ServerPlayerEntity)(entity)).teleport(dimension, pos.x, pos.y, pos.z, 0f, 0f);
+        if(dimension.getRegistryKey() == TheRoomDimension.WORLD_KEY) {
+            Timeout.TIMEOUT.get(MixinUtil.cast(entity)).setTimeOut(20);
+            ((ServerPlayerEntity)(entity)).teleport(dimension, -5, TheRoomFeature.theRoomCenter.getY()+2, -5, 0f, 0f);
+        } else {
+            ((ServerPlayerEntity) (entity)).teleport(dimension, pos.x, pos.y, pos.z, 0f, 0f);
+        }
         //entity.moveToWorld(dimension);
 //        if(entity instanceof PlayerEntity) {
 //            DimensionalRegistry.getRiftRegistry().setOverworldRift(entity.getUuid(), new Location((ServerWorld) entity.getEntityWorld(), entity.getBlockPos()));

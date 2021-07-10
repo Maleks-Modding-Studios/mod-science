@@ -3,6 +3,7 @@ package malek.mod_science.mixin;
 import com.mojang.authlib.GameProfile;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.components.player.madness.Whispers;
+import malek.mod_science.components.player.timeout.Timeout;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.sounds.ModSounds;
@@ -33,10 +34,16 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
+
     boolean play = false;
+    long time = System.currentTimeMillis();
+    private static int CHECK = 10;
+    int check = 0;
+    boolean playedSound = false;
+    long musicTime = System.currentTimeMillis();
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
-        if(this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)){
+        if (this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)) {
             this.setFireTicks(1);//no touchy
         }
         if (Madness.get(MixinUtil.cast(this)).isLow() && random.nextFloat() <= Madness.getConfig().lowMadness.randomSaturationGain.chance) {
@@ -54,15 +61,52 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
                 }
             }
         }
-        if(getServerWorld().getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
-            ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object)this;
+        if (getServerWorld().getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
+            ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object) this;
             playerEntity.getAbilities().invulnerable = true;
             playerEntity.sendAbilitiesUpdate();
             playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
-            if(!play) {
-                getServerWorld().playSound(null, playerEntity.getBlockPos(), ModSounds.ELEVATOR_MUSIC, SoundCategory.MASTER, 0.2F, 1f);
-                play = true;
+            check++;
+            if (check == CHECK) {
+                if (!playedSound && play) {
+                    if (Timeout.TIMEOUT.get(playerEntity).isTimeOutOver()) {
+                        getServerWorld().playSound(null, playerEntity.getBlockPos(), ModSounds.ELEVATOR_DING, SoundCategory.MASTER, 0.9F, 1f);
+                        playedSound = true;
+                    }
+                }
+                if (System.currentTimeMillis() - musicTime > 260000 || !play) {
+                    getServerWorld().playSound(null, playerEntity.getBlockPos(), ModSounds.ELEVATOR_MUSIC, SoundCategory.MASTER, 0.2F, 1f);
+                    play = true;
+                    musicTime = System.currentTimeMillis();
+                    getServerWorld().playSound(null, playerEntity.getBlockPos(), ModSounds.ELEVATOR_DING, SoundCategory.MASTER, 0.5F, 1f);
+                }
+                check = 0;
             }
         }
+    }
+
+    @Inject(method = "teleport", at = @At("HEAD"), cancellable = true)
+    public void teleportMixin(ServerWorld targetWorld, double x, double y, double z, float yaw, float pitch, CallbackInfo ci) {
+        ServerPlayerEntity player = MixinUtil.cast(this);
+        if (player.getServerWorld().getRegistryKey() == TheRoomDimension.WORLD_KEY) {
+            if (Timeout.TIMEOUT.get(player).isTimeOutOver()) {
+                time = System.currentTimeMillis();
+                Timeout.TIMEOUT.get(player).setTimeOut(0);
+                playedSound = false;
+                play = false;
+            } else {
+                ci.cancel();
+            }
+        }
+        if(targetWorld.getRegistryKey() == TheRoomDimension.WORLD_KEY) {
+            time = System.currentTimeMillis();
+            musicTime = System.currentTimeMillis();
+        }
+
+
+    }
+
+    private boolean isTimeToLetOut(ServerPlayerEntity player) {
+        return Timeout.TIMEOUT.get(player).getTimeOut() * 1000 <= System.currentTimeMillis() - time;
     }
 }
