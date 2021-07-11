@@ -1,5 +1,6 @@
 package malek.mod_science.custom_recipes.mass_hammer;
 
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
@@ -22,21 +23,25 @@ public class MassHammerRecipe implements Recipe<MassHammerInventory> {
 
     @Override
     public boolean matches(MassHammerInventory inv, World world) {
-        for(int i = 0; i < inv.size(); i++)
-        {
-            if(!ingredients.get(i).test(inv.getStack(i)))
-            {
-                return false;
-            }
+        System.out.println(inv.getStack(0));
+        System.out.println(inv.getStack(1));
+        if(ingredients.get(0).test(inv.getStack(0)) && ingredients.get(1).test(inv.getStack(1))) {
+            return true;
         }
-
-
-        return true;
+        return ingredients.get(0).test(inv.getStack(1)) && ingredients.get(1).test(inv.getStack(0));
     }
 
     @Override
     public ItemStack craft(MassHammerInventory inv) {
-
+        inv.itemEntity1.world.spawnEntity(new ItemEntity(inv.itemEntity1.world, inv.itemEntity1.getX(), inv.itemEntity1.getY(), inv.itemEntity1.getZ(), getOutput().copy()));
+        inv.itemEntity1.getStack().decrement(1);
+        inv.itemEntity2.getStack().decrement(1);
+        if(inv.itemEntity1.getStack().getCount() == 0) {
+            inv.itemEntity1.kill();
+        }
+        if(inv.itemEntity2.getStack().getCount() == 0) {
+            inv.itemEntity2.kill();
+        }
         return getOutput().copy();
     }
 
