@@ -58,6 +58,9 @@ public class ModBlockItems {
     @RegistryEntry("transfusion_matrix")
     public static final Item TRANSFUSION_MATRIX = new BlockItem(ModBlocks.TRANSFUSION_MATRIX, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("tesseract_block")
+    public static final Item TESSERACT_BLOCK = new BlockItem(ModBlocks.TESSERACT_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }
