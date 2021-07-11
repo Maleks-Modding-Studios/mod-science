@@ -1,29 +1,44 @@
-package malek.mod_science.screens;
+package malek.mod_science.screens.tesseractgui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
+import malek.mod_science.screens.ModScreens;
+import malek.mod_science.screens.TranfusionMatrixGuiDescription;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.Text;
 
-public class TranfusionMatrixGuiDescription extends SyncedGuiDescription {
-    private static final int INVENTORY_SIZE = 2;
+public class TesseractGuiDescription extends SyncedGuiDescription {
+    private static final int INVENTORY_SIZE = 17;
     BlockEntity blockEntity;
-    public TranfusionMatrixGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(ModScreens.TRANSFUSION_MATRIX_SCREEN_HANDLER, syncId, playerInventory, getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context, 3));
+    public TesseractGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ModScreens.TESSERACT_SCREEN_HANDLER, syncId, playerInventory, getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context, 3));
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
-        root.setSize(150, 150);
+        root.setSize(324, 324);
         root.setInsets(Insets.ROOT_PANEL);
 
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
+        WItemSlot itemSlot1 = WItemSlot.of(blockInventory, 2);
+        WItemSlot itemSlot2 = WItemSlot.of(blockInventory, 3);
+        WItemSlot itemSlot3 = WItemSlot.of(blockInventory, 4);
+        WItemSlot itemSlot4 = WItemSlot.of(blockInventory, 5);
+        WItemSlot itemSlot5 = WItemSlot.of(blockInventory, 6);
         WItemSlot outputSlot = WItemSlot.of(blockInventory, 1);
-        root.add(itemSlot, 4, 1);
-        root.add(outputSlot, 4, 3);
+        root.add(itemSlot, 9, 7);
+        root.add(itemSlot1, 10, 8);
+        root.add(itemSlot2, 10, 10);
+        root.add(itemSlot3, 9, 11);
+        root.add(itemSlot4, 8, 10);
+        root.add(itemSlot5, 8, 8);
+        root.add(outputSlot, 9, 9);
 
 
 

@@ -94,6 +94,10 @@ public final class ModBlocks {
         }
     };
 
+    @RegistryEntry("tesseract_block")
+    public static final Block TESSERACT_BLOCK = new TesseractBlock(DEFAULT);
+
+
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }

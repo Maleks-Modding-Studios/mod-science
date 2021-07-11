@@ -1,5 +1,6 @@
 package malek.mod_science.blocks.blockentities;
 
+import malek.mod_science.ModScience;
 import malek.mod_science.blocks.CalderaCauldron;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.power.FireReceiverBlockEntity;
@@ -19,6 +20,7 @@ public class ModBlockEntities {
     public static BlockEntityType<FireReceiverBlockEntity> FIRE_POWER_HOLDER_BLOCK_ENTITY;
     public static BlockEntityType<CalderaCauldronBlockEntity> CALDERA_CAULDRON_BLOCK_ENTITY;
     public static BlockEntityType<TransfusionMatrixBlockEntity> TRANSFUSION_MATRIX_BLOCK_ENTITY;
+    public static BlockEntityType<TesseractBlockEntity> TESSERACT_BLOCK_ENTITY;
 
     public static void init() {
         SHADOW_SILK_STONE_ORE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "shadowsilk_stone_ore_blockentity"), FabricBlockEntityTypeBuilder.create(ShadowSilkOreBlockEntity::new, ModBlocks.SHADOWSILK_STONE_ORE, ModBlocks.SHADOWSILK_DEEPSLATE_ORE).build(null));
@@ -26,5 +28,6 @@ public class ModBlockEntities {
         FIRE_POWER_HOLDER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "fire_power_holder"), FabricBlockEntityTypeBuilder.create(FireReceiverBlockEntity::new, ModBlocks.FIRE_POWER_HOLDER).build(null));
         CALDERA_CAULDRON_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "caldera_cauldron"), FabricBlockEntityTypeBuilder.create(CalderaCauldronBlockEntity::new, ModBlocks.CALDERA_CAULDRON).build(null));
         TRANSFUSION_MATRIX_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "transfusion_matrix"), FabricBlockEntityTypeBuilder.create(TransfusionMatrixBlockEntity::new, ModBlocks.TRANSFUSION_MATRIX).build(null));
+        TESSERACT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ModScience.ModScienceId("tesseract_block"), FabricBlockEntityTypeBuilder.create(TesseractBlockEntity::new, ModBlocks.TESSERACT_BLOCK).build(null));
     }
 }
