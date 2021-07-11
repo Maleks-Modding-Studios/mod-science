@@ -14,14 +14,18 @@ import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
 
 import static malek.mod_science.ModScience.MOD_ID;
+import static malek.mod_science.ModScience.ModScienceId;
+import static malek.mod_science.fluids.ModFluids.STILL_ENDER_DEW;
 import static malek.mod_science.fluids.ModFluids.STILL_REWATER;
 
 
 public class ModBuckets {
 
     public static Item REWATER_BUCKET;
+    public static Item ENDER_DEW_BUCKET;
     public static void init() {
-        REWATER_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "rewater_bucket"), new BucketItem(STILL_REWATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
+        REWATER_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "rewater_bucket"), new BucketItem(STILL_REWATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
+        ENDER_DEW_BUCKET = Registry.register(Registry.ITEM, ModScienceId("ender_dew_bucket"), new BucketItem(STILL_ENDER_DEW, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
     }
 
 }

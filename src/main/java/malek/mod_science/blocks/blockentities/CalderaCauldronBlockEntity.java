@@ -64,14 +64,6 @@ public class CalderaCauldronBlockEntity extends BlockEntity implements BlockEnti
             fluidInv.setInvFluid(0, fluid, Simulation.ACTION);
         }
     }
-    @Nonnull
-    public <T> T getNeighbourAttribute(CombinableAttribute<T> attr, Direction dir) {
-        return attr.get(getWorld(), getPos().offset(dir), SearchOptions.inDirection(dir));
-    }
-
-    public DefaultedList<ItemStack> removeItemsForDrop() {
-        return DefaultedList.of();
-    }
 
     protected void sendPacket(ServerWorld w, NbtCompound tag) {
         tag.putString("id", BlockEntityType.getId(getType()).toString());

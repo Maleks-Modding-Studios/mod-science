@@ -3,10 +3,14 @@ package malek.mod_science.blocks.power;
 import malek.mod_science.power.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +31,11 @@ public abstract class PowerPipe extends Block implements IPowerBlock, IPowerCarr
         if(!world.isClient()) {
             FindPathToReceivers.resetNetworkSearch(world, pos);
         }
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.cuboid(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
     }
 
 

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values" : [
-    "mod_science:generator"
+    "mod_science:generator",
+    "mod_science:receiver"
   ]
 }

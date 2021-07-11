@@ -66,6 +66,5 @@ public class NormalSap implements NormalSapInterface, EntityComponentInitializer
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(NORMAL_SAP, player -> new NormalSap(), RespawnCopyStrategy.ALWAYS_COPY);
-
     }
 }

@@ -41,51 +41,56 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
         return TheRoomFeature.Start::new;
     }
 
-
+    private boolean generatedOnce = false;
+    ChunkPos target = new ChunkPos(0,0);
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long seed, ChunkRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, DefaultFeatureConfig featureConfig, HeightLimitView heightLimitView) {
-        BlockPos centerOfChunk = new BlockPos((chunkPos.x << 4) + 7, 0, (chunkPos.z << 4) + 7);
-//
-//        // Grab height of land. Will stop at first non-air block.
-//        int landHeight = 1;
-//
-//        // Grabs column of blocks at given position. In overworld, this column will be made of stone, water, and air.
-//        // In nether, it will be netherrack, lava, and air. End will only be endstone and air. It depends on what block
-//        // the chunk generator will place for that dimension.
-//        VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
-//
-//        // Combine the column of blocks with land height and you get the top block itself which you can test.
-//        BlockState topBlock = columnOfBlocks.getState(centerOfChunk.up(landHeight));
-//        
-//        // Now we test to make sure our structure is not spawning on water or other fluids.
-//        // You can do height check instead too to make it spawn at high elevations.
-//        ChunkPos target = new ChunkPos(0,0);
-//        System.out.println("attempthing to gen");
-//        System.out.println(target);
-//        return (chunkPos.equals(target)); //landHeight > 100;
+        BlockPos centerOfChunk = new BlockPos((chunkPos.x << 4), 0, (chunkPos.z << 4));
 
-        System.out.println("why");
-        return true;
+        // Grab height of land. Will stop at first non-air block.
+        int landHeight = 1;
 
-        
+        // Grabs column of blocks at given position. In overworld, this column will be made of stone, water, and air.
+        // In nether, it will be netherrack, lava, and air. End will only be endstone and air. It depends on what block
+        // the chunk generator will place for that dimension.
+        VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
+
+        // Combine the column of blocks with land height and you get the top block itself which you can test.
+        BlockState topBlock = columnOfBlocks.getState(centerOfChunk.up(landHeight));
+
+        // Now we test to make sure our structure is not spawning on water or other fluids.
+        // You can do height check instead too to make it spawn at high elevations.
+//        if(!generatedOnce) {
+//            generatedOnce = true;
+//            return true;
+//        }
+//        return true;
+        return (chunkPos.equals(target)); //landHeight > 100;
+
+
+
+//        System.out.println("why");
+//        return true;
+
+
     }
 
 
-
+    public static BlockPos theRoomCenter = new BlockPos(0, 2, 0);
     /**
      * Handles calling up the structure's pieces class and height that structure will spawn at.
      */
     public static class Start extends MarginedStructureStart<DefaultFeatureConfig> {
         public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos chunkPos, int referenceIn, long seedIn) {
-            super(structureIn, chunkPos, referenceIn, seedIn);
+            super(structureIn, chunkPos, referenceIn, 0);
         }
 
         @Override
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, DefaultFeatureConfig defaultFeatureConfig, HeightLimitView heightLimitView) {
 
             // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
-            int x = (chunkPos.x << 4) + 7;
-            int z = (chunkPos.z << 4) + 7;
+            int x = (chunkPos.x);
+            int z = (chunkPos.z);
 
             /*
              * We pass this into method_30419 to tell it where to generate the structure.
@@ -93,8 +98,8 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            BlockPos.Mutable blockpos = new BlockPos.Mutable(x, 5, z);
-
+            BlockPos.Mutable blockpos = new BlockPos.Mutable(0, 0, 0);
+            theRoomCenter = blockpos.mutableCopy().toImmutable().add(5, 0, 5);
             /*
              * If you are doing Nether structures, you'll probably want to spawn your structure on top of ledges.
              * Best way to do that is to use getColumnSample to grab a column of blocks at the structure's x/z position.
@@ -121,13 +126,14 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
                                                                                                       10);
 
             // All a structure has to do is call this method to turn it into a jigsaw based structure!
+
             StructurePoolBasedGenerator.method_30419(
                     dynamicRegistryManager,
                     structureSettingsAndStartPool,
                     PoolStructurePiece::new,
                     chunkGenerator,
                     structureManager,
-                    blockpos, // Position of the structure. Y value is ignored if last parameter is set to true.
+                    blockpos.add(0, 1, 0), // Position of the structure. Y value is ignored if last parameter is set to true.
                     this, // The class instance that holds the list that will be populated with the jigsaw pieces after this method.
                     this.random,
                     false, // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.

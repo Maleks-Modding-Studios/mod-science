@@ -13,6 +13,7 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.chunk.FlatChunkGenerator;
 
 import static malek.mod_science.ModScience.MOD_ID;
 import static net.minecraft.entity.EntityType.COW;
@@ -36,7 +37,7 @@ public class TheRoomDimension {
     );
     public static ServerWorld world;
     public static void init() {
-        Registry.register(Registry.CHUNK_GENERATOR, new Identifier(MOD_ID, "white_void"), VoidChunkGenerator.CODEC);
+        //Registry.register(Registry.CHUNK_GENERATOR, new Identifier(MOD_ID, "white_void"), FlatChunkGenerator.CODEC);
         WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier(MOD_ID, "the_void"));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {

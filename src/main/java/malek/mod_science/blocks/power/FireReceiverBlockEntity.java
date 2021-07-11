@@ -31,7 +31,10 @@ public class FireReceiverBlockEntity extends BlockEntity implements IPowerReceiv
     }
     public void findPaths() {
         findPowerPathsToGenerators = new FindPowerPathsToGenerators();
+        long start = System.currentTimeMillis();
         findPowerPathsToGenerators.findTargets(world, new PowerPath(this.getPos()));
+        long time = System.currentTimeMillis()-start;
+        System.out.println(time);
         for(PowerPath f : findPowerPathsToGenerators.paths) {
             System.out.println(f.toString());
         }

@@ -1,6 +1,7 @@
 {
   "replace" : false,
   "values" : [
-    "mod_science:pipe"
+    "mod_science:pipe",
+    "mod_science:steam_pipe"
   ]
 }

@@ -53,24 +53,26 @@ public class VoidChunkGenerator extends ChunkGenerator {
 
     @Override
     public void buildSurface(ChunkRegion region, Chunk chunk) {
-        if(chunk.getPos().z == chunk.getPos().x && chunk.getPos().z == 0) {
-            for(int x = 0; x < 32; x++) {
-                for(int z = 0; z < 32; z++) {
-                    chunk.setBlockState(new BlockPos(x-16, 1, z-16), Blocks.QUARTZ_BLOCK.getDefaultState(), false);
-                }
-            }
-            chunk.setBlockState(new BlockPos(4, 1, 4), Blocks.WARPED_DOOR.getDefaultState(), false);
-            System.out.println(chunk.getPos());
-        }
+
+//        if(chunk.getPos().z == chunk.getPos().x && chunk.getPos().z == 0) {
+//            for(int x = 0; x < 32; x++) {
+//                for(int z = 0; z < 32; z++) {
+//                    chunk.setBlockState(new BlockPos(x-16, 1, z-16), Blocks.QUARTZ_BLOCK.getDefaultState(), false);
+//                }
+//            }
+//            chunk.setBlockState(new BlockPos(4, 1, 4), Blocks.WARPED_DOOR.getDefaultState(), false);
+//            System.out.println(chunk.getPos());
+//        }
     }
 
     @Override
     public void setStructureStarts(DynamicRegistryManager dynamicRegistryManager, StructureAccessor structureAccessor, Chunk chunk, StructureManager structureManager, long worldSeed) {
-
+        super.setStructureStarts(dynamicRegistryManager,structureAccessor, chunk, structureManager, worldSeed);
     }
 
     @Override
     public void addStructureReferences(StructureWorldAccess structureWorldAccess, StructureAccessor accessor, Chunk chunk) {
+        super.addStructureReferences(structureWorldAccess, accessor, chunk);
     }
 
     @Override

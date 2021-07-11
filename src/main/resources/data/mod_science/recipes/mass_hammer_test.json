@@ -1,0 +1,8 @@
+{
+  "type": "mod_science:mass_hammer_recipe",
+  "ingredients" : [
+    {"item" :  "minecraft:iron_ingot"}, {"item" : "minecraft:gold_ingot"}
+  ],
+  "outputItem" : "minecraft:diamond",
+  "outputAmount" : "4"
+}
