@@ -1,11 +1,10 @@
 package malek.mod_science;
 
 import malek.mod_science.biomes.ModBiomes;
-import malek.mod_science.biomes.VoidChunkGenerator;
 import malek.mod_science.blocks.ModBlocks;
-import malek.mod_science.blocks.blockentities.ModBlockEntities;
+import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
-import malek.mod_science.custom_recipes.ModRecipes;
+import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
 import malek.mod_science.entities.ModEntities;
@@ -24,27 +23,10 @@ import malek.mod_science.util.general.ModCompatibility;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
-import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.fabricmc.fabric.api.tag.FabricTag;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.Entity;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.TeleportTarget;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionOptions;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.gen.GenerationStep;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,10 +37,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static malek.mod_science.ModScience.MOD_ID;
-import static malek.mod_science.blocks.blockentities.ModBlockEntities.MATTER_CHAMBER;
-import static malek.mod_science.dimensions.TheRoomDimension.WORLD_KEY;
-import static malek.mod_science.util.general.WorldUtil.toBinary;
-import static net.minecraft.entity.EntityType.COW;
+import static malek.mod_science.blocks.ModBlockEntities.MATTER_CHAMBER;
 
 public class ModScienceInit implements ModInitializer, LoggerInterface {
     //Config Stuff

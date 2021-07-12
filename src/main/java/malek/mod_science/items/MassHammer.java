@@ -1,26 +1,22 @@
 package malek.mod_science.items;
 
-import malek.mod_science.custom_recipes.mass_hammer.MassHammerInventory;
-import malek.mod_science.custom_recipes.mass_hammer.MassHammerRecipe;
-import malek.mod_science.custom_recipes.mass_hammer.MassHammerType;
+import malek.mod_science.recipes.mass_hammer.MassHammerInventory;
+import malek.mod_science.recipes.mass_hammer.MassHammerRecipe;
+import malek.mod_science.recipes.mass_hammer.MassHammerType;
 import malek.mod_science.items.item_nbt.ChargeableItem;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.TypeFilter;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MassHammer extends Item {
     public MassHammer(Settings settings) {

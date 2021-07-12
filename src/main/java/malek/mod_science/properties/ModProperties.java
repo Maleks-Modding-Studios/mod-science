@@ -1,9 +1,8 @@
 package malek.mod_science.properties;
 
-import malek.mod_science.blocks.power.Side;
+import malek.mod_science.power.Side;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.Direction;
 
 import java.util.Collections;

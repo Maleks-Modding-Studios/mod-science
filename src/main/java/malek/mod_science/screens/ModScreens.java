@@ -1,8 +1,8 @@
 package malek.mod_science.screens;
 
 import malek.mod_science.ModScience;
-import malek.mod_science.blocks.ModBlocks;
-import malek.mod_science.screens.tesseractgui.TesseractGuiDescription;
+import malek.mod_science.blocks.Tesseract.tesseractgui.TesseractGuiDescription;
+import malek.mod_science.blocks.TransfusionMatrix.gui.TranfusionMatrixGuiDescription;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;

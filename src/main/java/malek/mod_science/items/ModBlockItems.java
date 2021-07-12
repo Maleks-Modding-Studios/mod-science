@@ -61,6 +61,9 @@ public class ModBlockItems {
     @RegistryEntry("tesseract_block")
     public static final Item TESSERACT_BLOCK = new BlockItem(ModBlocks.TESSERACT_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("mad")
+    public static final Item MAD = new BlockItem(ModBlocks.MAD, new FabricItemSettings().group(MOD_SCIENCE));
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

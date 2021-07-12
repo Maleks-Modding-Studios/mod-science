@@ -1,12 +1,8 @@
 package malek.mod_science.power;
 
 import io.netty.util.internal.ConcurrentSet;
-import malek.mod_science.ModScience;
-import malek.mod_science.blocks.ModBlocks;
-import malek.mod_science.blocks.power.Side;
 import malek.mod_science.properties.ModProperties;
 import malek.mod_science.tags.ModScienceTags;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;

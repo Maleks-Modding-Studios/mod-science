@@ -1,8 +1,6 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.blockentities.MatterCavitationChamberBlockEntity;
-import malek.mod_science.blocks.blockentities.ShadowSilkOreBlockEntity;
-import net.minecraft.block.Block;
+import malek.mod_science.blocks.MatterCavitationChamber.MatterCavitationChamberBlockEntity;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;

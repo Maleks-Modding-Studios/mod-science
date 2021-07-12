@@ -1,6 +1,11 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.power.*;
+import malek.mod_science.blocks.CalderaCauldron.*;
+import malek.mod_science.blocks.MAD.MADBlock;
+import malek.mod_science.blocks.ShadowSilkOre.ShadowSilkOre;
+import malek.mod_science.blocks.Tesseract.TesseractBlock;
+import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
+import malek.mod_science.power.*;
 import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -61,38 +66,8 @@ public final class ModBlocks {
     @RegistryEntry("transfusion_matrix")
     public static final Block TRANSFUSION_MATRIX = new TransfusionMatrixBlock(DEFAULT.nonOpaque());
 
-    @RegistryEntry("pipe")
-    public static final Block PIPE = new PowerPipe(DEFAULT) {
-        @Override
-        public Efficiency getFireEfficiency() {
-            return Efficiency.LOW;
-        }
-
-        @Override
-        public Efficiency getLightEfficiency() {
-            return Efficiency.LOW;
-        }
-
-        @Override
-        public Efficiency getArcEfficiency() {
-            return Efficiency.LOW;
-        }
-
-        @Override
-        public Efficiency getTimeEfficiency() {
-            return Efficiency.LOW;
-        }
-
-        @Override
-        public Efficiency getFluidEfficiency() {
-            return Efficiency.LOW;
-        }
-
-        @Override
-        public Efficiency getSapEfficiency() {
-            return Efficiency.LOW;
-        }
-    };
+    @RegistryEntry("mad")
+    public static final Block MAD = new MADBlock(DEFAULT);
 
     @RegistryEntry("tesseract_block")
     public static final Block TESSERACT_BLOCK = new TesseractBlock(DEFAULT);

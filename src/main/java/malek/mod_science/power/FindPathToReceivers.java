@@ -1,8 +1,6 @@
 package malek.mod_science.power;
 
 import io.netty.util.internal.ConcurrentSet;
-import malek.mod_science.blocks.power.FireReceiverBlockEntity;
-import malek.mod_science.blocks.power.Side;
 import malek.mod_science.properties.ModProperties;
 import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.util.math.BlockPos;

@@ -1,9 +1,5 @@
 package malek.mod_science.power;
 
-import malek.mod_science.blocks.power.Efficiency;
-
-import static malek.mod_science.blocks.power.Efficiency.NONE;
-
 public class PowerEff {
     public int lowEff = 0;
     public int mediumEff = 0;
