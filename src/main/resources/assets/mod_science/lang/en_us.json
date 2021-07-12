@@ -8,6 +8,10 @@
   "block.mod_science.shadowsilk_deepslate_ore" : "Deepslate Shadowsilk Ore",
   "block.mod_science.flourcane" : "Flourcane",
   "block.mod_science.potato_ore": "Potato Ore",
+  "block.mod_science.tesseract_block": "Tesseract",
+  "block.mod_science.transfusion_matrix": "Transfusion Matrix",
+  "block.mod_science.caldera_cauldron": "Caldera Cauldron",
+  "block.mod_science.steam_pipe": "Steam Pipe",
 
   "effect.mod_science.slippery": "Slippery",
 
@@ -18,5 +22,21 @@
   "item.mod_science.golden_aember" : "Golden Aember Gem",
   "item.mod_science.white_aember" : "White Aember Gem",
   "item.mod_science.jet_black_aember" : "Jet Aember Gem",
-  "item.mod_science.flourcane_item" : "Flourcane Seeds"
+  "item.mod_science.flourcane_item" : "Flourcane Seeds",
+  "item.mod_science.void_dust" : "Void Dust",
+  "item.mod_science.molten_core" : "Molten Core",
+  "item.mod_science.amalgametal" : "Amalgametal",
+  "item.mod_science.darkwyn_ingot" : "Darkwyn Ingot",
+  "item.mod_science.ender_star" : "Ender Star",
+  "item.mod_science.rewater_bucket" : "Rewater Bucket",
+  "item.mod_science.sap_capsule" : "Sap Capsule",
+  "item.mod_science.calamity_star" : "Calamity Star",
+  "item.mod_science.void_star" : "Void Star",
+  "item.mod_science.heart_star" : "Heart Star",
+  "item.mod_science.thermophilic_power_orb" : "Thermophilic Power Orb",
+  "item.mod_science.leyden_jar" : "Leyden Jar",
+  "item.mod_science.singulite_ingot" : "Singulite Ingot",
+  "item.mod_science.golem_repair_kit" : "Golem Repair Kit",
+  "item.mod_science.ethaerial_ingot" : "Ethaerial Ingot",
+  "item.mod_science.ethaerium_rod" : "Ethaerium Rod"
 }
