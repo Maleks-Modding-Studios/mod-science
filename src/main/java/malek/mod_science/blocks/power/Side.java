@@ -10,4 +10,11 @@ public enum Side implements StringIdentifiable {
     public String asString() {
         return this==OUT ? "out" : "in";
     }
+
+    public static Side negate(Side side) {
+        return switch (side) {
+            case OUT -> IN;
+            case IN -> OUT;
+        };
+    }
 }

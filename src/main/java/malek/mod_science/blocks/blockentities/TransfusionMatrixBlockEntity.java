@@ -1,6 +1,8 @@
 package malek.mod_science.blocks.blockentities;
 
 import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FixedFluidInv;
+import alexiil.mc.lib.attributes.fluid.FluidVolumeUtil;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
 import alexiil.mc.lib.attributes.fluid.impl.SimpleFixedFluidInv;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
@@ -13,6 +15,8 @@ import malek.mod_science.custom_recipes.TransfusionRecipe;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.item_nbt.ChargeableItem;
+import malek.mod_science.power.*;
+import malek.mod_science.properties.ModProperties;
 import malek.mod_science.screens.TranfusionMatrixGuiDescription;
 import malek.mod_science.util.TranfusionMatrixMode;
 import malek.mod_science.util.general.ImplementedInventory;
@@ -51,16 +55,19 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static malek.mod_science.blocks.power.Side.IN;
 import static malek.mod_science.util.TranfusionMatrixMode.EXTRACT;
 import static malek.mod_science.util.TranfusionMatrixMode.INSERT;
 
-public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory, BlockEntityClientSerializable {
+public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory, BlockEntityClientSerializable, FluidInvGetter, IPowerBlock, IPowerReceiver, IIPowerGenerator {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
     public static final FluidAmount CAPACITY = FluidAmount.BUCKET.mul(1);
 
+    FindPowerPathsToGenerators findPowerPathsToGenerators;
+
     public final Set<TransfusionRecipe> INSERTION_RECIPES = new HashSet<>();
     public final Set<TransfusionRecipe> EXTRACTION_RECIPE = new HashSet<>();
-    TranfusionMatrixMode mode = INSERT;
+    public TranfusionMatrixMode mode = INSERT;
     public final SimpleFixedFluidInv fluidInv;
     private static final int MAX_PROGRESS = 20;
     boolean isDirty = false;
@@ -128,6 +135,48 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
                     }
                 }
             }
+        if(findPowerPathsToGenerators == null || networkDirty) {
+            findPaths();
+            networkDirty = false;
+        }
+        if(wantsPower()) {
+            if (findPowerPathsToGenerators != null) {
+                for (PowerPath path : findPowerPathsToGenerators.paths) {
+                    if(path.fluidEfficiency.canCarry()) {
+                        if(world.getBlockEntity(path.currentPos) instanceof FluidInvGetter fluidBlockEntity) {
+                            for(int i = 0; i < fluidBlockEntity.getFluidInv().getTankCount(); i++) {
+                                //System.out.println("looking for fluid tank that i can fill from");
+//                                if(!fluidBlockEntity.getFluidInv().getExtractable().couldExtractAnything()) {
+//                                    //System.out.println("cant extract anything");
+//                                    continue;
+//                                }
+//                                //System.out.println(world.getBlockState(pos));
+//                                if(!fluidInv.getInvFluid(0).isEmpty()) {
+//                                    FluidVolume amount = fluidBlockEntity.getFluidInv().getExtractable().extract(fluidInv.getInvFluid(0).getFluidKey().exactFilter, FluidAmount.of(1, 20));
+//                                    fluidInv.attemptInsertion(amount, Simulation.ACTION);
+//                                    fluidBlockEntity.markDirty();
+//                                    markDirty();
+//                                    fluidBlockEntity.markDirty();
+//                                    //System.out.println("transfering fluid : " +amount);
+//                                } else
+//                                {
+//                                    FluidVolume amount = fluidBlockEntity.getFluidInv().getExtractable().extract(FluidAmount.of(1, 20));
+//                                    fluidInv.attemptInsertion(amount, Simulation.ACTION);
+//                                    markDirty();
+//                                    fluidBlockEntity.markDirty();
+//                                    //System.out.println("transfering fluid : " +amount);
+//                                }
+                                FluidVolume movedCopy = FluidVolumeUtil.move(fluidBlockEntity.getFluidInv().getExtractable(), fluidInv, FluidAmount.of(1, 20));
+                                if(!movedCopy.isEmpty()) {
+                                    fluidBlockEntity.markDirty();
+                                    markDirty();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
@@ -243,5 +292,92 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     @Override
     public void markDirty() {
         isDirty = true;
+    }
+
+    @Override
+    public FixedFluidInv getFluidInv() {
+        return fluidInv;
+    }
+
+    @Override
+    public Set<PowerPath> getPowerPaths() {
+        return findPowerPathsToGenerators.paths;
+    }
+
+    @Override
+    public double getFirePowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxFirePowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getArcPowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxArcPowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getLightPowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxLightPowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getTimePowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public double getMaxTimePowerLevel() {
+        return 0;
+    }
+
+    @Override
+    public PowerBlockType getPowerType() {
+        return PowerBlockType.DUAL;
+    }
+    boolean networkDirty = false;
+    @Override
+    public void markNetworkDirty() {
+        networkDirty = true;
+    }
+
+    @Override
+    public boolean isNetworkDirty() {
+        return networkDirty;
+    }
+
+    @Override
+    public void findPaths() {
+        findPowerPathsToGenerators = new FindPowerPathsToGenerators();
+        long start = System.currentTimeMillis();
+        for(Direction direction : Direction.values()) {
+            BlockPos offsetPos = pos.offset(direction);
+            if(world.getBlockState(pos).get(ModProperties.getSideFromDirection(direction)).equals(IN)) {
+                findPowerPathsToGenerators.findTargets(world, new PowerPath(offsetPos));
+            }
+        }
+        long time = System.currentTimeMillis()-start;
+        System.out.println(time);
+        for(PowerPath f : findPowerPathsToGenerators.paths) {
+            System.out.println(f.toString());
+        }
+    }
+
+    @Override
+    public boolean wantsPower() {
+        return !fluidInv.getInvFluid(0).amount().isGreaterThanOrEqual(CAPACITY);
     }
 }

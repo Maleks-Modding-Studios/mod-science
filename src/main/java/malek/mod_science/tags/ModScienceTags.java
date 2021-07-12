@@ -1,11 +1,13 @@
 package malek.mod_science.tags;
 
 import malek.mod_science.ModScience;
+import malek.mod_science.util.general.PlayerUtil;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.lwjgl.system.CallbackI;
 
 public class ModScienceTags {
@@ -17,4 +19,6 @@ public class ModScienceTags {
     public static final Tag<Block> PIPE = TagRegistry.block(ModScience.ModScienceId("mod_science_valid_pipe"));//yes I did it
 
 
+    public static void init() {
+    }
 }

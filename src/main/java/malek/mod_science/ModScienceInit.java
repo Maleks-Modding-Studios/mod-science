@@ -17,6 +17,7 @@ import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.screens.ModScreens;
 import malek.mod_science.sounds.ModSounds;
+import malek.mod_science.tags.ModScienceTags;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
 import malek.mod_science.util.general.ModCompatibility;
@@ -115,6 +116,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModRecipes.init();
         TheRoomDimension.init();
         ModCommands.init();
+        ModScienceTags.init();
 
     }
 

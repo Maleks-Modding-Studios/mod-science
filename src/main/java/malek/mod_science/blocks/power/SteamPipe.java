@@ -1,17 +1,24 @@
 package malek.mod_science.blocks.power;
 
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.power.FindPathToReceivers;
 import malek.mod_science.power.IPower;
 import malek.mod_science.power.IPowerBlock;
 import malek.mod_science.properties.ModProperties;
+import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 
 import static malek.mod_science.blocks.power.Efficiency.*;
 import static malek.mod_science.blocks.power.Efficiency.MEDIUM;
@@ -96,14 +103,30 @@ public class SteamPipe extends PowerPipe{
         }
         world.setBlockState(pos, returnState, 3);
     }
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        if(!world.isClient()) {
+            FindPathToReceivers.resetNetworkSearch(world, pos);
+        }
+    }
 
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if(!world.isClient()) {
+            FindPathToReceivers.resetNetworkSearch(world, pos);
+        }
+
+        super.onBreak(world, pos, state, player);
+    }
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getStateFromWorld(ctx.getWorld(), ctx.getBlockPos());
     }
 
     public static boolean canConnect(Block block) {
-        return block instanceof IPowerBlock;
+        return (ModScienceTags.PIPE_CONNECTS_TO.contains(block));
     }
 
     @Override

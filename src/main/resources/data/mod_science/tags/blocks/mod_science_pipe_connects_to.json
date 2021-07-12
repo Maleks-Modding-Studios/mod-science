@@ -2,6 +2,9 @@
   "replace": false,
   "values" : [
     "mod_science:generator",
-    "mod_science:receiver"
+    "mod_science:receiver",
+    "mod_science:caldera_cauldron",
+    "mod_science:transfusion_matrix",
+    "mod_science:steam_pipe"
   ]
 }

@@ -28,16 +28,25 @@ public class FireReceiverBlockEntity extends BlockEntity implements IPowerReceiv
             findPaths();
             isNetworkDirty = false;
         }
+        if(findPowerPathsToGenerators != null) {
+
+        }
     }
+    @Override
     public void findPaths() {
         findPowerPathsToGenerators = new FindPowerPathsToGenerators();
         long start = System.currentTimeMillis();
-        findPowerPathsToGenerators.findTargets(world, new PowerPath(this.getPos()));
+        findPowerPathsToGenerators.findTargets(world, new PowerPath(pos));
         long time = System.currentTimeMillis()-start;
         System.out.println(time);
         for(PowerPath f : findPowerPathsToGenerators.paths) {
             System.out.println(f.toString());
         }
+    }
+
+    @Override
+    public boolean wantsPower() {
+        return false;
     }
 
     @Override

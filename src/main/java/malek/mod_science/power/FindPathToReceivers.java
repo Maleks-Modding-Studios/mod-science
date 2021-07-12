@@ -2,8 +2,11 @@ package malek.mod_science.power;
 
 import io.netty.util.internal.ConcurrentSet;
 import malek.mod_science.blocks.power.FireReceiverBlockEntity;
+import malek.mod_science.blocks.power.Side;
+import malek.mod_science.properties.ModProperties;
 import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,29 +21,20 @@ public class FindPathToReceivers {
     int recursionDepth = 0;
 
     public static void resetNetworkSearch(World world, BlockPos pos) {
-        /*
         FindPathToReceivers findPathToReceivers = new FindPathToReceivers();
         findPathToReceivers.findTargets(world, new PowerPath(pos));
         for(PowerPath path : findPathToReceivers.paths) {
-            if(world.getBlockEntity(path.currentPos) == null) {
+            if (world.getBlockEntity(path.currentPos) == null) {
                 LogManager.getLogger().log(Level.ERROR, "Trying to find path to receiver for power there was a non block entity marked as a reciver block entity");
-            }
-            else {
-                ((FireReceiverBlockEntity) world.getBlockEntity(path.currentPos)).markNetworkDirty();
+            } else {
+                ((IPowerReceiver) world.getBlockEntity(path.currentPos)).markNetworkDirty();
             }
         }
-         */
     }
 
     //looks for a path
     protected void lookForPath(World world, PowerPath powerPath) {
-        if (isValidEndpoint(world, powerPath.currentPos)) {
-            System.out.println(world.getBlockState(powerPath.currentPos));
-            System.out.println(powerPath.currentPos);
-            paths.add(powerPath);
-        } else {
-            findTargets(world, powerPath);
-        }
+
     }
 
     public void findTargets(World world, PowerPath powerPath) {
@@ -53,7 +47,14 @@ public class FindPathToReceivers {
                 if (recursionDepth > MAX_RECURSION_DEPTH) {
                     return;
                 }
-                this.lookForPath(world, new PowerPath(optional.get(), powerPath));
+                PowerPath temp = new PowerPath(optional.get(), powerPath);
+                if (isValidEndpoint(world, temp.currentPos, powerPath.currentPos)) {
+                    System.out.println(world.getBlockState(temp.currentPos));
+                    System.out.println(temp.currentPos);
+                    paths.add(temp);
+                } else {
+                    findTargets(world, temp);
+                }
             }
         }
     }
@@ -79,11 +80,15 @@ public class FindPathToReceivers {
 
     //checks if it is a valid pipe or generator, to carry the path
     private boolean isValidCarrier(World world, BlockPos pos) {
-        return (world.getBlockState(pos).isIn(ModScienceTags.PIPE) || world.getBlockState(pos).isIn(ModScienceTags.RECEIVER));
+        return world.getBlockState(pos).isIn(ModScienceTags.PIPE_CONNECTS_TO);
+        //return (world.getBlockState(pos).isIn(ModScienceTags.PIPE) || world.getBlockState(pos).isIn(ModScienceTags.RECEIVER));
     }
 
     //cheks if it is a valid machine to connect to
-    private boolean isValidEndpoint(World world, BlockPos pos) {
-        return world.getBlockState(pos).isIn(ModScienceTags.RECEIVER);
+    private boolean isValidEndpoint(World world, BlockPos pos, BlockPos previousPos) {
+        Direction direction = Direction.fromVector(previousPos.subtract(pos));
+        return world.getBlockState(pos).contains(ModProperties.getSideFromDirection(direction)) && world.getBlockState(pos).get(ModProperties.getSideFromDirection(direction)).equals(Side.IN);
+        //return world.getBlockState(pos).isIn(ModScienceTags.GENERATOR);
+        //return world.getBlockState(pos).getBlock() instanceof IPowerBlock && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
     }
 }

@@ -12,6 +12,7 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import malek.mod_science.blocks.blockentities.CalderaCauldronBlockEntity;
 import malek.mod_science.blocks.blockentities.ShadowSilkOreBlockEntity;
 import malek.mod_science.mixin.BucketItemMixin;
+import malek.mod_science.power.*;
 import malek.mod_science.properties.ModProperties;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.*;
@@ -45,7 +46,7 @@ import javax.annotation.Nonnull;
 import static malek.mod_science.blocks.power.Side.IN;
 import static malek.mod_science.properties.ModProperties.*;
 
-public class CalderaCauldron extends BlockWithEntity implements BlockEntityProvider, AttributeProvider {
+public class CalderaCauldron extends BlockWithEntity implements BlockEntityProvider, AttributeProvider, IPowerBlock {
 
     protected CalderaCauldron(Settings settings) {
         super(settings);
@@ -67,7 +68,6 @@ public class CalderaCauldron extends BlockWithEntity implements BlockEntityProvi
         builder.add(SIDE_WEST);
         builder.add(SIDE_DOWN);
         builder.add(SIDE_UP);
-
     }
 
     @Override
@@ -75,6 +75,7 @@ public class CalderaCauldron extends BlockWithEntity implements BlockEntityProvi
         if (!world.isClient) {
             if(player.getInventory().getMainHandStack().getItem()==Items.STICK) {
                 world.setBlockState(pos,  state.cycle(ModProperties.getSideFromDirection(hit.getSide())));
+                FindPathToReceivers.resetNetworkSearch(world, pos);
                 return ActionResult.PASS;
             }
             if (player.getInventory().getMainHandStack().getItem() instanceof BucketItem) {
@@ -121,5 +122,26 @@ public class CalderaCauldron extends BlockWithEntity implements BlockEntityProvi
             to.offer((((CalderaCauldronBlockEntity) blockEntity).fluidInv));
         }
     }
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        if(!world.isClient()) {
+            FindPathToReceivers.resetNetworkSearch(world, pos);
+        }
+    }
 
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if(!world.isClient()) {
+            FindPathToReceivers.resetNetworkSearch(world, pos);
+        }
+
+        super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    public PowerBlockType getPowerType() {
+        return PowerBlockType.DUAL;
+    }
 }

@@ -1,7 +1,10 @@
 package malek.mod_science.power;
 
 import io.netty.util.internal.ConcurrentSet;
+import malek.mod_science.ModScience;
 import malek.mod_science.blocks.ModBlocks;
+import malek.mod_science.blocks.power.Side;
+import malek.mod_science.properties.ModProperties;
 import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -32,14 +35,14 @@ public class FindPowerPathsToGenerators {
                 return;
             }
             PowerPath temp = new PowerPath(optional.get(), powerPath);
-            if (((IPowerBlock) world.getBlockState(temp.currentPos).getBlock()).getPowerType() == PowerBlockType.PIPE) {
+            if (world.getBlockState(temp.currentPos).isIn(ModScienceTags.PIPE)) {
                 IPowerCarrier carrier = (IPowerCarrier) world.getBlockState(temp.currentPos).getBlock();
                 temp.arcEfficiency.incValue(carrier.getArcEfficiency());
                 temp.timeEfficiency.incValue(carrier.getTimeEfficiency());
                 temp.lightEfficiency.incValue(carrier.getLightEfficiency());
                 temp.fireEfficiency.incValue(carrier.getFireEfficiency());
             }
-            if (isValidEndpoint(world, temp.currentPos)) {
+            if (isValidEndpoint(world, temp.currentPos, powerPath.currentPos)) {
 //                System.out.println(world.getBlockState(temp.currentPos));
 //                System.out.println(temp.currentPos);
                 paths.add(temp);
@@ -76,13 +79,14 @@ public class FindPowerPathsToGenerators {
 
     private boolean isValidCarrier(World world, BlockPos pos) {
 //        return world.getBlockState(pos).getBlock() instanceof IPowerBlock && (((IPowerBlock)world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.PIPE);
-        return (world.getBlockState(pos).getBlock() instanceof IPowerBlock);
+        return (world.getBlockState(pos).isIn(ModScienceTags.PIPE_CONNECTS_TO));
         //return (world.getBlockState(pos).isIn(ModScienceTags.PIPE) || world.getBlockState(pos).isIn(ModScienceTags.GENERATOR));
         //return world.getBlockState(pos).getBlock() instanceof IPowerBlock && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.PIPE || ((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
     }
 
-    private boolean isValidEndpoint(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() == ModBlocks.FIRE_POWER_GENERATOR;
+    private boolean isValidEndpoint(World world, BlockPos pos, BlockPos previousPos) {
+        Direction direction = Direction.fromVector(previousPos.subtract(pos));
+        return world.getBlockState(pos).contains(ModProperties.getSideFromDirection(direction)) && world.getBlockState(pos).get(ModProperties.getSideFromDirection(direction)).equals(Side.OUT);
         //return world.getBlockState(pos).isIn(ModScienceTags.GENERATOR);
         //return world.getBlockState(pos).getBlock() instanceof IPowerBlock && (((IPowerBlock) world.getBlockState(pos).getBlock()).getPowerType() == PowerBlockType.GENERATOR);
     }

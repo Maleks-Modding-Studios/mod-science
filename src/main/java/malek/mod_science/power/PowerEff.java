@@ -2,6 +2,8 @@ package malek.mod_science.power;
 
 import malek.mod_science.blocks.power.Efficiency;
 
+import static malek.mod_science.blocks.power.Efficiency.NONE;
+
 public class PowerEff {
     public int lowEff = 0;
     public int mediumEff = 0;
@@ -14,11 +16,17 @@ public class PowerEff {
     PowerEff() {
 
     }
+    public boolean canCarry() {
+        return lowEff!=-1;
+    }
     @Override
     public String toString() {
         return "low:"+lowEff+", medium:"+mediumEff+", high:"+highEff;
     }
     public void incValue(Efficiency efficiency) {
+        if(lowEff == -1) {
+            return;
+        }
         switch (efficiency) {
             case NONE :
                 lowEff = -1;
