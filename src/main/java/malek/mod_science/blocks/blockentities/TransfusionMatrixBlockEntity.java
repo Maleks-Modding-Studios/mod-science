@@ -139,44 +139,7 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
             findPaths();
             networkDirty = false;
         }
-        if(wantsPower()) {
-            if (findPowerPathsToGenerators != null) {
-                for (PowerPath path : findPowerPathsToGenerators.paths) {
-                    if(path.fluidEfficiency.canCarry()) {
-                        if(world.getBlockEntity(path.currentPos) instanceof FluidInvGetter fluidBlockEntity) {
-                            for(int i = 0; i < fluidBlockEntity.getFluidInv().getTankCount(); i++) {
-                                //System.out.println("looking for fluid tank that i can fill from");
-//                                if(!fluidBlockEntity.getFluidInv().getExtractable().couldExtractAnything()) {
-//                                    //System.out.println("cant extract anything");
-//                                    continue;
-//                                }
-//                                //System.out.println(world.getBlockState(pos));
-//                                if(!fluidInv.getInvFluid(0).isEmpty()) {
-//                                    FluidVolume amount = fluidBlockEntity.getFluidInv().getExtractable().extract(fluidInv.getInvFluid(0).getFluidKey().exactFilter, FluidAmount.of(1, 20));
-//                                    fluidInv.attemptInsertion(amount, Simulation.ACTION);
-//                                    fluidBlockEntity.markDirty();
-//                                    markDirty();
-//                                    fluidBlockEntity.markDirty();
-//                                    //System.out.println("transfering fluid : " +amount);
-//                                } else
-//                                {
-//                                    FluidVolume amount = fluidBlockEntity.getFluidInv().getExtractable().extract(FluidAmount.of(1, 20));
-//                                    fluidInv.attemptInsertion(amount, Simulation.ACTION);
-//                                    markDirty();
-//                                    fluidBlockEntity.markDirty();
-//                                    //System.out.println("transfering fluid : " +amount);
-//                                }
-                                FluidVolume movedCopy = FluidVolumeUtil.move(fluidBlockEntity.getFluidInv().getExtractable(), fluidInv, FluidAmount.of(1, 20));
-                                if(!movedCopy.isEmpty()) {
-                                    fluidBlockEntity.markDirty();
-                                    markDirty();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        tryPowerTransfer();
     }
 
 
@@ -295,13 +258,18 @@ public class TransfusionMatrixBlockEntity extends BlockEntity implements LoggerI
     }
 
     @Override
-    public FixedFluidInv getFluidInv() {
+    public SimpleFixedFluidInv getFluidInv() {
         return fluidInv;
     }
 
     @Override
     public Set<PowerPath> getPowerPaths() {
         return findPowerPathsToGenerators.paths;
+    }
+
+    @Override
+    public FluidAmount getTransferRate() {
+        return FluidAmount.of(1, 20);
     }
 
     @Override

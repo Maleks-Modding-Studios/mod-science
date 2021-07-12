@@ -67,27 +67,7 @@ public class CalderaCauldronBlockEntity extends BlockEntity implements BlockEnti
             this.isDirty = false;
             this.sync();
         }
-        if(wantsPower()) {
-            if (findPowerPathsToGenerators != null) {
-                for (PowerPath path : findPowerPathsToGenerators.paths) {
-                    if(path.fluidEfficiency.canCarry()) {
-                        if(world.getBlockEntity(path.currentPos) instanceof FluidInvGetter fluidBlockEntity) {
-                            for(int i = 0; i < fluidBlockEntity.getFluidInv().getTankCount(); i++) {
-                                FluidVolume movedCopy = FluidVolumeUtil.move(fluidBlockEntity.getFluidInv().getExtractable(), fluidInv, FluidAmount.of(1, 20));
-                                if(!movedCopy.isEmpty()) {
-                                    fluidBlockEntity.markDirty();
-                                    markDirty();
-                                }
-                                System.out.println(movedCopy);
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //System.out.println("HI");
-        //System.out.println(fluidInv.getInvFluid(0).amount());
+        this.tryPowerTransfer();
     }
 
     @Override
@@ -218,7 +198,11 @@ public class CalderaCauldronBlockEntity extends BlockEntity implements BlockEnti
 
 
     @Override
-    public FixedFluidInv getFluidInv() {
+    public SimpleFixedFluidInv getFluidInv() {
         return fluidInv;
+    }
+    @Override
+    public FluidAmount getTransferRate() {
+        return FluidAmount.of(1, 20);
     }
 }
