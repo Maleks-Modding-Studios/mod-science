@@ -1,5 +1,13 @@
 {
-  "variants": {
-    "": { "model": "mod_science:block/caldera_cauldron" }
-  }
+  "multipart": [
+    {
+      "apply": { "model": "mod_science:block/caldera_cauldron", "uvlock": true}
+    },
+    {"when" : {"side_north": "out"}, "apply" : {"model": "mod_science:block/caldera_cauldron/north", "uvlock":  true}},
+    {"when" : {"side_south": "out"}, "apply" : {"model": "mod_science:block/caldera_cauldron/south", "uvlock":  true}},
+    {"when" : {"side_west": "out"}, "apply" : {"model": "mod_science:block/caldera_cauldron/west", "uvlock":  true}},
+    {"when" : {"side_east": "out"}, "apply" : {"model": "mod_science:block/caldera_cauldron/east", "uvlock":  true}},
+    {"when" : {"side_up": "out"}, "apply" : {"model": "mod_science:block/caldera_cauldron/up", "uvlock":  true}},
+    {"when" : {"side_down": "out"}, "apply" : {"model": "mod_science:block/caldera_cauldron/down", "uvlock":  true}}
+    ]
 }
