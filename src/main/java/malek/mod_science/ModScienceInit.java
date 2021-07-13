@@ -4,6 +4,7 @@ import malek.mod_science.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
+import malek.mod_science.dimensions.LSpaceDimension;
 import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
@@ -94,6 +95,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModScreens.init();
         ModRecipes.init();
         TheRoomDimension.init();
+        LSpaceDimension.init();
         ModCommands.init();
         ModScienceTags.init();
 

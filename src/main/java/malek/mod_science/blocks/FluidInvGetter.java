@@ -26,12 +26,10 @@ public interface FluidInvGetter {
                                 fluidBlockEntity.markDirty();
                                 markDirty();
                             }
-                            //System.out.println(movedCopy);
                         }
                     }
                 }
             }
-
         }
     }
     void markDirty();
