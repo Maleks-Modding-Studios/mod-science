@@ -60,7 +60,7 @@ public class DimTeleportCommand {
 
         );
     }
-    private static int teleport(Entity entity, ServerWorld dimension, Vec3d pos) {
+    public static int teleport(Entity entity, ServerWorld dimension, Vec3d pos) {
         if(dimension.getRegistryKey() == TheRoomDimension.WORLD_KEY) {
             Timeout.TIMEOUT.get(MixinUtil.cast(entity)).setTimeOut(20);
             ((ServerPlayerEntity)(entity)).teleport(dimension, -5, TheRoomFeature.theRoomCenter.getY()+2, -5, 0f, 0f);

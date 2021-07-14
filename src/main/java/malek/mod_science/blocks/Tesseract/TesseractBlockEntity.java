@@ -1,9 +1,12 @@
 package malek.mod_science.blocks.Tesseract;
 
 
+
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.Tesseract.tesseractgui.TesseractGuiDescription;
+import malek.mod_science.recipes.hex_crafting.basic.BasicHexcraftingRecipe;
+import malek.mod_science.recipes.hex_crafting.basic.Type;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.block.BlockState;
@@ -25,6 +28,9 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
 
 public class TesseractBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(17, ItemStack.EMPTY);
@@ -67,6 +73,10 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     public Text getDisplayName() {
         return new LiteralText("Tesseract");
     }
+
+//    public void testCraft(){
+//        List<BasicHexcraftingRecipe> match = (List<BasicHexcraftingRecipe>) world.getRecipeManager().getAllMatches(Type.INSTANCE, this, world);
+//    }
 
     @Nullable
     @Override
