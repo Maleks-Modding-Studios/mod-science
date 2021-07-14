@@ -34,8 +34,7 @@ import java.util.List;
 
 public class TesseractBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(17, ItemStack.EMPTY);
-    private static final int MAX_PROGRESS = 20;
-    private int currentProgress = 0;
+    private int currentCraftingTicks = 0;
     int x = 0;
     int y = 0;
     int z = 0;
@@ -74,9 +73,21 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
         return new LiteralText("Tesseract");
     }
 
-//    public void testCraft(){
-//        List<BasicHexcraftingRecipe> match = (List<BasicHexcraftingRecipe>) world.getRecipeManager().getAllMatches(Type.INSTANCE, this, world);
-//    }
+    //this right here is the new updated hopefully working code for custom recipe implimentation :) the doCraft code is down at the bottom - gamma_02
+
+    public void testCraft(){
+        List<BasicHexcraftingRecipe> match = world.getRecipeManager().getAllMatches(Type.INSTANCE, this::getItems, world);
+        for(int i = 0; 1 < match.size(); i++){
+            if(match.get(i).matches(this::getItems, world)){
+                currentCraftingTicks++;
+                if(currentCraftingTicks >= match.get(i).TICKS){
+                    currentCraftingTicks = 0;
+                    doCraft(match.get(i));
+
+                }
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -130,6 +141,17 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction direction) {
         return true;
+    }
+
+    public void doCraft(BasicHexcraftingRecipe recipe){
+        if(this.getItems().get(1).getCount() == 1){
+            for(int i2 = 0; i2 < this.size(); i2++){
+                if(!this.getItems().get(i2).isEmpty()){
+                    this.getItems().get(i2).decrement(1);
+                }
+            }
+            this.getItems().set(12, recipe.craft(this::getItems));
+        }
     }
 
 
