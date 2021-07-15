@@ -56,18 +56,18 @@ public class ModGeneration {
 
     public static void init() {
         //FabricStructureBuilder.create(ModScience.ModScienceId("the_room_structure"), THE_ROOM_FEATURE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(new StructureConfig(1, 0, 399920384)).superflatFeature(THE_ROOM_FEATURE.configure(FeatureConfig.DEFAULT)).adjustsSurface().register();
-        Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "ley_knot_gen"), LEY_KNOT_GEN);
+        //Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "ley_knot_gen"), LEY_KNOT_GEN);
         Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "shadowsilk_ore_gen"), SHADOWSILK_ORE_GEN);
         Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "potato_ore_gen"), POTATO_ORE_GEN);
         Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "spiracle_gen"), SPIRACLE_ORE_GEN);
         //Registry.register(Registry.FEATURE, new Identifier(MOD_ID, "shadowsilk_deepslate_ore_gen"), SHADOWSILK_ORE_GEN);
-        RegistryKey<ConfiguredFeature<?, ?>> stoneSpiral = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "ley_knot_gen"));
+       // RegistryKey<ConfiguredFeature<?, ?>> stoneSpiral = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "ley_knot_gen"));
         RegistryKey<ConfiguredFeature<?, ?>> yeetus = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "shadowsilk_ore_gen"));
         RegistryKey<ConfiguredFeature<?, ?>> fetus = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "shadowsilk_deepslate_ore_gen"));
         RegistryKey<ConfiguredFeature<?, ?>> potat = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "potato_ore_gen"));
         RegistryKey<ConfiguredFeature<?, ?>> spiracle = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MOD_ID, "spiracle_gen"));
         RegistryKey<ConfiguredFeature<?, ?>> eeeeee = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, ModScience.ModScienceId("the_room_structure"));
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, stoneSpiral.getValue(), CONFIGURED_LEY_KNOT_GEN);
+        //Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, stoneSpiral.getValue(), CONFIGURED_LEY_KNOT_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, yeetus.getValue(), CONFIGURED_SHADOWSILK_ORE_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, fetus.getValue(), CONFIGURED_SHADOWSILK_DEEPSLATE_ORE_GEN);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, potat.getValue(), CONFIGURED_POTATO_ORE_GEN);
@@ -76,7 +76,7 @@ public class ModGeneration {
         RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured  = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
                                                                                      ModScience.ModScienceId("the_room_structure"));
 
-                BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);
+                //BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);
 
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, fetus);
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, yeetus);

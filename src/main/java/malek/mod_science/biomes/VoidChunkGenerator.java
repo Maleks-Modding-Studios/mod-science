@@ -133,30 +133,30 @@ public class VoidChunkGenerator extends ChunkGenerator {
 
     @Override
     public void buildSurface(ChunkRegion region, Chunk chunk) {
-        if(chunk.getPos().x < 0 || chunk.getPos().z < 0) {
-            return;
-        }
-        int x = chunk.getPos().x*16;
-        int z = chunk.getPos().z*16;
-        int num = 16;
-        for (int yt = 0; yt < num; yt++) {
-            int y = yt * num;
-            boolean passes = true;
-            for (int x1 = 0; x1 < num; x1++) {
-                for (int z1 = 0; z1 < num; z1++) {
-                    for (int y1 = 0; y1 < num; y1++) {
-                        if (passesTest(x1 + x, y1 + y, z1 + z, 3, 1) &&
-                            passesTest(x1 + x, y1 + y, z1 + z, 9, 3) &&
-                            passesTest(x1 + x, y1 + y, z1 + z, 27, 9) &&
-                            passesTest(x1 + x, y1 + y, z1 + z, 81, 27) &&
-                            passesTest(x1 + x, y1 + y, z1 + z, 243, 81) &&
-                            passesTest(x1+x, y1+y, z1+z, 729, 243)) {
-                            mutable.set(x1 + x, y1 + y, z1 + z);
-                            chunk.setBlockState(mutable, SHELF, false);
+        try {
+            int x = chunk.getPos().x * 16;
+            int z = chunk.getPos().z * 16;
+            int testX = x;
+            int testZ = z;
+            int num = 16;
+
+            for (int yt = chunk.getBottomY(); yt < chunk.getTopY(); yt++) {
+                int y = yt;
+                boolean passes = true;
+                for (int x1 = 0; x1 < num; x1++) {
+                    for (int z1 = 0; z1 < num; z1++) {
+                        for (int y1 = 0; y1 < num; y1++) {
+                            if (passesTest(x1 + testX, y1 + y, z1 + testZ, 3, 1) && passesTest(x1 + testX, y1 + y, z1 + testZ, 9, 3) && passesTest(x1 + testX, y1 + y, z1 + testZ, 27, 9) && passesTest(x1 + testX, y1 + y, z1 + testZ, 81, 27) && passesTest(x1 + testX, y1 + y, z1 + testZ, 243, 81) && passesTest(x1 + testX, y1 + y, z1 + z, 729, 243)) {
+                                mutable.set(x1 + testX, y1 + y, z1 + testZ);
+                                chunk.setBlockState(mutable, SHELF, false);
+                            }
                         }
                     }
                 }
             }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -167,7 +167,7 @@ public class VoidChunkGenerator extends ChunkGenerator {
     }
 
     private boolean mini(int i, int mod, int prev) {
-        return (i % mod) / prev != 1;
+        return (chunkMod(i, mod)) / prev != 1;
     }
 
     private void coolStructureWeDontUse() {
@@ -188,6 +188,9 @@ public class VoidChunkGenerator extends ChunkGenerator {
         //                buildMengerCube(chunk, y * 16);
         //            }
         //        }
+    }
+    public static int chunkMod(int val, int mod) {
+        return val > 0 ? val % mod : ((mod - val) % mod);
     }
 
     @Override
