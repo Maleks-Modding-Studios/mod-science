@@ -43,6 +43,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
     long musicTime = System.currentTimeMillis();
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
+        ServerPlayerEntity player = MixinUtil.cast(this);
         if (this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)) {
             this.setFireTicks(1);//no touchy
         }

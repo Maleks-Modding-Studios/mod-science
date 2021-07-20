@@ -13,6 +13,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
@@ -21,19 +23,23 @@ import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Function;
 
@@ -42,8 +48,13 @@ import static malek.mod_science.ModScience.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class ModScienceClient implements ClientModInitializer, LoggerInterface {
+    private static KeyBinding middleClick;
     @Override
     public void onInitializeClient() {
+        //Sets up keybindings
+        initKeyBindings();
+
+
         //Sets up rendering for item predicate based models, similar to how crossbows and bows show different items based on if they are loaded or not
         ItemModelProvider.registerModels();
 
@@ -63,6 +74,16 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
 
         ModScreensClient.init();
     }
+
+    private static void initKeyBindings() {
+        middleClick = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.mod_science.tinker", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_MIDDLE, "category.mod_science.tinker"));
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (middleClick.wasPressed()) {
+                client.player.sendMessage(new LiteralText("Key 1 was pressed!"), false);
+            }
+        });
+    }
+
     public static void setupReverseFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {
         final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_still");
         final Identifier flowingSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_flow");
