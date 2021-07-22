@@ -6,7 +6,7 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
 import malek.mod_science.dimensions.LSpaceDimension;
 import malek.mod_science.mechanics.NetworkingIds;
-import malek.mod_science.mechanics.Tinkering;
+import malek.mod_science.mechanics.tinkering.Tinkering;
 import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
