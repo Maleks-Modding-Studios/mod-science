@@ -3,6 +3,7 @@ package malek.mod_science.blocks;
 import malek.mod_science.blocks.CalderaCauldron.*;
 import malek.mod_science.blocks.MAD.MADBlock;
 import malek.mod_science.blocks.ShadowSilkOre.ShadowSilkOre;
+import malek.mod_science.blocks.SporeGarden.SporeGardenBlock;
 import malek.mod_science.blocks.Tesseract.TesseractBlock;
 import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
 import malek.mod_science.power.*;
@@ -19,6 +20,7 @@ import net.minecraft.world.BlockView;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
+import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
@@ -72,6 +74,8 @@ public final class ModBlocks {
     @RegistryEntry("tesseract_block")
     public static final Block TESSERACT_BLOCK = new TesseractBlock(DEFAULT);
 
+    @RegistryEntry("spore_garden")
+    public static final Block SPORE_GARDEN = new SporeGardenBlock(FabricBlockSettings.of(Material.SOIL).ticksRandomly().strength(0.6F));
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);

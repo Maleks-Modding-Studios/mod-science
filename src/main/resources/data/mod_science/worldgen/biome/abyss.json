@@ -50,7 +50,9 @@
       "minecraft:disk_clay",
       "minecraft:disk_gravel"
     ],
-    [],
+    [
+      "minecraft:dripstone_cluster"
+    ],
     [
       "minecraft:glow_lichen",
       "minecraft:spring_water",
