@@ -6,6 +6,7 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.CalderaCauldron.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.fluids.ModFluids;
+import malek.mod_science.mechanics.NetworkingIds;
 import malek.mod_science.screens.ModScreensClient;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreen;
@@ -15,11 +16,14 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
@@ -30,6 +34,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.LiteralText;
@@ -76,10 +81,11 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
     }
 
     private static void initKeyBindings() {
-        middleClick = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.mod_science.tinker", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_MIDDLE, "category.mod_science.tinker"));
+        middleClick = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.mod_science.tinker", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, "category.mod_science.tinker"));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (middleClick.wasPressed()) {
-                client.player.sendMessage(new LiteralText("Key 1 was pressed!"), false);
+                ClientPlayNetworking.send(NetworkingIds.TINKERING_ACTION_ID, PacketByteBufs.empty());
+                //client.player.sendMessage(new LiteralText("Key 1 was pressed!"), false);
             }
         });
     }

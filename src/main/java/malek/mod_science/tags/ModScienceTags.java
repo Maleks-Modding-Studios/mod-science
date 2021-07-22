@@ -17,7 +17,7 @@ public class ModScienceTags {
     public static final Tag<Block> GENERATOR = TagRegistry.block(ModScience.ModScienceId("mod_science_generator"));
     public static final Tag<Block> RECEIVER = TagRegistry.block(ModScience.ModScienceId("mod_science_receiver"));
     public static final Tag<Block> PIPE = TagRegistry.block(ModScience.ModScienceId("mod_science_valid_pipe"));//yes I did it
-
+    public static final Tag<Block> ORES = TagRegistry.block(new Identifier("c:ores"));
 
     public static void init() {
     }

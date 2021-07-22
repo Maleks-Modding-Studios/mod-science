@@ -125,6 +125,9 @@ public final class ModItems {
     @RegistryEntry("mass_hammer")
     public static final Item MASS_HAMMER = new MassHammer(new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("ore_magnet")
+    public static final Item ORE_MAGNET = new OreMagnet(new FabricItemSettings().group(MOD_SCIENCE));
+
 
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {

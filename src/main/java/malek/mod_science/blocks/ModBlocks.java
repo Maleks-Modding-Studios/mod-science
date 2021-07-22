@@ -74,8 +74,11 @@ public final class ModBlocks {
     @RegistryEntry("tesseract_block")
     public static final Block TESSERACT_BLOCK = new TesseractBlock(DEFAULT);
 
-    @RegistryEntry("spore_garden")
-    public static final Block SPORE_GARDEN = new SporeGardenBlock(FabricBlockSettings.of(Material.SOIL).ticksRandomly().strength(0.6F));
+    @RegistryEntry("fractal_ore")
+    public static final Block FRACTAL_ORE = new Block(FabricBlockSettings.of(Material.STONE));
+
+    @RegistryEntry("deepslate_fractal_ore")
+    public static final Block DEEPSLATE_FRACTAL_ORE = new Block(FabricBlockSettings.of(Material.STONE));
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
