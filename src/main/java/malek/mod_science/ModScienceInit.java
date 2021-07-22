@@ -4,9 +4,8 @@ import malek.mod_science.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
+import malek.mod_science.dimensions.AbyssDimension;
 import malek.mod_science.dimensions.LSpaceDimension;
-import malek.mod_science.mechanics.NetworkingIds;
-import malek.mod_science.mechanics.tinkering.Tinkering;
 import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
@@ -27,7 +26,6 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.screen.ScreenHandlerType;
@@ -99,14 +97,10 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModRecipes.init();
         TheRoomDimension.init();
         LSpaceDimension.init();
+        AbyssDimension.init();
         ModCommands.init();
         ModScienceTags.init();
-        ServerPlayNetworking.registerGlobalReceiver(NetworkingIds.TINKERING_ACTION_ID, ((server, player, handler, buf, responseSender) -> {
-            server.execute(() ->
-                           {
-                               Tinkering.tinker(server, player);
-                           });
-        }));
+
     }
 
     public static ModConfig getConfig() {
