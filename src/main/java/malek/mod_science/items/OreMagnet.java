@@ -40,7 +40,6 @@ public class OreMagnet extends Item {
             Temp temp1 = new Temp();
             BlockPos.iterateOutwards(pos, X_RANGE, Y_RANGE, Z_RANGE).forEach((blockPos -> {
                 if (temp1.thing && world.getBlockState(blockPos).isIn(ModScienceTags.ORES)) {
-                    System.out.println("DSFSDFS");
                     switchBlockStates(world, blockPos.add(new BlockPos(Math.min(pos.getX() - blockPos.getX(), 1), Math.min(pos.getY() - blockPos.getY(), 1), Math.min(pos.getZ() - blockPos.getZ(), 1))), blockPos);
                     playerEntity.getItemCooldownManager().set(this, 20);
                     temp1.thing = false;
