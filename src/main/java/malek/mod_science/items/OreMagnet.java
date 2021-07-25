@@ -1,6 +1,7 @@
 package malek.mod_science.items;
 
 import com.sun.jna.platform.win32.OaIdl;
+import malek.mod_science.items.item_nbt.IOreMagnet;
 import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,8 +14,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -39,17 +42,24 @@ public class OreMagnet extends Item {
         if(stack.getCooldown() == 0) {
             Temp temp1 = new Temp();
             BlockPos.iterateOutwards(pos, X_RANGE, Y_RANGE, Z_RANGE).forEach((blockPos -> {
-                if (temp1.thing && world.getBlockState(blockPos).isIn(ModScienceTags.ORES)) {
+                if (temp1.thing && matches(world.getBlockState(blockPos), stack)) {
                     switchBlockStates(world, blockPos.add(new BlockPos(Math.min(pos.getX() - blockPos.getX(), 1), Math.min(pos.getY() - blockPos.getY(), 1), Math.min(pos.getZ() - blockPos.getZ(), 1))), blockPos);
                     playerEntity.getItemCooldownManager().set(this, 20);
                     temp1.thing = false;
                 }
             }));
         }
-
-
         return ActionResult.PASS;
     }
+
+    public static boolean matches(BlockState state, ItemStack stack) {
+        if(!IOreMagnet.hasString(stack)) {
+            return state.isIn(ModScienceTags.ORES);
+        } else {
+            return state.getBlock() == Registry.BLOCK.get(new Identifier(IOreMagnet.getString(stack)));
+        }
+    }
+
     public static void switchBlockStates(World world, BlockPos pos1, BlockPos pos2) {
         BlockState state1 = world.getBlockState(pos1);
         BlockState state2 = world.getBlockState(pos2);
