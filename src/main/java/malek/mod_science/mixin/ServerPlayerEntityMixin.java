@@ -83,6 +83,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
                 }
                 check = 0;
             }
+        }else{
+            ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object) this;
+            playerEntity.getAbilities().invulnerable = false;
+            playerEntity.sendAbilitiesUpdate();
+            playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
         }
     }
 
