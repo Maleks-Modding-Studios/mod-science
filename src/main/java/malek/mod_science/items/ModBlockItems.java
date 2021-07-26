@@ -1,5 +1,6 @@
 package malek.mod_science.items;
 
+import dev.architectury.platform.Mod;
 import malek.mod_science.blocks.ModBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BlockItem;
@@ -63,6 +64,9 @@ public class ModBlockItems {
 
     @RegistryEntry("mad")
     public static final Item MAD = new BlockItem(ModBlocks.MAD, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("crystal_growth")
+    public static final Item CRYSTAL_GROWTH = new BlockItem(ModBlocks.CRYSTAL_GROWTH, new FabricItemSettings().group(MOD_SCIENCE));
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
