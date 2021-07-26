@@ -5,6 +5,7 @@ import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.CalderaCauldron.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
+import malek.mod_science.client.particle.ModParticles;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.mechanics.NetworkingIds;
 import malek.mod_science.screens.ModScreensClient;
@@ -59,6 +60,8 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         //Sets up keybindings
         initKeyBindings();
 
+        ModParticles.init();
+
 
         //Sets up rendering for item predicate based models, similar to how crossbows and bows show different items based on if they are loaded or not
         ItemModelProvider.registerModels();
@@ -68,6 +71,8 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CALDERA_CAULDRON, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STEAM_PIPE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANSFUSION_MATRIX, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CRYSTAL_GROWTH, RenderLayer.getCutout());
+
         // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
