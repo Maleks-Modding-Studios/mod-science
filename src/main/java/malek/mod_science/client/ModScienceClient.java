@@ -78,8 +78,12 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
 
         // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
+        setupFluidRendering(ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER, new Identifier(MOD_ID, "water"), 0xE7F1F3);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_ENDER_DEW, ModFluids.FLOWING_ENDER_DEW);
+
+
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CALDERA_CAULDRON_BLOCK_ENTITY, CalderaCauldronBlockEntityRenderer::new);

@@ -1,6 +1,7 @@
 package malek.mod_science.fluids;
 
 import malek.mod_science.fluids.ender_dew.EnderDew;
+import malek.mod_science.fluids.glimmer.Glimmer;
 import malek.mod_science.fluids.rewater.Rewater;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -15,6 +16,9 @@ public class ModFluids {
     public static EnderDew STILL_ENDER_DEW;
     public static EnderDew FLOWING_ENDER_DEW;
 
+    public static Glimmer STILL_GLIMMER;
+    public static Glimmer FLOWING_GLIMMER;
+
     public static void init() {
         FLOWING_REWATER = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_rewater"), new Rewater.Flowing());
         STILL_REWATER = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "rewater"), new Rewater.Still());
@@ -22,5 +26,7 @@ public class ModFluids {
         FLOWING_ENDER_DEW = Registry.register(Registry.FLUID, ModScienceId("flowing_ender_dew"), new EnderDew.Flowing());
         STILL_ENDER_DEW = Registry.register(Registry.FLUID, ModScienceId("still_ender_dew"), new EnderDew.Still());
 
+        FLOWING_GLIMMER = Registry.register(Registry.FLUID, ModScienceId("flowing_glimmer"), new Glimmer.Flowing());
+        STILL_GLIMMER = Registry.register(Registry.FLUID, ModScienceId("still_glimmer"), new Glimmer.Still());
     }
 }
