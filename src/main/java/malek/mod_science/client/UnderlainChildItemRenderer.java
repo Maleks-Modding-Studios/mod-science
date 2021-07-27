@@ -33,7 +33,6 @@ public class UnderlainChildItemRenderer implements BuiltinItemRendererRegistry.D
 
     @Override
     public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        BlockItem blockItem;
         if (!(stack.getItem() instanceof ModScienceItemRegistrar.ChildItem)) throw new UnsupportedOperationException("Can only use UnderlaidChildItemRenderer for ChildItems");
         ModScienceItemRegistrar.ChildItem childItem = (ModScienceItemRegistrar.ChildItem) stack.getItem();
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
@@ -46,12 +45,13 @@ public class UnderlainChildItemRenderer implements BuiltinItemRendererRegistry.D
         matrices.translate(-0.3f, 0, -0.3);
         matrices.scale(0.4f, 0.4f, 0.4f);
         if(stack.getTag() != null) {
-            blockItem = (BlockItem) Registry.ITEM.get(Identifier.tryParse(stack.getTag().getString("block")));
-            matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(0.5f, 0.5F, 0f), 90, true)));
-            //        matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(0f, 1F, 0f), 90, true)));
-            //        matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(1f, 0F, 0f), 90, true)));
-            if (blockItem != null) {
-                minecraft.getBlockRenderManager().renderBlockAsEntity(blockItem.getBlock().getDefaultState(), matrices, vertexConsumers, light, overlay);
+            if(Registry.ITEM.get(Identifier.tryParse(stack.getTag().getString("block"))) instanceof BlockItem blockItem) {
+                matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(0.5f, 0.5F, 0f), 90, true)));
+                //        matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(0f, 1F, 0f), 90, true)));
+                //        matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(1f, 0F, 0f), 90, true)));
+                if (blockItem != null) {
+                    minecraft.getBlockRenderManager().renderBlockAsEntity(blockItem.getBlock().getDefaultState(), matrices, vertexConsumers, light, overlay);
+                }
             }
         }
 
