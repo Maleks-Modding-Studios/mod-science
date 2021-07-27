@@ -1,28 +1,22 @@
-package malek.mod_science.items;
+package malek.mod_science.items.ore_magnet;
 
-import com.sun.jna.platform.win32.OaIdl;
+import malek.mod_science.items.ModItems;
 import malek.mod_science.items.item_nbt.IOreMagnet;
 import malek.mod_science.tags.ModScienceTags;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-
-public class OreMagnet extends Item {
+public class OreMagnet extends Item implements ModScienceItemRegistrar.ChildItem {
     public static final int TIME = 20;
     public static final int X_RANGE = 20;
     public static final int Y_RANGE = 20;
@@ -88,6 +82,17 @@ public class OreMagnet extends Item {
     public static int absPos(int a, int b) {
         return Math.abs(a-b);
     }
+
+    @Override
+    public Item getOriginalItem() {
+        return ModItems.DEFAULT_ORE_MAGNET;
+    }
+
+    @Override
+    public void transform(MatrixStack matrices) {
+        ModScienceItemRegistrar.ChildItem.super.transform(matrices);
+    }
+
     class Temp {
         public boolean thing = true;
     }

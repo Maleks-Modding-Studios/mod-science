@@ -6,6 +6,7 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
 import malek.mod_science.dimensions.AbyssDimension;
 import malek.mod_science.dimensions.LSpaceDimension;
+import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
@@ -29,6 +30,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,7 +49,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
     public static final Set<ModCompatibility> MODS = new HashSet<>();
     public static final ScreenHandlerType<MatterCavitationChamberScreenHandler> MATTER_CAVITATION_CHAMBER_SCREEN;
-
+    public ModScienceItemRegistrar modScienceItemRegistrar;
     public static Path getConfigRoot() {
         return CONFIG_ROOT.get();
     }
@@ -71,6 +73,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
 //    );
     @Override
     public void onInitialize() {
+
         log("Initializing Mod Science. Have fun playing our mod!");
         log(getConfig().madness.lowMadness.thresholdAmount + " is the current Low Madness threshold amount");
         log(getConfig().madness.mediumMadness.thresholdAmount + " is the current Medium Madness threshold amount");
@@ -100,6 +103,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         AbyssDimension.init();
         ModCommands.init();
         ModScienceTags.init();
+        modScienceItemRegistrar = new ModScienceItemRegistrar(Registry.ITEM);
 
     }
 

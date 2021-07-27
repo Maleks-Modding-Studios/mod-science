@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:builtin/entity",
+  "parent": "item/generated",
   "textures": {
     "layer0": "mod_science:item/magnet"
   }

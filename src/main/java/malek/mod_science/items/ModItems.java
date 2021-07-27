@@ -5,11 +5,11 @@ import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.items.orbs_of_power.MoltenCore;
 import malek.mod_science.items.orbs_of_power.TempItem;
 import malek.mod_science.items.orbs_of_power.ThermophilicPowerOrb;
+import malek.mod_science.items.ore_magnet.OreMagnet;
 import malek.mod_science.tags.ModScienceTags;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.ai.brain.task.FarmerVillagerTask;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -17,7 +17,6 @@ import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
-import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
@@ -127,6 +126,9 @@ public final class ModItems {
 
     @RegistryEntry("ore_magnet")
     public static final Item ORE_MAGNET = new OreMagnet(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("default_ore_magnet")
+    public static final Item DEFAULT_ORE_MAGNET = new OreMagnet(new FabricItemSettings());
 
 
     private static void registerEvents() {

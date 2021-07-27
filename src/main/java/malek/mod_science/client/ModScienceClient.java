@@ -6,6 +6,8 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.CalderaCauldron.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.fluids.ModFluids;
+import malek.mod_science.items.ModItems;
+import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.mechanics.NetworkingIds;
 import malek.mod_science.screens.ModScreensClient;
 import malek.mod_science.util.general.LoggerInterface;
@@ -20,6 +22,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -76,7 +79,7 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
 
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CALDERA_CAULDRON_BLOCK_ENTITY, CalderaCauldronBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.TRANSFUSION_MATRIX_BLOCK_ENTITY, TranfusionMatrixBlockEntityRenderer::new);
-
+        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.ORE_MAGNET, ModScienceItemRegistrar.Renderer.RENDERER);
         ModScreensClient.init();
     }
 
