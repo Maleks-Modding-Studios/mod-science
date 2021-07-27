@@ -6,8 +6,6 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.CalderaCauldron.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.fluids.ModFluids;
-import malek.mod_science.items.ModItems;
-import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.mechanics.NetworkingIds;
 import malek.mod_science.screens.ModScreensClient;
 import malek.mod_science.util.general.LoggerInterface;
@@ -22,7 +20,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -62,6 +59,8 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         //Sets up keybindings
         initKeyBindings();
 
+        ModParticles.init();
+
 
         //Sets up rendering for item predicate based models, similar to how crossbows and bows show different items based on if they are loaded or not
         ItemModelProvider.registerModels();
@@ -71,6 +70,8 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CALDERA_CAULDRON, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STEAM_PIPE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANSFUSION_MATRIX, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CRYSTAL_GROWTH, RenderLayer.getCutout());
+
         // fluid registries
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
