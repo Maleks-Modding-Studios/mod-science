@@ -26,6 +26,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 public final class ModItems {
 
     public static final ItemGroup MOD_SCIENCE = FabricItemGroupBuilder.create(new Identifier("modscience", "mod_science")).icon(() -> new ItemStack(Items.GLOW_ITEM_FRAME)).build();
+
+    public static ArmorMaterial armorMaterial = new StridingBoots();
+
     public static final FabricItemSettings DEFAULT = new FabricItemSettings().group(MOD_SCIENCE);
 
     @RegistryEntry("golem_repair_kit")
@@ -133,7 +136,7 @@ public final class ModItems {
     public static final Item DEFAULT_ORE_MAGNET = new OreMagnet(new FabricItemSettings());
 
     @RegistryEntry("striding_boots")
-    public static final Item BOOTS_OF_STRIDING = new ArmorItem(new StridingBoots(), EquipmentSlot.FEET, new FabricItemSettings().group(MOD_SCIENCE));
+    public static final Item BOOTS_OF_STRIDING = new ArmorItem(armorMaterial, EquipmentSlot.FEET, new FabricItemSettings().group(MOD_SCIENCE));
 
 
     private static void registerEvents() {
