@@ -13,7 +13,8 @@
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
-    "TameableEntityMixin"
+    "TameableEntityMixin",
+    "EntityTickMixin"
   ],
   "client": [
   ],

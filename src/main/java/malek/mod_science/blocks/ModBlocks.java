@@ -8,6 +8,7 @@ import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
 import malek.mod_science.blocks.basic.CrystalGrowthBlock;
 import malek.mod_science.blocks.basic.FlourcaneBlock;
 import malek.mod_science.blocks.basic.PotatoOre;
+import malek.mod_science.blocks.power.SteamPipe;
 import malek.mod_science.blocks.strideblocks.LavaStride;
 import malek.mod_science.blocks.strideblocks.WaterStride;
 import malek.mod_science.power.*;
