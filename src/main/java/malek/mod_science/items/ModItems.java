@@ -1,6 +1,7 @@
 package malek.mod_science.items;
 
 import malek.mod_science.event.ItemEntityTickEvent;
+import malek.mod_science.items.armor.StridingBoots;
 import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.items.orbs_of_power.MoltenCore;
 import malek.mod_science.items.orbs_of_power.TempItem;
@@ -10,6 +11,7 @@ import malek.mod_science.tags.ModScienceTags;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -129,6 +131,9 @@ public final class ModItems {
 
     @RegistryEntry("default_ore_magnet")
     public static final Item DEFAULT_ORE_MAGNET = new OreMagnet(new FabricItemSettings());
+
+    @RegistryEntry("striding_boots")
+    public static final Item BOOTS_OF_STRIDING = new ArmorItem(new StridingBoots(), EquipmentSlot.FEET, new FabricItemSettings().group(MOD_SCIENCE));
 
 
     private static void registerEvents() {

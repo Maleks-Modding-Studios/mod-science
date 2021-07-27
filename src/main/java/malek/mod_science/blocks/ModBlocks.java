@@ -8,6 +8,8 @@ import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
 import malek.mod_science.blocks.basic.CrystalGrowthBlock;
 import malek.mod_science.blocks.basic.FlourcaneBlock;
 import malek.mod_science.blocks.basic.PotatoOre;
+import malek.mod_science.blocks.strideblocks.LavaStride;
+import malek.mod_science.blocks.strideblocks.WaterStride;
 import malek.mod_science.power.*;
 import malek.mod_science.blocks.spircle_ore.SpircleOre;
 import net.fabricmc.api.EnvType;
@@ -83,6 +85,12 @@ public final class ModBlocks {
 
     @RegistryEntry("crystal_growth")
     public static final Block CRYSTAL_GROWTH = new CrystalGrowthBlock(7, 3, FabricBlockSettings.of(Material.AMETHYST).nonOpaque().ticksRandomly().sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5F));
+
+    @RegistryEntry("lava_stride")
+    public static final Block LAVA_STRIDE_BLOCK = new LavaStride(DEFAULT);
+
+    @RegistryEntry("water_stride")
+    public static final Block WATER_STRIDE_BLOCK = new WaterStride(DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
