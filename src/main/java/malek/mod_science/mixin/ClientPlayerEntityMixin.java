@@ -6,6 +6,7 @@ import malek.mod_science.util.general.MixinUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,10 +27,16 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     public void tickMixin(CallbackInfo ci) {
         ClientPlayerEntity player = MixinUtil.cast(this);
         if (world.getRegistryKey().equals(LSpaceDimension.WORLD_KEY)) {
+            //player.setSwimming(true);
+            player.setPose(EntityPose.SPIN_ATTACK);
+            //player.setPose(EntityPose.SWIMMING);
             for(BlockPos pos : BlockPos.iterateOutwards(player.getBlockPos(), 1, 1, 1)) {
                 if (!world.getBlockState(pos).isAir()) {
                     player.setOnGround(true);
                 }
+            }
+            if(!world.getBlockState(player.getBlockPos().add(0, 2, 0)).isAir()) {
+                player.setOnGround(true);
             }
             //player.setNoGravity(true);
             for (BlockPos pos : BlockPos.iterateOutwards(player.getBlockPos(), 30, 30, 30)) {
@@ -39,7 +46,16 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
                     break;
                 }
             }
+            if(player.input.hasForwardMovement()) {
+                if(player.getPitch() >= 20 || player.getPitch() <= -20) {
+                    player.setVelocity(player.getVelocity().x, -1 * Math.min(Math.abs((player.getPitch()) / 350), 1) * getSign((int) player.getPitch()), player.getVelocity().z);
+
+                }
+            }
         }
+    }
+    public int getSign(int value) {
+        return value < 0 ? -1 : 1;
     }
 
 }

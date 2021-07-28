@@ -11,6 +11,7 @@ import malek.mod_science.sounds.ModSounds;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
@@ -56,6 +57,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
         if (world.getRegistryKey().equals(LSpaceDimension.WORLD_KEY)) {
             player.setNoGravity(true);
             player.setOnGround(true);
+            //player.setSwimming(true);
+            //player.setPose(EntityPose.SWIMMING);
         }
         if (this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)) {
             this.setFireTicks(1);//no touchy
