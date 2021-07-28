@@ -105,7 +105,7 @@ public class VoidChunkGenerator extends ChunkGenerator {
                                 chunk.setBlockState(mutable, SHELF, false);
                             }
                             if (fullyPassesTest(x1+testX, y1+y, z1+testZ) && !fullyPassesTest(x1+testX+1, y1+y, z1+testZ)) {
-                                chunk.setBlockState(mutable.add(1, 0, 0), Blocks.LADDER.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
+                                //chunk.setBlockState(mutable.add(1, 0, 0), Blocks.LADDER.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
                             }
                             /*
                             if(passesPartial(x1+testX, y1+y, z1+testZ)) {
