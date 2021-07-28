@@ -58,6 +58,7 @@ import static malek.mod_science.ModScience.MOD_ID;
 @Environment(EnvType.CLIENT)
 public class ModScienceClient implements ClientModInitializer, LoggerInterface {
     private static KeyBinding middleClick;
+    public ModScienceItemRegistrar modScienceItemRegistrar;
     @Override
     public void onInitializeClient() {
         //Sets up keybindings
@@ -65,7 +66,7 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
 
         ModParticles.init();
 
-
+        modScienceItemRegistrar = new ModScienceItemRegistrar(Registry.ITEM);
         //Sets up rendering for item predicate based models, similar to how crossbows and bows show different items based on if they are loaded or not
         ItemModelProvider.registerModels();
 

@@ -49,7 +49,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
     public static final Set<ModCompatibility> MODS = new HashSet<>();
     public static final ScreenHandlerType<MatterCavitationChamberScreenHandler> MATTER_CAVITATION_CHAMBER_SCREEN;
-    public ModScienceItemRegistrar modScienceItemRegistrar;
+
     public static Path getConfigRoot() {
         return CONFIG_ROOT.get();
     }
@@ -95,15 +95,25 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModFluidBlocks.init();
         ModBuckets.init();
         ModSounds.init();
-        ModBiomes.init();
+
         ModScreens.init();
+
+
+
+
+
         ModRecipes.init();
+
+
+
+        ModScienceTags.init();
+        ModBiomes.init();
+        //IS GOOD
         TheRoomDimension.init();
         LSpaceDimension.init();
         AbyssDimension.init();
         ModCommands.init();
-        ModScienceTags.init();
-        modScienceItemRegistrar = new ModScienceItemRegistrar(Registry.ITEM);
+
 
     }
 

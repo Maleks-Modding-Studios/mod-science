@@ -1,6 +1,8 @@
 package malek.mod_science.blocks.strideblocks;
 
 import malek.mod_science.blocks.ModBlockEntities;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.impl.networking.server.ServerNetworkingImpl;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,9 +24,9 @@ public class LavaStrideBlockEntity extends BlockEntity {
         ((LavaStrideBlockEntity)t).tick(world, blockPos, state);
     }
     public void tick(World world, BlockPos blockpos, BlockState state) {
-        if(!getCachedState().get(LavaStride.PERSISTENT)) {
+        if(!state.get(LavaStride.PERSISTENT)) {
             if (lavaTicksSinceCreation > 20) {
-                world.setBlockState(blockpos, Blocks.LAVA.getDefaultState(), 2);
+                world.setBlockState(blockpos, Blocks.LAVA.getDefaultState());
             }
             ++lavaTicksSinceCreation;
         }

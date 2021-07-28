@@ -37,7 +37,10 @@ public class OreMagnet extends Item implements ModScienceItemRegistrar.ChildItem
             Temp temp1 = new Temp();
             BlockPos.iterateOutwards(pos, X_RANGE, Y_RANGE, Z_RANGE).forEach((blockPos -> {
                 if (temp1.thing && matches(world.getBlockState(blockPos), stack)) {
-                    switchBlockStates(world, blockPos.add(new BlockPos(Math.min(pos.getX() - blockPos.getX(), 1), Math.min(pos.getY() - blockPos.getY(), 1), Math.min(pos.getZ() - blockPos.getZ(), 1))), blockPos);
+                    int x = pos.getX() - blockPos.getX();
+                    int y = pos.getY() - blockPos.getY();
+                    int z = pos.getZ() - blockPos.getZ();
+                    switchBlockStates(world, blockPos.add(new BlockPos(getSign(x)*Math.min(Math.abs(x), 1), getSign(y)*Math.min(Math.abs(y), 1), getSign(z)*Math.min(Math.abs(z), 1))), blockPos);
                     playerEntity.getItemCooldownManager().set(this, 20);
                     temp1.thing = false;
                 }
@@ -53,7 +56,9 @@ public class OreMagnet extends Item implements ModScienceItemRegistrar.ChildItem
             return state.getBlock() == Registry.BLOCK.get(new Identifier(IOreMagnet.getString(stack)));
         }
     }
-
+    public int getSign(int value) {
+        return value < 0 ? -1 : 1;
+    }
     public static void switchBlockStates(World world, BlockPos pos1, BlockPos pos2) {
         BlockState state1 = world.getBlockState(pos1);
         BlockState state2 = world.getBlockState(pos2);
@@ -61,9 +66,6 @@ public class OreMagnet extends Item implements ModScienceItemRegistrar.ChildItem
         world.setBlockState(pos1, state2);
     }
     public static BlockPos getClosestPos(BlockPos dest, BlockPos source) {
-        int y = absPos(dest.getY(), source.getY());
-        int x = absPos(dest.getX(), source.getX());
-        int z = absPos(dest.getZ(), source.getZ());
         BlockPos value = source.mutableCopy();
 //        if(y <= x && y <= z) {
 //            //y is smallest

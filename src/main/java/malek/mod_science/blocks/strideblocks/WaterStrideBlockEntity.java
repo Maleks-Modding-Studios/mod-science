@@ -16,14 +16,15 @@ public class WaterStrideBlockEntity extends BlockEntity {
     int waterTicksSinceCreation = 0;
 
     public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
-        if(world.isClient())
-            return;
+//        if(world.isClient())
+//            return;
         ((WaterStrideBlockEntity)t).tick(world, blockPos, state);
     }
     public void tick(World world, BlockPos blockpos, BlockState state) {
-        if(!getCachedState().get(WaterStride.PERSISTENT)) {
+        if(/*!state.get(WaterStride.PERSISTENT)*/true) {
             if (waterTicksSinceCreation > 20) {
-                world.setBlockState(blockpos, Blocks.WATER.getDefaultState(), 2);
+                world.setBlockState(blockpos, Blocks.WATER.getDefaultState());
+                world.markDirty(blockpos);
             }
             ++waterTicksSinceCreation;
         }

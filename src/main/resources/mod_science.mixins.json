@@ -6,7 +6,6 @@
   "mixins": [
     "BlockMixin",
     "BucketItemMixin",
-    "ClientPlayerInteractionManagerMixin",
     "EntityMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
@@ -14,9 +13,11 @@
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
     "TameableEntityMixin",
-    "EntityTickMixin"
+    "EntityTickMixin",
+    "ArmorItemMixin"
   ],
   "client": [
+    "ClientPlayerInteractionManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

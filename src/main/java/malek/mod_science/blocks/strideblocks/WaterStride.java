@@ -1,10 +1,7 @@
 package malek.mod_science.blocks.strideblocks;
 
 import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -17,7 +14,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 
-public class WaterStride extends BlockWithEntity {
+public class WaterStride extends BlockWithEntity implements BlockEntityProvider {
 
     public static final BooleanProperty PERSISTENT = BooleanProperty.of("persistent");
 
