@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mod_science:block/strides/water_stride" }
+  }
+}

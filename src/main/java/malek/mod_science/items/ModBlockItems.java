@@ -68,6 +68,13 @@ public class ModBlockItems {
     @RegistryEntry("crystal_growth")
     public static final Item CRYSTAL_GROWTH = new BlockItem(ModBlocks.CRYSTAL_GROWTH, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("lava_stride")
+    public static final Item LAVA_STRIDE = new BlockItem(ModBlocks.LAVA_STRIDE_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("water_stride")
+    public static final Item WATER_STRIDE = new BlockItem(ModBlocks.WATER_STRIDE_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
+
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

@@ -135,7 +135,7 @@ public final class ModItems {
     @RegistryEntry("default_ore_magnet")
     public static final Item DEFAULT_ORE_MAGNET = new OreMagnet(new FabricItemSettings());
 
-    @RegistryEntry("striding_boots")
+    @RegistryEntry("boots_of_striding")
     public static final Item BOOTS_OF_STRIDING = new ArmorItem(armorMaterial, EquipmentSlot.FEET, new FabricItemSettings().group(MOD_SCIENCE));
 
 

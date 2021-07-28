@@ -71,7 +71,7 @@
     },
     "size_horizontal": 1,
     "min_y": 0,
-    "height": 128,
+    "height": 448,
     "sampling": {
       "xz_scale": 1.0,
       "y_scale": 3.0,
