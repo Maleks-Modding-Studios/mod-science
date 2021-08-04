@@ -1,0 +1,46 @@
+{
+    "bedrock_roof_position": -10,
+    "bedrock_floor_position": 0,
+    "sea_level": 64,
+    "min_surface_level": 0,
+    "disable_mob_generation": true,
+    "noise_caves_enabled": false,
+    "noodle_caves_enabled": false,
+    "deepslate_enabled": false,
+    "ore_veins_enabled": false,
+    "aquifers_enabled": false,
+    "default_block": {
+      "Name": "minecraft:diorite"
+    },
+    "default_fluid": {
+      "Name": "minecraft:air"
+    },
+    "structures": {
+      "structures": {}
+    },
+    "noise": {
+      "min_y": 0,
+      "height": 256,
+      "size_vertical": 32,
+      "density_factor": 1,
+      "density_offset": 1,
+      "simplex_surface_noise": true,
+      "size_horizontal": 1,
+      "sampling": {
+          "xz_factor": 1,
+          "xz_scale": 1,
+          "y_factor": 1,
+          "y_scale": 1
+      },
+      "bottom_slide": {
+          "target": -1,
+          "size": 1,
+          "offset": 1
+      },
+      "top_slide": {
+          "offset": 1,
+          "size": 1,
+          "target": -1
+      }
+    }
+  }
