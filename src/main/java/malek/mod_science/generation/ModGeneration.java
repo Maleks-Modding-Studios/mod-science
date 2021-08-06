@@ -34,7 +34,7 @@ public class ModGeneration {
 
     // Configured ore features
     public static final ConfiguredFeature<?, ?> CONFIGURED_SHADOWSILK_ORE_GEN = SHADOWSILK_ORE_GEN.configure(new OreFeatureConfig(ImmutableList.of(OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, OreBlockStates.SHADOWSILK_STONE_ORE_STATE), OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, OreBlockStates.SHADOWSILK_DEEPSLATE_ORE_STATE)), 8, 0.5F)).triangleRange(YOffset.fixed(-64), YOffset.fixed(10)).repeat(200).spreadHorizontally();
-    public static final ConfiguredFeature<?, ?> CONFIGURED_POTATO_ORE_GEN = POTATO_ORE_GEN.configure(new OreFeatureConfig(POTATO_TARGETS, ModBlocks.POTATO_ORE.getDefaultState(), 17, 0.5F)).triangleRange(YOffset.fixed(50), YOffset.fixed(256)).repeat(20).spreadHorizontally();
+    public static final ConfiguredFeature<?, ?> CONFIGURED_POTATO_ORE_GEN = POTATO_ORE_GEN.configure(new OreFeatureConfig(POTATO_TARGETS, ModBlocks.POTATO_ORE.getDefaultState(), 17, 0.5F)).triangleRange(YOffset.fixed(50), YOffset.fixed(256)).repeat(40).spreadHorizontally();
     public static final ConfiguredFeature<?, ?> CONFIGURED_SPIRACLE_ORE_GEN = SPIRACLE_ORE_GEN.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ModBlocks.SPIRCALE_ORE.getDefaultState(), 10, 0.1F)).triangleRange(YOffset.fixed(0), YOffset.fixed(40)).repeat(15).spreadHorizontally();
     public static final ConfiguredFeature<?, ?> CONFIGURED_FRACTAL_ORE_GEN = FRACTAL_ORE_GEN.configure(new OreFeatureConfig(ImmutableList.of(OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, ModBlocks.FRACTAL_ORE.getDefaultState()), OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_FRACTAL_ORE.getDefaultState())), 8)).triangleRange(YOffset.fixed(50), YOffset.fixed(150));
 
@@ -80,6 +80,7 @@ public class ModGeneration {
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, shadowsilk);
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, spiracle);
         BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, fractal);
+        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, potato);
         //BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, shadowsilk_deepslate);
         //BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);
         //BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);
