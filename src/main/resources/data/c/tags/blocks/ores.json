@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "mod_science:shadowsilk_stone_ore",
+    "mod_science:potato_ore",
     "mod_science:shadowsilk_deepslate_ore",
     "minecraft:coal_ore",
     "minecraft:gold_ore",
