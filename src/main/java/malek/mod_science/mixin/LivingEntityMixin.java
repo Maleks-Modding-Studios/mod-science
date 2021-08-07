@@ -3,45 +3,34 @@ package malek.mod_science.mixin;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.dimensions.LSpaceDimension;
+import malek.mod_science.effects.ModEffects;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTracker;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.apache.commons.logging.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LoggerInterface {
@@ -86,52 +75,42 @@ public abstract class LivingEntityMixin extends Entity implements LoggerInterfac
     }
     @Inject(method = "jump()V", at = @At("TAIL"))
     private void injectJumpMethod(CallbackInfo info) {
+
+        if (this.hasStatusEffect(ModEffects.STICKY)) {
+            setVelocity(getVelocity().subtract(0, 1, 0));
+        }
+
         for(ItemStack item : this.getArmorItems())
         {
             if(item.getItem() == ModItems.BOOTS_OF_STRIDING) {
                 setVelocity(getVelocity().add(0, 0.25F, 0));
-            }else{
+            } else {
                 setVelocity(getVelocity().add(0,0,0));
             }
         }
 
     }
 
-
-
     private static final double multiply = 1;
 
-    @Overwrite
-    public void jump() {
-        float f = this.getJumpVelocity();
-        if (this.hasStatusEffect(StatusEffects.JUMP_BOOST)) {
-            f += 0.1F * (float)(this.getStatusEffect(StatusEffects.JUMP_BOOST).getAmplifier() + 1);
-        }
-
-        Vec3d vec3d = this.getVelocity();
-        if(this.world.getRegistryKey().equals(LSpaceDimension.WORLD_KEY)) {
-            System.out.println("AASDASASD");
-            LivingEntity player = MixinUtil.cast(this);
-            for (BlockPos pos : BlockPos.iterateOutwards(player.getBlockPos(), 30, 30, 30)) {
-                if (!world.getBlockState(pos).isAir()) {
-                    BlockPos delta = player.getBlockPos().subtract(pos).multiply(1);
-                    player.addVelocity(delta.getX()*multiply, delta.getY()*multiply, delta.getZ()*multiply);
-                    break;
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void lSpaceGravity(CallbackInfo info) {
+        LivingEntity player = MixinUtil.cast(this);
+        if (this.jumping) {
+            if(this.world.getRegistryKey().equals(LSpaceDimension.WORLD_KEY)) {
+                for (BlockPos pos : BlockPos.iterateOutwards(player.getBlockPos(), 30, 30, 30)) {
+                    if (!world.getBlockState(pos).isAir()) {
+                        BlockPos delta = player.getBlockPos().subtract(pos).multiply(1);
+                        player.addVelocity(delta.getX() * multiply, delta.getY() * multiply, delta.getZ() * multiply);
+                        break;
+                    }
                 }
             }
-            //this.setVelocity(vec3d.x, (double)f, vec3d.z);
-
-            this.velocityDirty = true;
-            return;
         }
-        this.setVelocity(vec3d.x, (double)f, vec3d.z);
-        if (this.isSprinting()) {
-            float g = this.getYaw() * 0.017453292F;
-            this.setVelocity(this.getVelocity().add((double)(-MathHelper.sin(g) * 0.2F), 0.0D, (double)(MathHelper.cos(g) * 0.2F)));
-        }
-
         this.velocityDirty = true;
+        return;
     }
+
     @Shadow
     protected abstract StatusEffectInstance getStatusEffect(StatusEffect jumpBoost);
 
@@ -142,6 +121,8 @@ public abstract class LivingEntityMixin extends Entity implements LoggerInterfac
     protected abstract float getJumpVelocity();
 
 
+    @Shadow
+    protected boolean jumping;
     public double posX =  getX();
     public double posY =  getY()-1;
     public double posZ =  getZ();
