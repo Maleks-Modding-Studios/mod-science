@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:glass",
+    "minecraft:cobweb",
+    "minecraft:torch",
+    "minecraft:trip_wire",
+    "minecraft:trip_wire_hook",
+    "minecraft:redstone",
+    "minecraft:redstone_torch",
+    "minecraft:redstone_repeater",
+    "minecraft:redstone_comparator",
+    "minecraft:sugar_cane"
+  ]
+}
