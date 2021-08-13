@@ -29,6 +29,7 @@ public class Timeout implements TimeoutInterface, EntityComponentInitializer, Au
         return this.timeout;
     }
 
+
     @Override
     public void setTimeOut(double timeOut) {
         this.timeout = timeOut;
@@ -43,7 +44,7 @@ public class Timeout implements TimeoutInterface, EntityComponentInitializer, Au
     public boolean isTimeOutOver() {
         return getTimeOut() <= (((double)System.currentTimeMillis())/1000) - time;
     }
-    private boolean isTimeToLetOut(ServerPlayerEntity player) {
+    public boolean isTimeToLetOut(ServerPlayerEntity player) {
         return Timeout.TIMEOUT.get(player).getTimeOut() * 1000 <= System.currentTimeMillis() - time;
     }
 

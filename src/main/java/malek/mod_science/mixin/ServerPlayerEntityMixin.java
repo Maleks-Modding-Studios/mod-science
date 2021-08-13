@@ -31,6 +31,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
     @Shadow
     public abstract ServerWorld getServerWorld();
 
+
+
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
@@ -82,7 +84,12 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
                 }
                 check = 0;
             }
+        }else{
+            ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object) this;
+            playerEntity.getAbilities().invulnerable = true;
+            playerEntity.sendAbilitiesUpdate();
         }
+
     }
 
     @Inject(method = "teleport", at = @At("HEAD"), cancellable = true)
