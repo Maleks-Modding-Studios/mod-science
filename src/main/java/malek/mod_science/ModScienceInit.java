@@ -4,7 +4,10 @@ import malek.mod_science.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
+import malek.mod_science.dimensions.AbyssDimension;
 import malek.mod_science.dimensions.LSpaceDimension;
+import malek.mod_science.entities.clank.Clanks;
+import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
 import malek.mod_science.effects.ModEffects;
@@ -28,6 +31,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -70,6 +74,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
 //    );
     @Override
     public void onInitialize() {
+
         log("Initializing Mod Science. Have fun playing our mod!");
         log(getConfig().madness.lowMadness.thresholdAmount + " is the current Low Madness threshold amount");
         log(getConfig().madness.mediumMadness.thresholdAmount + " is the current Medium Madness threshold amount");
@@ -85,19 +90,32 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModEntities.init();
         ModBlockEntities.init();
         ModEffects.init();
+        Clanks.init();
 
         //ModFluids
         ModFluids.init();
         ModFluidBlocks.init();
         ModBuckets.init();
         ModSounds.init();
-        ModBiomes.init();
+
         ModScreens.init();
+
+
+
+
+
         ModRecipes.init();
+
+
+
+        ModScienceTags.init();
+        ModBiomes.init();
+        //IS GOOD
         TheRoomDimension.init();
         LSpaceDimension.init();
+        AbyssDimension.init();
         ModCommands.init();
-        ModScienceTags.init();
+
 
     }
 

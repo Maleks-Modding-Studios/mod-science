@@ -1,15 +1,17 @@
 package malek.mod_science.items;
 
 import malek.mod_science.event.ItemEntityTickEvent;
+import malek.mod_science.items.armor.StridingBoots;
 import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.items.orbs_of_power.MoltenCore;
 import malek.mod_science.items.orbs_of_power.TempItem;
 import malek.mod_science.items.orbs_of_power.ThermophilicPowerOrb;
+import malek.mod_science.items.ore_magnet.OreMagnet;
 import malek.mod_science.tags.ModScienceTags;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.ai.brain.task.FarmerVillagerTask;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -17,7 +19,6 @@ import net.minecraft.util.registry.Registry;
 import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
-import org.lwjgl.system.CallbackI;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
@@ -25,6 +26,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 public final class ModItems {
 
     public static final ItemGroup MOD_SCIENCE = FabricItemGroupBuilder.create(new Identifier("modscience", "mod_science")).icon(() -> new ItemStack(Items.GLOW_ITEM_FRAME)).build();
+
+    public static ArmorMaterial armorMaterial = new StridingBoots();
+
     public static final FabricItemSettings DEFAULT = new FabricItemSettings().group(MOD_SCIENCE);
 
     @RegistryEntry("golem_repair_kit")
@@ -124,6 +128,15 @@ public final class ModItems {
 
     @RegistryEntry("mass_hammer")
     public static final Item MASS_HAMMER = new MassHammer(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("ore_magnet")
+    public static final Item ORE_MAGNET = new OreMagnet(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("default_ore_magnet")
+    public static final Item DEFAULT_ORE_MAGNET = new OreMagnet(new FabricItemSettings());
+
+    @RegistryEntry("boots_of_striding")
+    public static final Item BOOTS_OF_STRIDING = new ArmorItem(armorMaterial, EquipmentSlot.FEET, new FabricItemSettings().group(MOD_SCIENCE));
 
 
     private static void registerEvents() {

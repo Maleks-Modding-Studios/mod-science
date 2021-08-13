@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "rdb",
+    "iii"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:redstone_block"
+    },
+    "r": {
+      "item": "minecraft:red_dye"
+    },
+    "b": {
+      "item": "minecraft:blue_dye"
+    },
+    "i": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "result": {
+    "item": "mod_science:default_ore_magnet"
+  }
+}

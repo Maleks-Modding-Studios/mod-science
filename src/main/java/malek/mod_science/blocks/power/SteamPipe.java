@@ -1,5 +1,6 @@
-package malek.mod_science.blocks;
+package malek.mod_science.blocks.power;
 
+import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.power.Efficiency;
 import malek.mod_science.power.PowerPipe;
 import malek.mod_science.power.FindPathToReceivers;

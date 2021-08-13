@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "feature": {
+      "type": "minecraft:delta_feature",
+      "config": {
+        "contents": {
+          "Name": "mod_science:glimmer",
+          "Properties": {
+            "level": "0"
+          }
+        },
+        "rim": {
+          "Name": "mod_science:glimmer",
+          "Properties": {
+            "level": "0"
+          }
+        },
+        "size": {
+          "type": "minecraft:uniform",
+          "value": {
+            "min_inclusive": 3,
+            "max_inclusive": 7
+          }
+        },
+        "rim_size": {
+          "type": "minecraft:uniform",
+          "value": {
+            "min_inclusive": 0,
+            "max_inclusive": 2
+          }
+        }
+      }
+    },
+    "decorator": {
+      "type": "minecraft:count_multilayer",
+      "config": {
+        "count": 1
+      }
+    }
+  }
+}

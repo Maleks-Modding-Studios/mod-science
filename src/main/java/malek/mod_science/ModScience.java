@@ -11,12 +11,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import static malek.mod_science.ModScienceRequirements.requireNonEmpty;
+
 public class ModScience implements LoggerInterface {
     public static final boolean ENABLE_DEBUG_LOGGING = true;
     public static final String MOD_ID = "mod_science";
+
+    @Deprecated
     public static final Identifier ModScienceId(String path){
         return new Identifier(MOD_ID, path);
     }
+
     //Mod Compatibility
     public static ModCompatibility DimensionalDoorsCompat = new ModCompatibility("dimdoors");
     public static ModCompatibility ImmersivePortalsCompat = new ModCompatibility("imm_ptl_core");
@@ -46,5 +51,9 @@ public class ModScience implements LoggerInterface {
 
     public static void clearServer(MinecraftServer server) {
         ModScience.server = null;
+    }
+
+    public static Identifier createIdentifier(String path) {
+        return new Identifier(MOD_ID, requireNonEmpty(path, "Provided path is empty."));
     }
 }

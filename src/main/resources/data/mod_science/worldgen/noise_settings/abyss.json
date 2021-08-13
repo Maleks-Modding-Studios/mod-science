@@ -1,0 +1,85 @@
+{
+  "noise_caves_enabled": true,
+  "deepslate_enabled": true,
+  "ore_veins_enabled": true,
+  "noodle_caves_enabled": true,
+  "min_surface_level": 0,
+  "disable_mob_generation": false,
+  "aquifers_enabled": true,
+  "default_fluid": {
+    "Properties": {
+      "level": "0"
+    },
+    "Name": "minecraft:water"
+  },
+  "bedrock_roof_position": 0,
+  "bedrock_floor_position": 0,
+  "sea_level": 32,
+  "structures": {
+    "stronghold": {
+      "distance": 32,
+      "spread": 3,
+      "count": 128
+    },
+    "structures": {
+      "minecraft:mineshaft": {
+        "spacing": 10,
+        "separation": 0,
+        "salt": 0
+      },
+      "minecraft:buried_treasure": {
+        "spacing": 5,
+        "separation": 0,
+        "salt": 0
+      },
+      "minecraft:ocean_ruin": {
+        "spacing": 20,
+        "separation": 8,
+        "salt": 14357621
+      },
+      "minecraft:stronghold": {
+        "spacing": 5,
+        "separation": 0,
+        "salt": 0
+      },
+      "minecraft:shipwreck": {
+        "spacing": 30,
+        "separation": 4,
+        "salt": 165745295
+      },
+      "minecraft:monument": {
+        "spacing": 30,
+        "separation": 5,
+        "salt": 10387313
+      }
+    }
+  },
+  "noise": {
+    "simplex_surface_noise": false,
+    "size_vertical": 2,
+    "density_factor": 0.0,
+    "density_offset": 0.019921875,
+    "top_slide": {
+      "target": 120,
+      "size": 3,
+      "offset": 0
+    },
+    "bottom_slide": {
+      "target": 320,
+      "size": 4,
+      "offset": -1
+    },
+    "size_horizontal": 1,
+    "min_y": 0,
+    "height": 448,
+    "sampling": {
+      "xz_scale": 1.0,
+      "y_scale": 3.0,
+      "xz_factor": 80.0,
+      "y_factor": 60.0
+    }
+  },
+  "default_block": {
+    "Name": "minecraft:prismarine"
+  }
+}

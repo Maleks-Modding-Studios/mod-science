@@ -4,6 +4,7 @@ import malek.mod_science.ModScience;
 import malek.mod_science.util.general.PlayerUtil;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
@@ -17,7 +18,9 @@ public class ModScienceTags {
     public static final Tag<Block> GENERATOR = TagRegistry.block(ModScience.ModScienceId("mod_science_generator"));
     public static final Tag<Block> RECEIVER = TagRegistry.block(ModScience.ModScienceId("mod_science_receiver"));
     public static final Tag<Block> PIPE = TagRegistry.block(ModScience.ModScienceId("mod_science_valid_pipe"));//yes I did it
-
+    public static final Tag<Block> ORES = TagRegistry.block(new Identifier("c:ores"));
+    public static final Tag<Fluid> GLIMMER = TagRegistry.fluid(ModScience.ModScienceId("glimmer"));
+    public static final Tag<Block> SOFT_BLOCK = TagRegistry.block(new Identifier("c:soft_blocks"));
 
     public static void init() {
     }

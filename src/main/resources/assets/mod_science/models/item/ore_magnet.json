@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:builtin/entity",
+  "textures": {
+    "layer0": "mod_science:item/magnet"
+  }
+}

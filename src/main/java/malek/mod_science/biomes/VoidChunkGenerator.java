@@ -1,17 +1,21 @@
 package malek.mod_science.biomes;
 
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import it.unimi.dsi.fastutil.Hash;
 import malek.mod_science.generation.genUtils.TheRoomFeature;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.MinecraftDedicatedServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureManager;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.ChunkRegion;
@@ -50,169 +54,144 @@ public class VoidChunkGenerator extends ChunkGenerator {
 
     static BlockState SHELF = Blocks.BOOKSHELF.getDefaultState();
 
-    private void buildCubeOfSize(Chunk chunk, BlockPos pos, int sizex, int sizey, int sizez) {
-        for (int x = pos.getX(); x < pos.getX() + sizex; x++) {
-            for (int z = pos.getZ(); z < pos.getZ() + sizez; z++) {
-                for (int y = pos.getY(); y < pos.getY() + sizey; y++) {
-                    chunk.setBlockState(new BlockPos(x, y, z), SHELF, false);
-                }
-            }
+    public void makeStair(Chunk chunk) {
+        for(int y = chunk.getBottomY(); y < chunk.getTopY(); y++) {
+            makeStairPiece(chunk, y);
         }
+
+    }
+    public void makeStairPiece(Chunk chunk, int y) {
+        if(y == chunk.getBottomY()) {
+            for (int x = 0; x < 16; x++)
+                for(int z = 0; z < 16; z++)
+                    //chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), SHELF, false);
+            return;
+        }
+        //buildLadderSec(chunk, y);
     }
 
-    private void buildSmallerCube(Chunk chunk, BlockPos pos) {
-        buildCubeOfSize(chunk, pos, 5, 5, 5);
+    public void buildLadderSec(Chunk chunk, int x, int y, int z) {
+        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), SHELF, false);
+        chunk.setBlockState(chunk.getPos().getBlockPos(1+x, y, z), Blocks.LADDER.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
     }
 
-    private void buildMiddleSmallerCube(Chunk chunk, BlockPos pos) {
-        buildCubeOfSize(chunk, pos, 6, 5, 6);
-    }
 
-    public static CubeType[][][] cubeMap = {
-            {{SMALL, MEDIUM, SMALL}, {MEDIUM, ABSENT, MEDIUM}, {SMALL, MEDIUM, SMALL}}, {{SMALL, ABSENT, SMALL}, {ABSENT, ABSENT, ABSENT}, {SMALL, ABSENT, SMALL}}, {{SMALL, MEDIUM, SMALL}, {MEDIUM, ABSENT, MEDIUM}, {SMALL, MEDIUM, SMALL}}
-    };
 
-    private void buildMengerCube(Chunk chunk, int yStart) {
-        int yPos = yStart;
-        int zPos = 0;
-        int xPos = 0;
-        int xSize = 5;
-        int ySize = 5;
-        int zSize = 5;
-        for (int y = 0; y < cubeMap.length; y++) {
-            for (int z = 0; z < cubeMap[y].length; z++) {
-                for (int x = 0; x < cubeMap[y][z].length; x++) {
-                    CubeType type = cubeMap[y][z][x];
-                     xSize = 5;
-                     ySize = 5;
-                     zSize = 5;
-                     if(x==2) {
-                         xSize = 6;
-                     }
-                     if(z==2) {
-                         zSize = 6;
-                     }
-                     if(y==2) {
-                         ySize = 6;
-                     }
-                    switch (type) {
-                        case ABSENT -> xPos += 5;
-                        case MEDIUM, SMALL -> {
-                            buildCubeOfSize(chunk, new BlockPos(xPos, yPos, zPos), xSize, ySize, zSize);
-                            xPos += 5;
+
+    BlockPos.Mutable mutable = new BlockPos.Mutable(0, 0, 0);
+    Random random = new Random();
+    public static final float CHANCE_FOR_STAIR = 1F;
+    @Override
+    public void buildSurface(ChunkRegion region, Chunk chunk) {
+        try {
+            int x = chunk.getPos().x * 16;
+            int z = chunk.getPos().z * 16;
+            int testX = x;
+            int testZ = z;
+            int num = 16;
+
+            int randomSelectX = random.nextInt(15);
+            int randomStartY = random.nextInt(chunk.getTopY());
+            boolean doY = false;
+            boolean endY = false;
+            for (int yt = chunk.getBottomY(); yt < chunk.getTopY(); yt++) {
+                int y = yt;
+                boolean passes = true;
+                for (int x1 = 0; x1 < num; x1++) {
+                    for (int z1 = 0; z1 < num; z1++) {
+                        for (int y1 = 0; y1 < num; y1++) {
+                            if (fullyPassesTest(x1+testX, y1+y, z1+testZ)) {
+                                mutable.set(x1 + testX, y1 + y, z1 + testZ);
+                                chunk.setBlockState(mutable, SHELF, false);
+                            }
+                            if (fullyPassesTest(x1+testX, y1+y, z1+testZ) && !fullyPassesTest(x1+testX+1, y1+y, z1+testZ)) {
+                                //chunk.setBlockState(mutable.add(1, 0, 0), Blocks.LADDER.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
+                            }
+                            /*
+                            if(passesPartial(x1+testX, y1+y, z1+testZ)) {
+                                if(random.nextFloat() <= 1f && !passesPartial(x1+testX, y1+y+1, z1+testZ)) {
+                                    doY = true;
+                                }
+                            }
+                            if (doY && !endY) {
+                                if (!passesPartial(x1 + testX, y1 + y+1, z1 + testZ)) {
+                                    System.out.println("x:"+(x1+testX) +",y:"+(y1+y+1) +",z:" + (z1+testZ));
+                                    buildLadderSec(chunk, x1+testX,y1+y+1, z1+testZ);
+                                }
+                                else {
+                                    endY = true;
+                                    doY = false;
+                                }
+                            }
+
+                             */
                         }
                     }
                 }
-                zPos += 5;
-                xPos = 0;
-
             }
-            zPos = 0;
-            yPos += 5;
+            /*
+            for(int i = 0; i < 10; i++) {
+                int ladderIndex = random.nextInt(ladderYPos.size() - 2);
+                for (int y1 = ladderYPos.get(ladderIndex); y1 < ladderYPos.get(ladderIndex + 1); y1++) {
+                    buildLadderSec(chunk, y1);
+                    System.out.println("x" + x + "y" + y1 + "z" + z);
+                }
+            }
+
+             */
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
-    private void buildBiggerMengerCube(Chunk chunk) {
+    //THIS IS CODE FOR DECIDING TO SET THINGS TO DOORS!!! REMEMBER THIS!
+    /*
+   if (fullyPassesTest(x1+testX, y1+y, z1+testZ) && !fullyPassesTest(x1+testX+1, y1+y, z1+testZ)) {
+                                chunk.setBlockState(mutable, Blocks.LADDER.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
+                            }
+     */
+
+    private boolean passesPartial(int x, int y, int z) {
+        return passesTest(x, y, z, 27, 9) && passesTest(x, y, z, 81, 27) && passesTest(x, y, z, 243, 81) && passesTest(x, y,  z, 729, 243);
     }
 
+    private boolean fullyPassesTest(int x, int y, int z) {
+        return passesTest(x, y, z, 3, 1) && passesTest(x, y, z, 9, 3) && passesTest(x, y, z, 27, 9) && passesTest(x, y, z, 81, 27) && passesTest(x, y, z, 243, 81) && passesTest(x, y,  z, 729, 243);
+    }
 
-    @Override
-    public void buildSurface(ChunkRegion region, Chunk chunk) {
-        int x = Math.abs(chunk.getPos().x);
-        int z = Math.abs(chunk.getPos().z);
-        int modulus = 2;
-        int secondModulus = 4;
-        int thirdModulus = 8;
-        for(int y = 0; y < 16; y++) {
-//            if (chunk.getPos().x % 3 != 0 && chunk.getPos().z % 3 != 0) buildMengerCube(chunk, y*16);
-//            else if(y%3 == 0 && (chunk.getPos().x % 3 == 0 || chunk.getPos().z % 3 == 0)) {
-//                buildMengerCube(chunk, y*16);
-//            }
-            /*if(chunk.getPos().x%9 != 1 && chunk.getPos().z%9 !=1) {
-                if (chunk.getPos().x % 3 != 1 && chunk.getPos().z % 3 != 1) buildMengerCube(chunk, y * 16);
-                else if (y % 3 != 1 && (chunk.getPos().x % 3 == 1 || chunk.getPos().z % 3 == 1) && (chunk.getPos().x % 3 != chunk.getPos().z % 3)) {
-                    buildMengerCube(chunk, y * 16);
-                }
-            }
-            else if(y%9 != 1 && (chunk.getPos().x % 9 == 1 || chunk.getPos().z % 9 == 1) && (*//*chunk.getPos().x % 9 != chunk.getPos().z % 9*//*true)) {
-                if (chunk.getPos().x % 3 != 1 && chunk.getPos().z % 3 != 1) buildMengerCube(chunk, y * 16);
-                else if (y % 3 != 1 && (chunk.getPos().x % 3 == 1 || chunk.getPos().z % 3 == 1) && (chunk.getPos().x % 3 != chunk.getPos().z % 3)) {
-                    buildMengerCube(chunk, y * 16);
-                }
-            }*/
-           // if(chunk.getPos().x%9 != 1 && chunk.getPos().z%9 !=1) {
-            boolean b = y % modulus == 0 && (x % modulus == 0 || z % modulus == 0);
-            if(x % thirdModulus != 0 && z % thirdModulus != 0) {
-                if (x % secondModulus != 0 && z % secondModulus != 0) {
-                    if (x % modulus == 0 && z % modulus == 0) {
-                        buildMengerCube(chunk, y * 16);
-                    } else if (b) {
-                        buildMengerCube(chunk, y * 16);
-                    }
-                } else if (y % secondModulus != 0 && (x % secondModulus != 0 || z % secondModulus != 0)) {
-                    if (x % modulus == 0 && z % modulus == 0) {
-                        buildMengerCube(chunk, y * 16);
-                    } else if (b) {
-                        buildMengerCube(chunk, y * 16);
-                    }
-                }
-            }
-            else if (y % thirdModulus != 0 && (x % thirdModulus != 0 || z % thirdModulus != 0)) {
-                if (x % secondModulus != 0 && z % secondModulus != 0) {
-                    if (x % modulus == 0 && z % modulus == 0) {
-                        buildMengerCube(chunk, y * 16);
-                    } else if (b) {
-                        buildMengerCube(chunk, y * 16);
-                    }
-                } else if (y % secondModulus != 0 && (x % secondModulus != 0 || z % secondModulus != 0)) {
-                    if (x % modulus == 0 && z % modulus == 0) {
-                        buildMengerCube(chunk, y * 16);
-                    } else if (b) {
-                        buildMengerCube(chunk, y * 16);
-                    }
-                }
-            }
-            //}
+    private boolean passesTest(int x, int y, int z, int modulus, int previous) {
+        return (mini(x, modulus, previous) && mini(y, modulus, previous)) || (mini(z, modulus, previous) && mini(y, modulus, previous)) || (mini(x, modulus, previous) && mini(z, modulus, previous));
+    }
 
-//            else if(y%9 != 1 && (chunk.getPos().x % 9 == 1 || chunk.getPos().z % 9 == 1) && (/*chunk.getPos().x % 9 != chunk.getPos().z % 9*/true)) {
-//                if (chunk.getPos().x % 3 != 1 && chunk.getPos().z % 3 != 1) buildMengerCube(chunk, y * 16);
-//                else if (y % 3 != 1 && (chunk.getPos().x % 3 == 1 || chunk.getPos().z % 3 == 1) && (chunk.getPos().x % 3 != chunk.getPos().z % 3)) {
-//                    buildMengerCube(chunk, y * 16);
-//                }
-//            }
-        }
-        //        if(chunk.getPos().z == chunk.getPos().x && chunk.getPos().z == 0) {
-        //            for(int x = 0; x < 32; x++) {
-        //                for(int z = 0; z < 32; z++) {
-        //                    chunk.setBlockState(new BlockPos(x-16, 1, z-16), Blocks.QUARTZ_BLOCK.getDefaultState(), false);
-        //                }
+    private boolean mini(int i, int mod, int prev) {
+        return (chunkMod(i, mod)) / prev != 1;
+    }
+
+    private void coolStructureWeDontUse() {
+        //        boolean b = y % modulus == 0 && (x % modulus == 0 || z % modulus == 0);
+        //        if(x % secondModulus == 0 && z % secondModulus == 0) {
+        //            if (x % modulus == 0 && z % modulus == 0) {
+        //                buildMengerCube(chunk, y * 16);
         //            }
-        //            chunk.setBlockState(new BlockPos(4, 1, 4), Blocks.WARPED_DOOR.getDefaultState(), false);
-        //            System.out.println(chunk.getPos());
+        //            else if (b) {
+        //                buildMengerCube(chunk, y * 16);
+        //            }
+        //        }
+        //        else if (y % secondModulus== 0 && (x % secondModulus == 0 || z % secondModulus == 0)) {
+        //            if (x % modulus == 0 && z % modulus == 0) {
+        //                buildMengerCube(chunk, y * 16);
+        //            }
+        //            else if (b) {
+        //                buildMengerCube(chunk, y * 16);
+        //            }
         //        }
     }
-
-
-    private void coolStructureWeDontUse( ) {
-//        boolean b = y % modulus == 0 && (x % modulus == 0 || z % modulus == 0);
-//        if(x % secondModulus == 0 && z % secondModulus == 0) {
-//            if (x % modulus == 0 && z % modulus == 0) {
-//                buildMengerCube(chunk, y * 16);
-//            }
-//            else if (b) {
-//                buildMengerCube(chunk, y * 16);
-//            }
-//        }
-//        else if (y % secondModulus== 0 && (x % secondModulus == 0 || z % secondModulus == 0)) {
-//            if (x % modulus == 0 && z % modulus == 0) {
-//                buildMengerCube(chunk, y * 16);
-//            }
-//            else if (b) {
-//                buildMengerCube(chunk, y * 16);
-//            }
-//        }
+    public static int chunkMod(int val, int mod) {
+        return val > 0 ? val % mod : ((mod - val) % mod);
     }
+
     @Override
     public void setStructureStarts(DynamicRegistryManager dynamicRegistryManager, StructureAccessor structureAccessor, Chunk chunk, StructureManager structureManager, long worldSeed) {
         super.setStructureStarts(dynamicRegistryManager, structureAccessor, chunk, structureManager, worldSeed);
@@ -225,7 +204,7 @@ public class VoidChunkGenerator extends ChunkGenerator {
 
     @Override
     public CompletableFuture<Chunk> populateNoise(Executor executor, StructureAccessor accessor, Chunk chunk) {
-        return CompletableFuture.supplyAsync(() -> chunk);
+        return CompletableFuture.completedFuture(chunk);
     }
 
     @Override

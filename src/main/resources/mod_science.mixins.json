@@ -6,16 +6,20 @@
   "mixins": [
     "BlockMixin",
     "BucketItemMixin",
-    "ClientPlayerInteractionManagerMixin",
     "EntityMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
-    "TameableEntityMixin"
+    "TameableEntityMixin",
+    "EntityTickMixin",
+    "ArmorItemMixin",
+    "InGameHudMixin"
   ],
   "client": [
+    "ClientPlayerInteractionManagerMixin",
+    "ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
