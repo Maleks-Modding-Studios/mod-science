@@ -2,6 +2,7 @@ package malek.mod_science.entities.clank;
 
 import malek.mod_science.ModScience;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DefaultedRegistry;
 import net.minecraft.util.registry.Registry;
 
@@ -43,5 +44,13 @@ public final class Clanks {
 
     private static void register(String key, Clank clank) {
         Registry.register(REGISTRY, ModScience.createIdentifier(key), clank);
+    }
+
+    public static Clank getFromIdentifier(Identifier identifier) {
+        return REGISTRY.get(identifier);
+    }
+
+    public static Identifier getIdentifierFrom(Clank clank) {
+        return REGISTRY.getId(clank);
     }
 }
