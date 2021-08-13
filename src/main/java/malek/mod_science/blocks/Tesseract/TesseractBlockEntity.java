@@ -1,3 +1,4 @@
+<<<<
 package malek.mod_science.blocks.Tesseract;
 
 
@@ -12,8 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.NamedScreenHandlerFactory;import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.LiteralText;
@@ -44,10 +44,7 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
             return;
         ((TesseractBlockEntity)t).tick(world, blockPos, state);
     }
-    private void tick(World world, BlockPos blockPos, BlockState state){
-
-    }
-
+    private void tick(World world, BlockPos blockPos,
     @Override
     public Logger getLogger() {
         return LogManager.getLogger();
@@ -124,3 +121,163 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
 
 
 }
+
+package malek.mod_science.blocks.Tesseract;
+
+
+
+import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
+import malek.mod_science.blocks.ModBlockEntities;
+import malek.mod_science.blocks.Tesseract.tesseractgui.TesseractGuiDescription;
+import malek.mod_science.recipes.hex_crafting.basic.BasicHexcraftingRecipe;
+import malek.mod_science.recipes.hex_crafting.basic.Type;
+import malek.mod_science.util.general.ImplementedInventory;
+import malek.mod_science.util.general.LoggerInterface;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+
+public class TesseractBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory {
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(17, ItemStack.EMPTY);
+    private int currentCraftingTicks = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    public TesseractBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.TESSERACT_BLOCK_ENTITY, pos, state);
+        this.x = this.getPos().getX();
+        this.y = this.getPos().getY();
+        this.z = this.getPos().getZ();
+    }
+    public static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState state, T t) {
+        if(world.isClient())
+            return;
+        ((TesseractBlockEntity)t).tick(world, blockPos, state);
+    }
+    private void tick(World world, BlockPos blockPos, BlockState state){
+
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LogManager.getLogger();
+    }
+
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return inventory;
+    }
+
+    @Override
+    public PropertyDelegate getPropertyDelegate() {
+        return propertyDelegate;
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return new LiteralText("Tesseract");
+    }
+
+    //this right here is the new updated hopefully working code for custom recipe implimentation :) the doCraft code is down at the bottom - gamma_02
+
+    public void testCraft(){
+        List<BasicHexcraftingRecipe> match = world.getRecipeManager().getAllMatches(Type.INSTANCE, this::getItems, world);
+        for(int i = 0; 1 < match.size(); i++){
+            if(match.get(i).matches(this::getItems, world)){
+                currentCraftingTicks++;
+                if(currentCraftingTicks >= match.get(i).TICKS){
+                    currentCraftingTicks = 0;
+                    doCraft(match.get(i));
+
+                }
+            }
+        }
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new TesseractGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+    }
+
+    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            switch (index) {
+                case 0: return getPos().getX();
+                case 1 : return getPos().getY();
+                case 2 : return getPos().getZ();
+            }
+            return 0;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0: x = value; break;
+                case 1 : y = value; break;
+                case 2 : z = value; break;
+            }
+
+        }
+
+        @Override
+        public int size() {
+            return 3;
+        }
+    };
+
+    @Override
+    public int[] getAvailableSlots(Direction var1) {
+        // Just return an array of all slots
+        int[] result = new int[getItems().size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = i;
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, Direction direction) {
+        return direction != Direction.UP;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction direction) {
+        return true;
+    }
+
+    public void doCraft(BasicHexcraftingRecipe recipe){
+        if(this.getItems().get(1).getCount() == 1){
+            for(int i2 = 0; i2 < this.size(); i2++){
+                if(!this.getItems().get(i2).isEmpty()){
+                    this.getItems().get(i2).decrement(1);
+                }
+            }
+            this.getItems().set(12, recipe.craft(this::getItems));
+        }
+    }
+
+
+}
+
