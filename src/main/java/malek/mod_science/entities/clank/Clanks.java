@@ -1,6 +1,7 @@
 package malek.mod_science.entities.clank;
 
 import malek.mod_science.ModScience;
+import malek.mod_science.entities.clank.variants.*;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DefaultedRegistry;
@@ -9,19 +10,19 @@ import net.minecraft.util.registry.Registry;
 public final class Clanks {
     public static final DefaultedRegistry<Clank> REGISTRY = FabricRegistryBuilder.createDefaulted(Clank.class, ModScience.createIdentifier("clank"), ModScience.createIdentifier("clockworker")).buildAndRegister();
 
-    public static final Clank CLOCKWORKER = new Clank() {};
-    public static final Clank SPARKWORKER = new Clank() {};
-    public static final Clank CLOCKCOPTER = new Clank() {};
-    public static final Clank THINKBOT = new Clank() {};
-    public static final Clank CATOMATON = new Clank() {};
-    public static final Clank CLOCKWORK_GOLEM = new Clank() {};
-    public static final Clank STEALTH_GOLEM = new Clank() {};
-    public static final Clank AETHERNAL_AUTOMATON = new Clank() {};
-    public static final Clank MOLTEN_GIANT = new Clank() {};
-    public static final Clank STRONGBOX = new Clank() {};
-    public static final Clank CAGE_SPIDER = new Clank() {};
-    public static final Clank SUBSIDIARY_LOCOMATON = new Clank() {};
-    public static final Clank GIANT_SLIME_GOLEM = new Clank() {};
+    public static final Clank CLOCKWORKER = new Clockworker();
+    public static final Clank SPARKWORKER = new Sparkworker();
+    public static final Clank CLOCKCOPTER = new Clockcopter();
+    public static final Clank THINKBOT = new Thinkbot();
+    public static final Clank CATOMATON = new Catomaton();
+    public static final Clank CLOCKWORK_GOLEM = new ClockworkGolem();
+    public static final Clank STEALTH_GOLEM = new StealthGolem();
+    public static final Clank AETHERNAL_AUTOMATON = new AethernalAutomaton();
+    public static final Clank MOLTEN_GIANT = new MoltenGiant();
+    public static final Clank STRONGBOX = new Strongbox();
+    public static final Clank CAGE_SPIDER = new CageSpider();
+    public static final Clank SUBSIDIARY_LOCOMATON = new SubsidiaryLocomaton();
+    public static final Clank GIANT_SLIME_GOLEM = new GiantSlimeGolem();
 
     private Clanks() {
     }

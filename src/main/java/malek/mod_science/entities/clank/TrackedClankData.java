@@ -38,6 +38,8 @@ public final class TrackedClankData {
 
         compound.putString("key", Clanks.getIdentifierFrom(clank).toString());
 
+        clank.write(compound);
+
         return compound;
     }
 
@@ -46,6 +48,8 @@ public final class TrackedClankData {
 
         if (compound.contains("key", NbtType.STRING)) {
             clank = Clanks.getFromIdentifier(new Identifier(compound.getString("key")));
+
+            clank.read(compound);
         }
 
         return new TrackedClankData(clank);
