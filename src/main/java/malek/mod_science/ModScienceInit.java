@@ -6,6 +6,8 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
 import malek.mod_science.dimensions.AbyssDimension;
 import malek.mod_science.dimensions.LSpaceDimension;
+import malek.mod_science.entities.clank.Clanks;
+import malek.mod_science.dimensions.WyldsDimension;
 import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.recipes.ModRecipes;
 import malek.mod_science.dimensions.TheRoomDimension;
@@ -89,6 +91,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModEntities.init();
         ModBlockEntities.init();
         ModEffects.init();
+        Clanks.init();
 
         //ModFluids
         ModFluids.init();
@@ -111,6 +114,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         //IS GOOD
         TheRoomDimension.init();
         LSpaceDimension.init();
+        WyldsDimension.init();
         AbyssDimension.init();
         ModCommands.init();
 

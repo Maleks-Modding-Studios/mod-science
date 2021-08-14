@@ -1,0 +1,11 @@
+{
+  "generator": {
+    "type": "mod_science:wylds",
+    "custom_bool": true,
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "mod_science:white_void"
+    }
+  },
+  "type": "mod_science:l_space"
+}

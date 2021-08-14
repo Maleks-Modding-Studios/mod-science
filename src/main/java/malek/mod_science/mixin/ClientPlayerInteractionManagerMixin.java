@@ -13,11 +13,13 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.core.jmx.Server;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,6 +33,10 @@ public class ClientPlayerInteractionManagerMixin {
     @Shadow
     private MinecraftClient client;
 
+
+
+
+
     private long time = System.currentTimeMillis();
     @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
     public void interactBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
@@ -43,6 +49,9 @@ public class ClientPlayerInteractionManagerMixin {
             {
                 cir.setReturnValue(ActionResult.PASS);
             }
+        }
+        if(world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock){
+
         }
     }
 
@@ -59,3 +68,4 @@ public class ClientPlayerInteractionManagerMixin {
         if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) cir.setReturnValue(ActionResult.PASS);
     }
 }
+
