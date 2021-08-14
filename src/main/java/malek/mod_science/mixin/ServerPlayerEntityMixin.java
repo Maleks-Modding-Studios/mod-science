@@ -38,6 +38,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
     @Shadow
     public abstract ServerWorld getServerWorld();
 
+
+
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
@@ -104,7 +106,12 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
             playerEntity.getAbilities().invulnerable = false;
             playerEntity.sendAbilitiesUpdate();
             playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
+
+            playerEntity.getAbilities().invulnerable = true;
+            playerEntity.sendAbilitiesUpdate();
+
         }
+
     }
     public int getSign(int value) {
         return value < 0 ? -1 : 1;

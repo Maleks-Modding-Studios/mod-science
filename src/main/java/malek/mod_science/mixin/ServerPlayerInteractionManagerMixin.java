@@ -1,6 +1,7 @@
 package malek.mod_science.mixin;
 
 import malek.mod_science.ModScience;
+import malek.mod_science.components.player.lastDoor.LastDoor;
 import malek.mod_science.components.player.timeout.Timeout;
 import malek.mod_science.dimensions.TheRoomDimension;
 import net.minecraft.block.DoorBlock;
@@ -28,11 +29,15 @@ public class ServerPlayerInteractionManagerMixin {
     @Shadow
     protected ServerWorld world;
 
+
+
     @Inject(method = "tryBreakBlock", at = @At("HEAD"), cancellable = true)
     public void tryBreakBlockMixin(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) cir.setReturnValue(false);
     }
 
+
+    //this whole thing is concern
     @Inject(method = "interactItem", at = @At("HEAD"), cancellable = true)
     public void interactItem(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) cir.setReturnValue(ActionResult.PASS);
@@ -48,16 +53,19 @@ public class ServerPlayerInteractionManagerMixin {
     @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
     public void interactBlock(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
-            if (world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock) {
+            if (world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock && Timeout.TIMEOUT.get(player).isTimeToLetOut(player)) {
                 teleportPlayerBack(player, world);
             }
             cir.setReturnValue(ActionResult.PASS);
+        }else if (world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock && !world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)){
+            LastDoor.LAST_DOOR.get(player).setLastDoor(hitResult.getBlockPos());
+            LastDoor.LAST_DOOR.get(player).setLastWorld(player.getServerWorld());
         }
     }
 
     private void teleportPlayerBack(ServerPlayerEntity player, World world) {
         if(player.getSpawnPointPosition() != null)
-            player.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), player.getSpawnPointPosition().getX(), player.getSpawnPointPosition().getY(), player.getSpawnPointPosition().getZ(), 0F, 0F);
+            player.teleport(LastDoor.LAST_DOOR.get(player).getLastWorld(), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getX(), player.getSpawnPointPosition().getY(), player.getSpawnPointPosition().getZ(), 0F, 0F);
         else
             player.teleport(player.getServer().getOverworld(), player.getServer().getOverworld().getSpawnPos().getX(), player.getServer().getOverworld().getSpawnPos().getY(), player.getServer().getOverworld().getSpawnPos().getZ(), 0f, 0f);
     }
