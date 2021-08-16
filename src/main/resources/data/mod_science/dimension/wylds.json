@@ -6,7 +6,7 @@
     "settings": {
     "name": "minecraft:overworld",
     "bedrock_roof_position": -1000,
-    "bedrock_floor_position": 0,
+    "bedrock_floor_position": -1000,
     "sea_level": 0,
     "min_surface_level": 0,
     "disable_mob_generation": false,
@@ -16,7 +16,7 @@
     "deepslate_enabled": false,
     "ore_veins_enabled": false,
     "default_block": {
-      "Name": "minecraft:sand"
+      "Name": "mod_science:reality_block/white"
     },
     "default_fluid": {
       "Name": "minecraft:water",
@@ -56,7 +56,7 @@
   },
     "biome_source": {
       "type": "minecraft:fixed",
-      "biome": "mod_science:white_void"
+      "biome": "mod_science:wylds_desert"
     }
   }
 }
