@@ -1,11 +1,62 @@
 {
+  "type": "mod_science:l_space",
   "generator": {
     "type": "mod_science:wylds",
-    "custom_bool": true,
-    "biome_source": {
-      "type": "minecraft:fixed",
-      "biome": "mod_science:white_void"
+    "seed": 21287861,
+    "settings": {
+    "name": "minecraft:overworld",
+    "bedrock_roof_position": -100,
+    "bedrock_floor_position": 0,
+    "sea_level": 0,
+    "min_surface_level": 0,
+    "disable_mob_generation": false,
+    "noise_caves_enabled": false,
+    "noodle_caves_enabled": false,
+    "aquifers_enabled": false,
+    "deepslate_enabled": false,
+    "ore_veins_enabled": false,
+    "default_block": {
+      "Name": "minecraft:stone"
+    },
+    "default_fluid": {
+      "Name": "minecraft:water",
+      "Properties": {
+        "level": "0"
+      }
+    },
+    "noise": {
+      "min_y": 0,
+      "height": 256,
+      "density_factor": 1,
+      "density_offset": -0.46875,
+      "size_horizontal": 1,
+      "size_vertical": 2,
+      "simplex_surface_noise": true,
+      "random_density_offset": true,
+      "sampling": {
+        "xz_scale": 1,
+        "y_scale": 1,
+        "xz_factor": 80,
+        "y_factor": 160
+      },
+      "bottom_slide": {
+        "target": -30,
+        "size": 0,
+        "offset": 0
+      },
+      "top_slide": {
+        "target": -10,
+        "size": 3,
+        "offset": 0
+      }
+    },
+    "structures": {
+      "structures": {}
     }
   },
-  "type": "mod_science:l_space"
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:desert"
+    }
+  }
 }
