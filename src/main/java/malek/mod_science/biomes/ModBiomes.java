@@ -165,9 +165,9 @@ public final class ModBiomes {
         DefaultBiomeFeatures.addMonsters(spawnSettings, 95, 5, 100);
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        net.minecraft.world.biome.GenerationSettings.Builder builder2 = (new net.minecraft.world.biome.GenerationSettings.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
-                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
-                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_RED.getDefaultState())));
+        net.minecraft.world.biome.GenerationSettings.Builder builder2 = (new net.minecraft.world.biome.GenerationSettings.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(ModBlocks.REALITY_BLOCK_WHITE.getDefaultState(),
+                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_RED.getDefaultState(),
+                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_GREEN.getDefaultState())));
         DefaultBiomeFeatures.addDefaultUndergroundStructures(generationSettings);
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
         DefaultBiomeFeatures.addDefaultLakes(generationSettings);
