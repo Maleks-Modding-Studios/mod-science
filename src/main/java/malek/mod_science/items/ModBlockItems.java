@@ -3,6 +3,7 @@ package malek.mod_science.items;
 import dev.architectury.platform.Mod;
 import malek.mod_science.blocks.ModBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -73,6 +74,31 @@ public class ModBlockItems {
 
     @RegistryEntry("water_stride")
     public static final Item WATER_STRIDE = new BlockItem(ModBlocks.WATER_STRIDE_BLOCK, new FabricItemSettings().group(MOD_SCIENCE));
+
+    //RealityBlocks
+    @RegistryEntry("reality_block/white")
+    public static final Item REALITY_BLOCK_WHITE = new BlockItem(ModBlocks.REALITY_BLOCK_WHITE, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/red")
+    public static final Item REALITY_BLOCK_RED = new BlockItem(ModBlocks.REALITY_BLOCK_RED, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/green")
+    public static final Item REALITY_BLOCK_GREEN = new BlockItem(ModBlocks.REALITY_BLOCK_GREEN, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/blue")
+    public static final Item REALITY_BLOCK_BLUE = new BlockItem(ModBlocks.REALITY_BLOCK_BLUE, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/cyan")
+    public static final Item REALITY_BLOCK_CYAN = new BlockItem(ModBlocks.REALITY_BLOCK_CYAN, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/yellow")
+    public static final Item REALITY_BLOCK_YELLOW = new BlockItem(ModBlocks.REALITY_BLOCK_YELLOW, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/orange")
+    public static final Item REALITY_BLOCK_ORANGE = new BlockItem(ModBlocks.REALITY_BLOCK_ORANGE, new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("reality_block/purple")
+    public static final Item REALITY_BLOCK_PURPLE = new BlockItem(ModBlocks.REALITY_BLOCK_PURPLE, new FabricItemSettings().group(MOD_SCIENCE));
 
 
     public static void init() {

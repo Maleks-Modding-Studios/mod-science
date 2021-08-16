@@ -117,7 +117,7 @@ public class WyldChunkGenerator extends ChunkGenerator {
     public void buildPlane(ChunkRegion region, Chunk chunk) {
         for(int x = 0; x < 16; x++)
             for(int z = 0; z < 16; z++)
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, 11, z), Blocks.WHITE_WOOL.getDefaultState(), false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, 13, z), Blocks.WHITE_WOOL.getDefaultState(), false);
     }
     public void buildDesert(ChunkRegion region, Chunk chunk) {
         desertGenerator.buildSurface(region, chunk);
