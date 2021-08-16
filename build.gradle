@@ -147,6 +147,8 @@ dependencies {
 //    modCompileOnly "worldedit:worldedit:7.2.6"
 //    modRuntime "worldedit:worldedit:7.2.6"
 
+    modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:3346861"
+
 
 //    datagenImplementation sourceSets.main.output
 //    datagenImplementation sourceSets.main.compileClasspath
