@@ -81,8 +81,11 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_ENDER_DEW, ModFluids.FLOWING_ENDER_DEW);
-        setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF);
-        setupFluidRendering(ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER, new Identifier(MOD_ID, "glimmer"), 0xE7F1F3);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_WYLD_WATER, ModFluids.FLOWING_WYLD_WATER);
+
+        setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF, "fluid");
+        setupFluidRendering(ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER, new Identifier(MOD_ID, "glimmer"), 0xE7F1F3, "fluid");
+        setupFluidRendering(ModFluids.STILL_WYLD_WATER, ModFluids.FLOWING_WYLD_WATER, new Identifier("minecraft", "water"), 0x00DBAE, "block");
 
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
 
@@ -101,9 +104,9 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
             }
         });
     }
-    public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {
-        final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), "fluid/" + textureFluidId.getPath() + "_still");
-        final Identifier flowingSpriteId = new Identifier(textureFluidId.getNamespace(), "fluid/" + textureFluidId.getPath() + "_flow");
+    public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color, String pre) {
+        final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), pre + "/" + textureFluidId.getPath() + "_still");
+        final Identifier flowingSpriteId = new Identifier(textureFluidId.getNamespace(), pre + "/" + textureFluidId.getPath() + "_flow");
 
         // If they're not already present, add the sprites to the block atlas
         ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {

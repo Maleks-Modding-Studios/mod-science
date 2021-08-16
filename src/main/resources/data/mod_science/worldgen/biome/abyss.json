@@ -49,7 +49,8 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "mod_science:glimmer_pool"
+      "mod_science:glimmer_pool",
+      "mod_science:wyld_water_pool"
     ],
     [
       "minecraft:dripstone_cluster"

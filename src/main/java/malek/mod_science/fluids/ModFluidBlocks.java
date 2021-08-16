@@ -16,10 +16,12 @@ public class ModFluidBlocks {
     public static FluidBlock REWATER;
     public static FluidBlock ENDER_DEW;
     public static FluidBlock GLIMMER;
+    public static FluidBlock WYLD_WATER;
 
     public static void init() {
         REWATER =  Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "rewater"), new FluidBlock(STILL_REWATER, FabricBlockSettings.copy(Blocks.WATER)){});
         ENDER_DEW = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "ender_dew"), new FluidBlock(STILL_ENDER_DEW, FabricBlockSettings.copy(Blocks.WATER)){});
         GLIMMER = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "glimmer"), new FluidBlock(STILL_GLIMMER, FabricBlockSettings.of(Material.WATER).noCollision().strength(100.0F).dropsNothing().luminance(14)){});
+        WYLD_WATER = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "wyld_water"), new FluidBlock(STILL_WYLD_WATER, FabricBlockSettings.of(Material.WATER).noCollision().strength(100.0F).dropsNothing().luminance(5)){});
     }
 }

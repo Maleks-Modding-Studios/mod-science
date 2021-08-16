@@ -14,6 +14,7 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
@@ -164,7 +165,9 @@ public final class ModBiomes {
         DefaultBiomeFeatures.addMonsters(spawnSettings, 95, 5, 100);
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        generationSettings.surfaceBuilder(OBSIDIAN_SURFACE_BUILDER);
+        net.minecraft.world.biome.GenerationSettings.Builder builder2 = (new net.minecraft.world.biome.GenerationSettings.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
+                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
+                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_RED.getDefaultState())));
         DefaultBiomeFeatures.addDefaultUndergroundStructures(generationSettings);
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
         DefaultBiomeFeatures.addDefaultLakes(generationSettings);
@@ -189,7 +192,7 @@ public final class ModBiomes {
                                  .skyColor(0x77adff)
                                  .build())
                 .spawnSettings(spawnSettings.build())
-                .generationSettings(generationSettings.build())
+                .generationSettings(builder2.build())
                 .build();
     }
 }
