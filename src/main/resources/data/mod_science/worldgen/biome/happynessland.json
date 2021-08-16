@@ -1,0 +1,39 @@
+{
+  "surface_builder": "minecraft:grass",
+  "depth": 1.000,
+  "scale": 0.08,
+  "temperature": 0.8,
+  "downfall": 1.5,
+  "precipitation": "rain",
+  "temperature_modifier": "none",
+  "category": "plains",
+  "player_spawn_friendly": false,
+  "creature_spawn_probability": 0,
+  "effects": {
+    "sky_color": 5395994,
+    "fog_color": 5920012,
+    "water_color": 5390612,
+    "water_fog_color": 7302431,
+    "grass_color": 5784600,
+    "foliage_color": 3879687,
+    "grass_color_modifier": "none"
+  },
+  "starts": [
+    "minecraft:swamp_hut"
+  ],
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+}

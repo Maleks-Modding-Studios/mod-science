@@ -1,5 +1,6 @@
 package malek.mod_science.biomes;
 
+import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.generation.ModGeneration;
 import net.minecraft.block.Blocks;
 import net.minecraft.sound.MusicSound;
@@ -13,6 +14,7 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
@@ -35,6 +37,7 @@ public final class ModBiomes {
     public static void init() {
         //Registry.register(BuiltinRegistries.BIOME, LIMBO_KEY.getValue(), LIMBO_BIOME);
         Registry.register(BuiltinRegistries.BIOME, PERSONAL_WHITE_VOID_KEY.getValue(), PERSONAL_WHITE_VOID_BIOME);
+        Registry.register(BuiltinRegistries.BIOME, new Identifier(MOD_ID, "wylds_desert"), WYLDS_DESERT);
 //        Registry.register(BuiltinRegistries.BIOME, PUBLIC_BLACK_VOID_KEY.getValue(), PUBLIC_BLACK_VOID_BIOME);
 //        Registry.register(BuiltinRegistries.BIOME, DUNGEON_DANGEROUS_BLACK_VOID_KEY.getValue(), DUNGEON_DANGEROUS_BLACK_VOID_BIOME);
 //        // only ever needed if the biome api is broken
@@ -140,5 +143,56 @@ public final class ModBiomes {
                 .temperatureModifier(Biome.TemperatureModifier.NONE)
                 .build();
          */
+
+    }
+    // SurfaceBuilder defines how the surface of your biome looks.
+    // We use custom surface builder for our biome to cover surface with obsidians.
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OBSIDIAN_SURFACE_BUILDER = SurfaceBuilder.DEFAULT
+            .withConfig(new TernarySurfaceConfig(ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
+                    ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
+                                                 ModBlocks.REALITY_BLOCK_RED.getDefaultState()));
+
+    private static final Biome WYLDS_DESERT = createObsiland();
+
+    private static Biome createObsiland() {
+        // We specify what entities spawn and what features generate in the biome.
+        // Aside from some structures, trees, rocks, plants and
+        //   custom entities, these are mostly the same for each biome.
+        // Vanilla configured features for biomes are defined in DefaultBiomeFeatures.
+
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        DefaultBiomeFeatures.addFarmAnimals(spawnSettings);
+        DefaultBiomeFeatures.addMonsters(spawnSettings, 95, 5, 100);
+
+        GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
+        net.minecraft.world.biome.GenerationSettings.Builder builder2 = (new net.minecraft.world.biome.GenerationSettings.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
+                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_CYAN.getDefaultState(),
+                                                                                                                                                                                                               ModBlocks.REALITY_BLOCK_RED.getDefaultState())));
+        DefaultBiomeFeatures.addDefaultUndergroundStructures(generationSettings);
+        DefaultBiomeFeatures.addLandCarvers(generationSettings);
+        DefaultBiomeFeatures.addDefaultLakes(generationSettings);
+        DefaultBiomeFeatures.addDungeons(generationSettings);
+        DefaultBiomeFeatures.addMineables(generationSettings);
+        DefaultBiomeFeatures.addDefaultOres(generationSettings);
+        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        DefaultBiomeFeatures.addSprings(generationSettings);
+        DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
+
+        return (new Biome.Builder())
+                .precipitation(Biome.Precipitation.RAIN)
+                .category(Biome.Category.DESERT)
+                .depth(0.125F)
+                .scale(0.05F)
+                .temperature(0.8F)
+                .downfall(0.4F)
+                .effects((new BiomeEffects.Builder())
+                                 .waterColor(0x3f76e4)
+                                 .waterFogColor(0x050533)
+                                 .fogColor(0xc0d8ff)
+                                 .skyColor(0x77adff)
+                                 .build())
+                .spawnSettings(spawnSettings.build())
+                .generationSettings(builder2.build())
+                .build();
     }
 }

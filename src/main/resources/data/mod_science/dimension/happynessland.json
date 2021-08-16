@@ -1,0 +1,12 @@
+{
+  "type": "mod_science:happynessland",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -1503378042,
+    "settings": "mod_science:happynessland",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "mod_science:happynessland"
+    }
+  }
+}

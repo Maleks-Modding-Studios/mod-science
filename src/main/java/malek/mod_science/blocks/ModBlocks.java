@@ -93,6 +93,31 @@ public final class ModBlocks {
     @RegistryEntry("water_stride")
     public static final Block WATER_STRIDE_BLOCK = new WaterStride(DEFAULT);
 
+    //RealityBlocks
+    @RegistryEntry("reality_block/white")
+    public static final Block REALITY_BLOCK_WHITE = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/red")
+    public static final Block REALITY_BLOCK_RED = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/green")
+    public static final Block REALITY_BLOCK_GREEN = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/blue")
+    public static final Block REALITY_BLOCK_BLUE = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/cyan")
+    public static final Block REALITY_BLOCK_CYAN = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/yellow")
+    public static final Block REALITY_BLOCK_YELLOW = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/orange")
+    public static final Block REALITY_BLOCK_ORANGE = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("reality_block/purple")
+    public static final Block REALITY_BLOCK_PURPLE = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }

@@ -48,7 +48,7 @@ public class ModConfig implements ConfigData {
 
         public static class LowMadness {
             @Tooltip
-            public double thresholdAmount = 0.0;
+            public double thresholdAmount = 50.0;
 
             @CollapsibleObject
             @Tooltip
@@ -98,7 +98,7 @@ public class ModConfig implements ConfigData {
 
         public static class MediumMadness {
             @Tooltip
-            public double thresholdAmount = 0.0;
+            public double thresholdAmount = 200.0;
             @CollapsibleObject
             @Tooltip
             public RandomEnchant randomEnchant = new RandomEnchant();
@@ -123,6 +123,18 @@ public class ModConfig implements ConfigData {
                     chance = 0.0;
                 }
             }
+        }
+
+        public static class HighMadness {
+            @Tooltip
+            public double thresholdAmount = 500.0;
+
+        }
+
+        public static class ExtremeMadness {
+            @Tooltip
+            public double thresholdAmount = 1000.0;
+
         }
     }
 
