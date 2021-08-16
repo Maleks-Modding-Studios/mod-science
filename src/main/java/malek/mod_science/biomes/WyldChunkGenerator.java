@@ -98,7 +98,7 @@ public class WyldChunkGenerator extends ChunkGenerator {
     public void buildSurface(ChunkRegion region, Chunk chunk) {
         PlayerEntity player = WyldsDimension.world.getClosestPlayer(chunk.getPos().x * 16, 0, chunk.getPos().z * 16, 10000, false);
         if(player != null) {
-            double madness = Madness.get(player).getMadness();
+            madness = Madness.get(player).getMadness();
             if (madness <= Madness.getConfig().lowMadness.thresholdAmount) {
                 buildPlane(region, chunk);
             } else if (madness <= Madness.getConfig().mediumMadness.thresholdAmount) {
@@ -148,6 +148,7 @@ public class WyldChunkGenerator extends ChunkGenerator {
             System.out.println(madness);
             return CompletableFuture.completedFuture(chunk);
         }
+        //return desertGenerator.populateNoise(executor, accessor, chunk);
     }
     double madness = 0.0;
     @Override
@@ -164,7 +165,7 @@ public class WyldChunkGenerator extends ChunkGenerator {
                 return 10;
             }
             return 10;
-
+       // return desertGenerator.getHeight(x, z, heightmap, world);
     }
 
     @Override
