@@ -22,21 +22,20 @@ import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ProtoChunk;
+import net.minecraft.world.gen.BlockSource;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.carver.CarverContext;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
-import net.minecraft.world.gen.chunk.AquiferSampler;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.StructuresConfig;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
+import net.minecraft.world.gen.chunk.*;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -44,14 +43,41 @@ import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 public class WyldChunkGenerator extends ChunkGenerator {
-    public static final Codec<WyldChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> generator.biomeSource)).apply(instance, instance.stable(WyldChunkGenerator::of)));
+    /*public static final Codec<WyldChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> generator.biomeSource),
+                                                                                                                  Codec.LONG.fieldOf("seed").stable().forGetter((noiseChunkGenerator) -> noiseChunkGenerator.seed)).apply(instance, instance.stable(WyldChunkGenerator::of)));*/
+    /*public static final Codec<WyldChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((noiseChunkGenerator) -> noiseChunkGenerator.populationSource), Codec.LONG.fieldOf("seed").stable().forGetter((noiseChunkGenerator) -> noiseChunkGenerator.seed),
+                                                                                                                 ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings1").forGetter((noiseChunkGenerator) -> noiseChunkGenerator.settings1)).apply(instance, instance.stable(WyldChunkGenerator::of)));
+   */
+    public static final Codec<WyldChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> {
+        return instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((noiseChunkGenerator) -> {
+            return noiseChunkGenerator.populationSource;
+        }), Codec.LONG.fieldOf("seed").stable().forGetter((noiseChunkGenerator) -> {
+            return noiseChunkGenerator.seed;
+        }), ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings").forGetter((noiseChunkGenerator) -> {
+            return noiseChunkGenerator.settings1;
+        })).apply(instance, instance.stable(WyldChunkGenerator::of));
+    });
+    public long seed;
 
-    public static WyldChunkGenerator of(BiomeSource biomeSource) {
-        return new WyldChunkGenerator(biomeSource);
+    public Supplier<ChunkGeneratorSettings> settings1;
+    public Supplier<ChunkGeneratorSettings> settings2;
+    public Supplier<ChunkGeneratorSettings> settings3;
+
+    public NoiseChunkGenerator netherGenerator;
+    public NoiseChunkGenerator savannaGenerator;
+
+    public static WyldChunkGenerator of(BiomeSource biomeSource, long seed,  Supplier<ChunkGeneratorSettings> settings1) {
+        return new WyldChunkGenerator(biomeSource, seed, settings1, settings1, settings1);
     }
-
-    private WyldChunkGenerator(BiomeSource biomeSource) {
+    public NoiseChunkGenerator desertGenerator;
+    private WyldChunkGenerator(BiomeSource biomeSource, long seed,  Supplier<ChunkGeneratorSettings> settings1,  Supplier<ChunkGeneratorSettings> settings2,  Supplier<ChunkGeneratorSettings> settings3) {
         super(biomeSource, new StructuresConfig(Optional.empty(), Collections.emptyMap()));
+        this.seed = seed;
+        this.settings1 = settings1;
+        desertGenerator = new NoiseChunkGenerator(biomeSource, seed, settings1);
+//        desertGenerator = new NoiseChunkGenerator(biomeSource, seed, settings1);
+//        netherGenerator = new NoiseChunkGenerator(biomeSource, seed, settings2);
+//        savannaGenerator = new NoiseChunkGenerator(biomeSource, seed, settings3);
 
     }
 
@@ -71,49 +97,30 @@ public class WyldChunkGenerator extends ChunkGenerator {
     @Override
     public void buildSurface(ChunkRegion region, Chunk chunk) {
         PlayerEntity player = WyldsDimension.world.getClosestPlayer(chunk.getPos().x * 16, 0, chunk.getPos().z * 16, 10000, false);
-        double madness = Madness.get(player).getMadness();
-        buildDesert(region, chunk);
-        /*if(madness < Madness.getConfig().lowMadness.thresholdAmount) {
-            buildPlane(region, chunk);
-        }
-        else if(madness < Madness.getConfig().mediumMadness.thresholdAmount) {
-            buildDesert(region, chunk);
-        }*/
-
-    }
-    public void carve(long seed, BiomeAccess access, Chunk chunk, GenerationStep.Carver carver) {
-        BiomeAccess biomeAccess = access.withSource(this.populationSource);
-        ChunkRandom chunkRandom = new ChunkRandom();
-        ChunkPos chunkPos = chunk.getPos();
-        CarverContext carverContext = new CarverContext(this);
-        AquiferSampler aquiferSampler = this.createAquiferSampler(chunk);
-        BitSet bitSet = ((ProtoChunk)chunk).getOrCreateCarvingMask(carver);
-
-        for(int j = -8; j <= 8; ++j) {
-            for(int k = -8; k <= 8; ++k) {
-                ChunkPos chunkPos2 = new ChunkPos(chunkPos.x + j, chunkPos.z + k);
-                GenerationSettings generationSettings = BuiltinRegistries.BIOME.get(new Identifier("minecraft:desert")).getGenerationSettings();
-                List < Supplier < ConfiguredCarver <?>>> list = generationSettings.getCarversForStep(carver);
-                ListIterator listIterator = list.listIterator();
-
-                while(listIterator.hasNext()) {
-                    int l = listIterator.nextIndex();
-                    ConfiguredCarver<?> configuredCarver = (ConfiguredCarver)((Supplier)listIterator.next()).get();
-                    chunkRandom.setCarverSeed(seed + (long)l, chunkPos2.x, chunkPos2.z);
-                    if (configuredCarver.shouldCarve(chunkRandom)) {
-                        Objects.requireNonNull(biomeAccess);
-                        configuredCarver.carve(carverContext, chunk, biomeAccess::getBiome, chunkRandom, aquiferSampler, chunkPos2, bitSet);
-                    }
-                }
+        if(player != null) {
+            madness = Madness.get(player).getMadness();
+            if (madness <= Madness.getConfig().lowMadness.thresholdAmount) {
+                buildPlane(region, chunk);
+            } else if (madness <= Madness.getConfig().mediumMadness.thresholdAmount) {
+                buildDesert(region, chunk);
+            }
+            else {
+                System.out.println(Madness.get(player).getMadness());
             }
         }
+        if(player == null) {
+            buildPlane(region, chunk);
+        }
 
     }
-    public void buildPlane(ChunkRegion region, Chunk chunk) {
 
+    public void buildPlane(ChunkRegion region, Chunk chunk) {
+        for(int x = 0; x < 16; x++)
+            for(int z = 0; z < 16; z++)
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, 2, z), Blocks.WHITE_WOOL.getDefaultState(), false);
     }
     public void buildDesert(ChunkRegion region, Chunk chunk) {
-        carve(WyldsDimension.world.getSeed(), region.getBiomeAccess(), chunk, GenerationStep.Carver.AIR);
+        desertGenerator.buildSurface(region, chunk);
     }
 
     public static int chunkMod(int val, int mod) {
@@ -132,16 +139,85 @@ public class WyldChunkGenerator extends ChunkGenerator {
 
     @Override
     public CompletableFuture<Chunk> populateNoise(Executor executor, StructureAccessor accessor, Chunk chunk) {
-        return CompletableFuture.completedFuture(chunk);
+        if (madness <= Madness.getConfig().lowMadness.thresholdAmount) {
+            return CompletableFuture.completedFuture(chunk);
+        } else if (madness <= Madness.getConfig().mediumMadness.thresholdAmount) {
+            return desertGenerator.populateNoise(executor, accessor, chunk);
+        }
+        else {
+            System.out.println(madness);
+            return CompletableFuture.completedFuture(chunk);
+        }
+        //return desertGenerator.populateNoise(executor, accessor, chunk);
     }
-
+    double madness = 0.0;
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world) {
-        return 256;
+
+
+            if (madness <= Madness.getConfig().lowMadness.thresholdAmount) {
+                return 10;
+            } else if (madness <= Madness.getConfig().mediumMadness.thresholdAmount) {
+                desertGenerator.getHeight(x, z, heightmap, world);
+            }
+            else {
+                System.out.println(madness);
+                return 10;
+            }
+            return 10;
+       // return desertGenerator.getHeight(x, z, heightmap, world);
     }
 
     @Override
     public VerticalBlockSample getColumnSample(int x, int z, HeightLimitView world) {
-        return new VerticalBlockSample(0, new BlockState[0]);
+
+
+            if (madness <= Madness.getConfig().lowMadness.thresholdAmount) {
+                return new VerticalBlockSample(0, new BlockState[0]);
+            } else if (madness <= Madness.getConfig().mediumMadness.thresholdAmount) {
+               return desertGenerator.getColumnSample(x, z, world);
+            }
+            else {
+                System.out.println(madness);
+                return new VerticalBlockSample(0, new BlockState[0]);
+            }
+
     }
+
+    public int getSeaLevel() {
+        return desertGenerator.getSeaLevel();
+    }
+
+    public int getMinimumY() {
+        return desertGenerator.getMinimumY();
+    }
+
+
+    public int getHeightOnGround(int x, int z, Heightmap.Type heightmap, HeightLimitView world) {
+        return desertGenerator.getHeightOnGround(x, z, heightmap, world);
+    }
+
+    public int getHeightInGround(int x, int z, Heightmap.Type heightmap, HeightLimitView world) {
+        return this.getHeight(x, z, heightmap, world) - 1;
+    }
+
+    public int getSpawnHeight(HeightLimitView world) {
+        return this.desertGenerator.getSpawnHeight(world);
+    }
+
+    public BiomeSource getBiomeSource() {
+        return this.desertGenerator.getBiomeSource();
+    }
+
+    public int getWorldHeight() {
+        return this.desertGenerator.getWorldHeight();
+    }
+    public void carve(long seed, BiomeAccess access, Chunk chunk, GenerationStep.Carver carver) {
+        desertGenerator.carve(seed, access, chunk, carver);
+    }
+
+    public void populateBiomes(Registry<Biome> biomeRegistry, Chunk chunk) {
+        desertGenerator.populateBiomes(biomeRegistry, chunk);
+    }
+
 }
