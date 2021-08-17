@@ -42,7 +42,6 @@ public class QuicksilverTimepiece extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         return TypedActionResult.consume(itemStack);
-
     }
 
     @Override
