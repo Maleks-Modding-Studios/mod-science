@@ -1,0 +1,14 @@
+{
+  "type": "mod_science:basic_hexcrafting_recipe",
+  "ingredients" : [
+    {
+      "item" :  "minecraft:clock"
+    }, {
+      "item" : "mod_science:moonsilver",
+      "count": 5
+    }
+  ],
+  "outputItem" : "mod_science:quicksilver_timepiece",
+  "outputAmount" : "1",
+  "ticks" : 200
+}

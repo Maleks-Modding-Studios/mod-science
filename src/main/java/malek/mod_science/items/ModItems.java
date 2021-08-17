@@ -138,6 +138,9 @@ public final class ModItems {
     @RegistryEntry("boots_of_striding")
     public static final Item BOOTS_OF_STRIDING = new ArmorItem(armorMaterial, EquipmentSlot.FEET, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("quicksilver_timepiece")
+    public static final Item QUICKSILVER_TIMEPIECE = new QuicksilverTimepiece(new FabricItemSettings().group(MOD_SCIENCE));
+
 
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
