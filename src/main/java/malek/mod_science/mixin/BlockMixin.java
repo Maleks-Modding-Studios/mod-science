@@ -14,22 +14,22 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Block.class)
 public abstract class BlockMixin {
-
-    @Shadow
-    protected abstract void spawnBreakParticles(World world, PlayerEntity player, BlockPos pos, BlockState state);
-
-    /**
-     * @author - MalekiRe
-     */
-    @Overwrite
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        this.spawnBreakParticles(world, player, pos, state);
-        if (state.isIn(BlockTags.GUARDED_BY_PIGLINS)) {
-            PiglinBrain.onGuardedBlockInteracted(player, false);
-        }
-
-        world.emitGameEvent(player, GameEvent.BLOCK_DESTROY, pos);
-    }
+//
+//    @Shadow
+//    protected abstract void spawnBreakParticles(World world, PlayerEntity player, BlockPos pos, BlockState state);
+//
+//    /**
+//     * @author - MalekiRe
+//     */
+//    @Overwrite
+//    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+//        this.spawnBreakParticles(world, player, pos, state);
+//        if (state.isIn(BlockTags.GUARDED_BY_PIGLINS)) {
+//            PiglinBrain.onGuardedBlockInteracted(player, false);
+//        }
+//
+//        world.emitGameEvent(player, GameEvent.BLOCK_DESTROY, pos);
+//    }
 
 
 }

@@ -6,7 +6,7 @@
       "config": {
         "count": 384,
         "extra_count": 0,
-        "extra_chance": 0
+        "extra_chance": 200
       }
     },
     "feature": {
