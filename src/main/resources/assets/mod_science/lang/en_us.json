@@ -18,6 +18,18 @@
   "block.mod_science.aember_ore": "Aember Ore",
   "block.mod_science.spircle_ore": "Spircle Ore",
   "block.mod_science.generator": "Generator",
+  "block.mod_science.crystal_growth" : "Crystal Growth",
+  "block.mod_science.lava_stride" : "Lava Stride",
+  "block.mod_science.water_stride" : "Water Stride",
+  "block.mod_science.reality_block.white" : "White Reality Block",
+  "block.mod_science.reality_block.green" : "Green Reality Block",
+  "block.mod_science.reality_block.red" : "Red Reality Block",
+  "block.mod_science.reality_block.blue" : "Blue Reality Block",
+  "block.mod_science.reality_block.cyan" : "Cyan Reality Block",
+  "block.mod_science.reality_block.yellow" : "Yellow Reality Block",
+  "block.mod_science.reality_block.orange" : "Orange Reality Block",
+  "block.mod_science.reality_block.purple" : "Purple Reality Block",
+  "block.mod_science.fractal_ore" : "Fractal Ore",
 
   "effect.mod_science.slippery": "Slippery",
 
@@ -55,5 +67,9 @@
   "item.mod_science.gravitic_nucleus" : "Gravitic Nucleus",
   "item.mod_science.keystone" : "Keystone",
   "item.mod_science.mass_hammer" : "Mass Hammer",
-  "item.mod_science.ender_dew_bucket" : "Ender Dew Bucket"
+  "item.mod_science.ender_dew_bucket" : "Ender Dew Bucket",
+  "item.mod_science.ore_magnet" : "Ore Magnet",
+  "item.mod_science.boots_of_striding" : "Boots Of Striding",
+  "item.mod_science.glimmer_bucket" : "Glimmer Bucket",
+  "item.mod_science.wyld_water_bucket" : "Wylds Water Bucket"
 }
