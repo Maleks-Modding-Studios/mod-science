@@ -7,8 +7,8 @@ public class ModCommands {
     public static void init() {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
             DimTeleportCommand.register(dispatcher);
-            RoomCommand.register(dispatcher);
             MadnessCommand.register(dispatcher);
+            TheRoomTeleportCommmand.register(dispatcher);
         });
     }
 }

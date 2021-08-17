@@ -17,7 +17,7 @@ public class ModScience implements LoggerInterface {
     public static final boolean ENABLE_DEBUG_LOGGING = true;
     public static final String MOD_ID = "mod_science";
 
-    @Deprecated
+    //wtf no
     public static final Identifier ModScienceId(String path){
         return new Identifier(MOD_ID, path);
     }

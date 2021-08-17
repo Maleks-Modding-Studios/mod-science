@@ -41,6 +41,7 @@ public class TheRoomDimension {
         WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier(MOD_ID, "the_void"));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            world = server.getWorld(WORLD_KEY);
            /* ServerWorld overworld = server.getWorld(World.OVERWORLD);
             world = server.getWorld(WORLD_KEY);
             server.getWorlds().forEach( (world1) -> System.out.println(world1.getRegistryKey()));
