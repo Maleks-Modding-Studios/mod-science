@@ -2,6 +2,7 @@ package malek.mod_science.mixin;
 
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.components.player.madness.Madness;
+import malek.mod_science.components.world.timepiece.TimePieceUtils;
 import malek.mod_science.dimensions.LSpaceDimension;
 import malek.mod_science.effects.ModEffects;
 import malek.mod_science.items.ModItems;
@@ -18,8 +19,13 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -110,7 +116,38 @@ public abstract class LivingEntityMixin extends Entity implements LoggerInterfac
         this.velocityDirty = true;
         return;
     }
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void timePieceTick(CallbackInfo callbackInfo){
+        if(!world.isClient){
+            LivingEntity user = (LivingEntity) (Object) this;
+            SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
+            if(TimePieceUtils.getTimePieceTicks(world) % 20 == 0 && TimePieceUtils.getTimePieceTicks(world) > 1){
+                world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), soundEventClick, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            }
+            if(TimePieceUtils.getTimePieceTicks(world) == 1){
+                System.out.println(user);
+                double d = user.getX();
+                double e = user.getY();
+                double f = user.getZ();
 
+                for(int i = 0; i < 16; ++i) {
+                    double g = user.getX() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
+                    double h = MathHelper.clamp(user.getY() + (double)(user.getRandom().nextInt(16) - 8), (double)world.getBottomY(), (double)(world.getBottomY() + ((ServerWorld)world).getLogicalHeight() - 1));
+                    double j = user.getZ() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
+                    if (user.hasVehicle()) {
+                        user.stopRiding();
+                    }
+
+                    if (user.teleport(g, h, j, true)) {
+                        SoundEvent soundEvent = SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT;
+                        world.playSound((PlayerEntity)null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                        user.playSound(soundEvent, 1.0F, 1.0F);
+                        break;
+                    }
+                }
+            }
+        }
+    }
     @Shadow
     protected abstract StatusEffectInstance getStatusEffect(StatusEffect jumpBoost);
 

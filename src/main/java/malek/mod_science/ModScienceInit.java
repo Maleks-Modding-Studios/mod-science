@@ -1,9 +1,13 @@
 package malek.mod_science;
 
+import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import malek.mod_science.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
+import malek.mod_science.components.world.timepiece.TimePieceComponent;
+import malek.mod_science.components.world.timepiece.TimePieceComponentImpl;
 import malek.mod_science.dimensions.AbyssDimension;
 import malek.mod_science.dimensions.LSpaceDimension;
 import malek.mod_science.entities.clank.Clanks;
@@ -32,7 +36,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,7 +48,7 @@ import java.util.function.Supplier;
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.blocks.ModBlockEntities.MATTER_CHAMBER;
 
-public class ModScienceInit implements ModInitializer, LoggerInterface {
+public class ModScienceInit implements ModInitializer, LoggerInterface, WorldComponentInitializer {
     //Config Stuff
     private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
@@ -119,6 +122,9 @@ public class ModScienceInit implements ModInitializer, LoggerInterface {
         ModCommands.init();
 
 
+    }
+    public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
+        registry.register(TimePieceComponent.worldKey, TimePieceComponentImpl::new);
     }
 
     public static ModConfig getConfig() {
