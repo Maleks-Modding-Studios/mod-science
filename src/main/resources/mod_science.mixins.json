@@ -15,7 +15,8 @@
     "TameableEntityMixin",
     "EntityTickMixin",
     "ArmorItemMixin",
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "SheepEntityMixin"
   ],
   "client": [
     "ClientPlayerInteractionManagerMixin",

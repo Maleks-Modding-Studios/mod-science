@@ -7,6 +7,7 @@ import malek.mod_science.blocks.Tesseract.TesseractBlock;
 import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
 import malek.mod_science.blocks.basic.CrystalGrowthBlock;
 import malek.mod_science.blocks.basic.FlourcaneBlock;
+import malek.mod_science.blocks.basic.GlimmerrootBlock;
 import malek.mod_science.blocks.basic.PotatoOre;
 import malek.mod_science.blocks.power.SteamPipe;
 import malek.mod_science.blocks.strideblocks.LavaStride;
@@ -19,6 +20,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
@@ -26,12 +28,20 @@ import org.dimdev.matrix.Matrix;
 import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
 
+import java.util.function.ToIntFunction;
+
 import static malek.mod_science.ModScience.MOD_ID;
 
 @Registrar(element = Block.class, modid = MOD_ID)
 public final class ModBlocks {
     private static final FabricBlockSettings DEFAULT = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F);
     private static final FabricBlockSettings ORE = FabricBlockSettings.of(Material.STONE).strength(0.3F, 0.3F).breakByTool(FabricToolTags.PICKAXES);
+
+    private static ToIntFunction<BlockState> stateBasedLuminance(int litLevel) {
+        return (state) -> {
+            return (Boolean)state.get(Properties.LIT) ? litLevel : 0;
+        };
+    }
 
     @RegistryEntry("aember_ore")
     public static final Block AEMBER_ORE = new Block(ORE);
@@ -120,6 +130,9 @@ public final class ModBlocks {
 
     @RegistryEntry("stabilized_reality")
     public static final Block STABILIZED_REALITY = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
+    @RegistryEntry("glimmerroot")
+    public static final Block GLIMMERROOT = new GlimmerrootBlock(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).luminance(stateBasedLuminance(10)));
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
