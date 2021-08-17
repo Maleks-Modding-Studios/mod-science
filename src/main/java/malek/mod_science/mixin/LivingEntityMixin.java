@@ -118,34 +118,38 @@ public abstract class LivingEntityMixin extends Entity implements LoggerInterfac
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void timePieceTick(CallbackInfo callbackInfo){
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
         if(!world.isClient){
-            LivingEntity user = (LivingEntity) (Object) this;
-            SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
-            if(TimePieceUtils.getTimePieceTicks(world) % 20 == 0 && TimePieceUtils.getTimePieceTicks(world) > 1){
-                world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), soundEventClick, SoundCategory.PLAYERS, 1.0F, 1.0F);
-            }
-            if(TimePieceUtils.getTimePieceTicks(world) == 1){
-                System.out.println(user);
-                double d = user.getX();
-                double e = user.getY();
-                double f = user.getZ();
+            if(livingEntity instanceof PlayerEntity){
+                PlayerEntity user = (PlayerEntity) (Object) this;
+                SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
+                if(TimePieceUtils.getTimePieceTicks(user) % 20 == 0 && TimePieceUtils.getTimePieceTicks(user) >= 1){
+                    world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), soundEventClick, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                }
+                if(TimePieceUtils.getTimePieceTicks(user) == 1){
+                    System.out.println(user);
+                    double d = user.getX();
+                    double e = user.getY();
+                    double f = user.getZ();
 
-                for(int i = 0; i < 16; ++i) {
-                    double g = user.getX() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
-                    double h = MathHelper.clamp(user.getY() + (double)(user.getRandom().nextInt(16) - 8), (double)world.getBottomY(), (double)(world.getBottomY() + ((ServerWorld)world).getLogicalHeight() - 1));
-                    double j = user.getZ() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
-                    if (user.hasVehicle()) {
-                        user.stopRiding();
-                    }
+                    for(int i = 0; i < 16; ++i) {
+                        double g = user.getX() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
+                        double h = MathHelper.clamp(user.getY() + (double)(user.getRandom().nextInt(16) - 8), (double)world.getBottomY(), (double)(world.getBottomY() + ((ServerWorld)world).getLogicalHeight() - 1));
+                        double j = user.getZ() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
+                        if (user.hasVehicle()) {
+                            user.stopRiding();
+                        }
 
-                    if (user.teleport(g, h, j, true)) {
-                        SoundEvent soundEvent = SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT;
-                        world.playSound((PlayerEntity)null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                        user.playSound(soundEvent, 1.0F, 1.0F);
-                        break;
+                        if (user.teleport(g, h, j, true)) {
+                            SoundEvent soundEvent = SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT;
+                            world.playSound((PlayerEntity)null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                            user.playSound(soundEvent, 1.0F, 1.0F);
+                            break;
+                        }
                     }
                 }
             }
+
         }
     }
     @Shadow

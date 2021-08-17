@@ -14,5 +14,5 @@ public interface TimePieceComponent extends ComponentV3, ServerTickingComponent 
     PlayerEntity getTimePieceUser();
     void setTimePieceUser(PlayerEntity value);
 
-    ComponentKey<TimePieceComponent> worldKey = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("mod_science:timepiece"), TimePieceComponent.class);
+    ComponentKey<TimePieceComponent> entityKey = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier("mod_science:timepiece"), TimePieceComponent.class);
 }

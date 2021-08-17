@@ -1,11 +1,15 @@
 package malek.mod_science;
 
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
+import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import malek.mod_science.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.commands.ModCommands;
+import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.components.world.timepiece.TimePieceComponent;
 import malek.mod_science.components.world.timepiece.TimePieceComponentImpl;
 import malek.mod_science.dimensions.AbyssDimension;
@@ -46,9 +50,10 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static malek.mod_science.ModScience.MOD_ID;
+import static malek.mod_science.ModScience.getWorld;
 import static malek.mod_science.blocks.ModBlockEntities.MATTER_CHAMBER;
 
-public class ModScienceInit implements ModInitializer, LoggerInterface, WorldComponentInitializer {
+public class ModScienceInit implements ModInitializer, LoggerInterface, EntityComponentInitializer {
     //Config Stuff
     private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
@@ -123,8 +128,9 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, WorldCom
 
 
     }
-    public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
-        registry.register(TimePieceComponent.worldKey, TimePieceComponentImpl::new);
+
+    public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
+        registry.registerForPlayers(TimePieceComponent.entityKey, TimePieceComponentImpl::new, RespawnCopyStrategy.ALWAYS_COPY);
     }
 
     public static ModConfig getConfig() {
