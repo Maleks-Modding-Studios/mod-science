@@ -9,6 +9,7 @@ public class ModCommands {
             DimTeleportCommand.register(dispatcher);
             RoomCommand.register(dispatcher);
             MadnessCommand.register(dispatcher);
+            TheRoomTeleportCommmand.register(dispatcher);
         });
     }
 }
