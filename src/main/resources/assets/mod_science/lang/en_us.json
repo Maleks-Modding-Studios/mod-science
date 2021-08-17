@@ -55,5 +55,6 @@
   "item.mod_science.gravitic_nucleus" : "Gravitic Nucleus",
   "item.mod_science.keystone" : "Keystone",
   "item.mod_science.mass_hammer" : "Mass Hammer",
-  "item.mod_science.ender_dew_bucket" : "Ender Dew Bucket"
+  "item.mod_science.ender_dew_bucket" : "Ender Dew Bucket",
+  "item.mod_science.quicksilver_timepiece" : "Quicksilver Timepiece"
 }
