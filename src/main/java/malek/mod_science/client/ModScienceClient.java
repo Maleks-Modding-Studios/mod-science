@@ -76,6 +76,7 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STEAM_PIPE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TRANSFUSION_MATRIX, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CRYSTAL_GROWTH, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GLIMMERROOT, RenderLayer.getCutout());
 
         // fluid registries
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER);

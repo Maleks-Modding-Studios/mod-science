@@ -21,6 +21,7 @@ public class ModScienceTags {
     public static final Tag<Block> ORES = TagRegistry.block(new Identifier("c:ores"));
     public static final Tag<Fluid> GLIMMER = TagRegistry.fluid(ModScience.ModScienceId("glimmer"));
     public static final Tag<Block> SOFT_BLOCK = TagRegistry.block(new Identifier("c:soft_blocks"));
+    public static final Tag<Block> IRON_SHOEAXEL = TagRegistry.block(ModScience.ModScienceId("mineable/iron_shoeaxel"));
 
     public static void init() {
     }

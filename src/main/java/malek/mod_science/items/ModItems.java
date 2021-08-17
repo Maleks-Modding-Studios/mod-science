@@ -1,5 +1,6 @@
 package malek.mod_science.items;
 
+import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.event.ItemEntityTickEvent;
 import malek.mod_science.items.armor.StridingBoots;
 import malek.mod_science.items.item_nbt.ChargeableItem;
@@ -7,11 +8,15 @@ import malek.mod_science.items.orbs_of_power.MoltenCore;
 import malek.mod_science.items.orbs_of_power.TempItem;
 import malek.mod_science.items.orbs_of_power.ThermophilicPowerOrb;
 import malek.mod_science.items.ore_magnet.OreMagnet;
+import malek.mod_science.items.tools.IronShoeaxel;
+import malek.mod_science.items.tools.ShearForce;
 import malek.mod_science.tags.ModScienceTags;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -141,6 +146,11 @@ public final class ModItems {
     @RegistryEntry("quicksilver_timepiece")
     public static final Item QUICKSILVER_TIMEPIECE = new QuicksilverTimepiece(new FabricItemSettings().maxDamage(100).group(MOD_SCIENCE));
 
+    @RegistryEntry("iron_shoeaxel")
+    public static final Item IRON_SHOEAXEL = new IronShoeaxel(ToolMaterials.IRON, 1, -2.8f, DEFAULT);
+
+    @RegistryEntry("glimmerroot")
+    public static final Item GLIMMERROOT = new AliasedBlockItem(ModBlocks.GLIMMERROOT, new FabricItemSettings().group(MOD_SCIENCE).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 1200, 0), 1.0F).build()));
 
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
