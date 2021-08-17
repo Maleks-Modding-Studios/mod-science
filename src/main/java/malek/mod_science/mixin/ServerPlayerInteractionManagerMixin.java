@@ -68,8 +68,13 @@ public class ServerPlayerInteractionManagerMixin {
 
     private void teleportPlayerBack(ServerPlayerEntity player, World world) {
 //        if(player.getSpawnPointPosition() != null)
-        player.teleport(player.getServer().getWorld( LastDoor.LAST_DOOR.get(player).getLastWorld()), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getX(), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getY(), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getZ(), 0F, 0F);
-//        else
+        if(LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getY() != 0) {
+            player.teleport(player.getServer().getWorld(LastDoor.LAST_DOOR.get(player).getLastWorld()), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getX(), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getY(), LastDoor.LAST_DOOR.get(player).getLastDoorBlockPos().getZ(), 0F, 0F);
+        }
+        else {
+            player.teleport(player.getServer().getOverworld(), player.getServer().getOverworld().getSpawnPos().getX(), player.getServer().getOverworld().getSpawnPos().getY(), player.getServer().getOverworld().getSpawnPos().getZ(), 0f, 0f);
+        }
+        //        else
 //            player.teleport(player.getServer().getOverworld(), player.getServer().getOverworld().getSpawnPos().getX(), player.getServer().getOverworld().getSpawnPos().getY(), player.getServer().getOverworld().getSpawnPos().getZ(), 0f, 0f);
     }
 }
