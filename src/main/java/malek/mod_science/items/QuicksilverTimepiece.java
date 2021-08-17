@@ -31,6 +31,7 @@ public class QuicksilverTimepiece extends Item {
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         SoundEvent soundEvent = SoundEvents.BLOCK_LEVER_CLICK;
+        //Modulo 60...0 for all remainingUseTicks dividable with 20, aka 60, 40, 20. Plays sound 3 times
         if(remainingUseTicks % 20 == 0){
             world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
@@ -43,7 +44,7 @@ public class QuicksilverTimepiece extends Item {
         user.setCurrentHand(hand);
         return TypedActionResult.consume(itemStack);
     }
-
+    //ChorusFruit code slightly modified
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         ItemStack itemStack = super.finishUsing(stack, world, user);
@@ -69,7 +70,7 @@ public class QuicksilverTimepiece extends Item {
             }
 
             if (user instanceof PlayerEntity) {
-                ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+                //damages item when used
                 stack.damage(1, user, (p) -> {
                     p.sendToolBreakStatus(user.getActiveHand());
                 });
