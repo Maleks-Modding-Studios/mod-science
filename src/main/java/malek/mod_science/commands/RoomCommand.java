@@ -17,17 +17,17 @@ public class RoomCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("room")
                                           .then(
-                                                  CommandManager.argument("Player", EntityArgumentType.player())
+                                                  CommandManager.argument("json", EntityArgumentType.player())
                                                                 .executes(ctx ->{
-                                                                    ServerPlayerEntity entity = EntityArgumentType.getPlayer(ctx, "room");
+                                                                    ServerPlayerEntity entity = EntityArgumentType.getPlayer(ctx, "json");
                                                                     Timeout.TIMEOUT.get(MixinUtil.cast(entity)).setTimeOut(20);
                                                                     Vec3d pos = new Vec3d(-5, TheRoomFeature.theRoomCenter.getY() + 2, -5);
                                                                     return DimTeleportCommand.teleport(entity, ModDimensions.PERSONAL_POCKET_DIMENSION, pos);
                                                                 }).then(
                                                                         CommandManager.argument("time", IntegerArgumentType.integer(1, 72000)).executes(
                                                                           ctx -> {
-                                                                              ServerPlayerEntity entity = EntityArgumentType.getPlayer(ctx, "room");
-                                                                              int time = IntegerArgumentType.getInteger(ctx, "room");
+                                                                              ServerPlayerEntity entity = EntityArgumentType.getPlayer(ctx, "json");
+                                                                              int time = IntegerArgumentType.getInteger(ctx, "time");
                                                                               Timeout.TIMEOUT.get(MixinUtil.cast(entity)).setTimeOut(time);
                                                                               Vec3d pos = new Vec3d(-5, TheRoomFeature.theRoomCenter.getY() + 2, -5);
                                                                               return DimTeleportCommand.teleport(entity, ModDimensions.PERSONAL_POCKET_DIMENSION, pos);
