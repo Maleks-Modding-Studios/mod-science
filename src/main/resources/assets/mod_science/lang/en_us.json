@@ -71,5 +71,6 @@
   "item.mod_science.ore_magnet" : "Ore Magnet",
   "item.mod_science.boots_of_striding" : "Boots Of Striding",
   "item.mod_science.glimmer_bucket" : "Glimmer Bucket",
-  "item.mod_science.wyld_water_bucket" : "Wylds Water Bucket"
+  "item.mod_science.wyld_water_bucket" : "Wylds Water Bucket",
+  "item.mod_science.quicksilver_timepiece" : "Quicksilver Timepiece"
 }
