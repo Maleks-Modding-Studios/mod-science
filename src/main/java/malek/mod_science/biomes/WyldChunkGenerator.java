@@ -3,6 +3,7 @@ package malek.mod_science.biomes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import malek.mod_science.ModConfig;
+import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.dimensions.WyldsDimension;
 import net.minecraft.block.BlockState;
@@ -117,7 +118,7 @@ public class WyldChunkGenerator extends ChunkGenerator {
     public void buildPlane(ChunkRegion region, Chunk chunk) {
         for(int x = 0; x < 16; x++)
             for(int z = 0; z < 16; z++)
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, 13, z), Blocks.WHITE_WOOL.getDefaultState(), false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, 67, z), ModBlocks.REALITY_BLOCK_WHITE.getDefaultState(), false);
     }
     public void buildDesert(ChunkRegion region, Chunk chunk) {
         desertGenerator.buildSurface(region, chunk);

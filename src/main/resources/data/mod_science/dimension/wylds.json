@@ -16,17 +16,17 @@
     "deepslate_enabled": false,
     "ore_veins_enabled": false,
     "default_block": {
-      "Name": "mod_science:reality_block/white"
+      "Name": "minecraft:white_wool"
     },
     "default_fluid": {
-      "Name": "minecraft:water",
+      "Name": "mod_science:wyld_water",
       "Properties": {
         "level": "0"
       }
     },
     "noise": {
       "min_y": 0,
-      "height": 16,
+      "height": 256,
       "density_factor": 1,
       "density_offset": -0.46875,
       "size_horizontal": 1,

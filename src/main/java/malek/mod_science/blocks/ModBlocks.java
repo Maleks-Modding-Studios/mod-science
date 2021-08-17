@@ -118,6 +118,9 @@ public final class ModBlocks {
     @RegistryEntry("reality_block/purple")
     public static final Block REALITY_BLOCK_PURPLE = new Block(DEFAULT.dropsNothing().breakByHand(true));
 
+    @RegistryEntry("stabilized_reality")
+    public static final Block STABILIZED_REALITY = new Block(DEFAULT.dropsNothing().breakByHand(true));
+
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }
