@@ -3,7 +3,6 @@ package malek.mod_science;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
-import malek.mod_science.damagesources.ModDamageSources;
 import malek.mod_science.worlds.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
@@ -78,6 +77,9 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
 //            Registry.DIMENSION_TYPE_KEY,
 //            new Identifier(MOD_ID, "void_type")
 //    );
+
+
+
     @Override
     public void onInitialize() {
 
@@ -98,6 +100,10 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
         ModBlockEntities.init();
         ModStatusEffects.init();
         Clanks.init();
+
+
+
+
 
         //ModFluids
         ModFluids.init();

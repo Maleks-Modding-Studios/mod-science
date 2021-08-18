@@ -1,6 +1,6 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.MatterCavitationChamber.MatterCavitationChamberBlockEntity;
+import malek.mod_science.blocks.matter_cavitation_chamber.MatterCavitationChamberBlockEntity;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;

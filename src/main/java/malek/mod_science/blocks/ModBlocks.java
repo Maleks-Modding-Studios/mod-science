@@ -1,8 +1,8 @@
 package malek.mod_science.blocks;
 
-import malek.mod_science.blocks.CalderaCauldron.*;
-import malek.mod_science.blocks.MAD.MADBlock;
-import malek.mod_science.blocks.ShadowSilkOre.ShadowSilkOre;
+import malek.mod_science.blocks.caldera_cauldron.*;
+import malek.mod_science.blocks.mad.MADBlock;
+import malek.mod_science.blocks.shadow_silk_ore.ShadowSilkOre;
 import malek.mod_science.blocks.Tesseract.TesseractBlock;
 import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
 import malek.mod_science.blocks.basic.CrystalGrowthBlock;
