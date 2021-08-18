@@ -155,6 +155,72 @@ public final class ModItems {
     @RegistryEntry("clockwork")
     public static final Item CLOCKWORK = new ClockworkItem(new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("base_slime")
+    public static final Item BASE_SLIME = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("bits")
+    public static final Item BITS = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("cats_eye_emerald")
+    public static final Item CATS_EYE_EMERALD = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("chrystalis")
+    public static final Item CHRYSTALIS = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("conflagratorite_shard")
+    public static final Item CONFLAGRATORITE_SHARD = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("cryostasili_wisp")
+    public static final Item CRYOSTASILI = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("ducttape")
+    public static final Item DUCTTAPE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("exotic_materials")
+    public static final Item EXOTIC_MATERIALS = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("freyl")
+    public static final Item FREYL = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("glint")
+    public static final Item GLINT = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("levicite")
+    public static final Item LEVICITE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("liminated_paper")
+    public static final Item LIMINATED_PAPER = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("lump_of_galgador")
+    public static final Item LUMP_OF_GALGADOR = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("lump_of_zamonium")
+    public static final Item LUMP_OF_ZAMONIUM = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("mundane_powder")
+    public static final Item MUNDANE_POWDER = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("neuchronium")
+    public static final Item NEUCHRONIUM = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("orb_of_potential")
+    public static final Item ORB_OF_POTENTIAL = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("rubber_chunk")
+    public static final Item RUBBER_CHUNK = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("scissors")
+    public static final Item SCISSORS = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("scythe")
+    public static final Item SCYTHE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("shadow")
+    public static final Item SHADOW = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
+    @RegistryEntry("vulgar_quartz")
+    public static final Item VULGAR_QUARTZ = new Item(new FabricItemSettings().group(MOD_SCIENCE));
+
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
             if (itemEntity.getStack().isOf(MOLTEN_CORE)
