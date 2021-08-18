@@ -13,6 +13,7 @@ import static malek.mod_science.fluids.ModFluids.*;
 
 public class ModFluidBlocks {
 
+    public static FluidBlock OIL;
     public static FluidBlock REWATER;
     public static FluidBlock ENDER_DEW;
     public static FluidBlock GLIMMER;
@@ -23,5 +24,6 @@ public class ModFluidBlocks {
         ENDER_DEW = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "ender_dew"), new FluidBlock(STILL_ENDER_DEW, FabricBlockSettings.copy(Blocks.WATER)){});
         GLIMMER = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "glimmer"), new FluidBlock(STILL_GLIMMER, FabricBlockSettings.of(Material.WATER).noCollision().strength(100.0F).dropsNothing().luminance(14)){});
         WYLD_WATER = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "wyld_water"), new FluidBlock(STILL_WYLD_WATER, FabricBlockSettings.of(Material.WATER).noCollision().strength(100.0F).dropsNothing().luminance(5)){});
+        OIL = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "oil_water"), new FluidBlock(STILL_OIL, FabricBlockSettings.of(Material.WATER).noCollision().strength(100.0F).dropsNothing().luminance(0)){});
     }
 }

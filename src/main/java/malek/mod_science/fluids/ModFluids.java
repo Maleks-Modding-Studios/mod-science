@@ -2,8 +2,10 @@ package malek.mod_science.fluids;
 
 import malek.mod_science.fluids.ender_dew.EnderDew;
 import malek.mod_science.fluids.glimmer.Glimmer;
+import malek.mod_science.fluids.oil.Oil;
 import malek.mod_science.fluids.rewater.Rewater;
 import malek.mod_science.fluids.wyldwater.WyldWater;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -11,6 +13,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.ModScience.ModScienceId;
 
 public class ModFluids {
+    public static Oil FLOWING_OIL;
+    public static Oil STILL_OIL;
+
     public static Rewater STILL_REWATER;
     public static Rewater FLOWING_REWATER;
 
@@ -35,5 +40,8 @@ public class ModFluids {
 
         STILL_WYLD_WATER = Registry.register(Registry.FLUID, ModScienceId("still_wyld_water"), new WyldWater.Still());
         FLOWING_WYLD_WATER = Registry.register(Registry.FLUID, ModScienceId("flowing_wyld_water"), new WyldWater.Flowing());
+
+        STILL_OIL = Registry.register(Registry.FLUID, ModScienceId("still_oil"), new Oil.Still());
+        FLOWING_OIL = Registry.register(Registry.FLUID, ModScienceId("flowing_oil"), new Oil.Flowing());
     }
 }
