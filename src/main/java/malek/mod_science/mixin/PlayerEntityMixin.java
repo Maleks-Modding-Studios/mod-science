@@ -1,6 +1,6 @@
 package malek.mod_science.mixin;
 
-import malek.mod_science.dimensions.TheRoomDimension;
+import malek.mod_science.worlds.dimensions.TheRoomDimension;
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
