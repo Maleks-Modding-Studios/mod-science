@@ -1,0 +1,104 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.clockwork.idle": {
+			"loop": true,
+			"animation_length": 2.08,
+			"bones": {
+				"gear2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 40, 0],
+							"easing": "easeInOutQuad"
+						},
+						"0.6": {
+							"vector": [0, 40, 0],
+							"easing": "easeInOutCubic"
+						},
+						"1.0": {
+							"vector": [0, 90, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.08": {
+							"vector": [0, 90, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.48": {
+							"vector": [0, "110+22.5", 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.6": {
+							"vector": [0, "110+22.5", 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 180, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.08": {
+							"vector": [0, 180, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"gear": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, -22.5, 0],
+							"easing": "easeInOutQuad"
+						},
+						"0.6": {
+							"vector": [0, -22.5, 0],
+							"easing": "easeInOutCubic"
+						},
+						"1.0": {
+							"vector": [0, -45, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.08": {
+							"vector": [0, -45, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.48": {
+							"vector": [0, -67.5, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.6": {
+							"vector": [0, -67.5, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, -90, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.08": {
+							"vector": [0, -90, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				}
+			},
+			"sound_effects": {
+              "0.0": {
+                "effect": "music"
+              },
+              "0.5": {
+                "effect": "music"
+              },
+              "1.0": {
+                "effect": "music"
+              },
+              "1.5": {
+                "effect": "music"
+              }
+            }
+		}
+	},
+	"geckolib_format_version": 2
+}

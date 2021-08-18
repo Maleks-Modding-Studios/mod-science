@@ -6,6 +6,7 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.CalderaCauldron.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.client.particle.ModParticles;
+import malek.mod_science.client.renderer.ClockworkRenderer;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
@@ -49,6 +50,7 @@ import net.minecraft.world.BlockRenderView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
 import java.util.function.Function;
 
@@ -94,6 +96,9 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.TRANSFUSION_MATRIX_BLOCK_ENTITY, TranfusionMatrixBlockEntityRenderer::new);
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.ORE_MAGNET, ModScienceItemRegistrar.Renderer.RENDERER);
         ModScreensClient.init();
+
+        //Geko
+        GeoItemRenderer.registerItemRenderer(ModItems.CLOCKWORK, new ClockworkRenderer());
     }
 
     private static void initKeyBindings() {

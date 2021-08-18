@@ -152,6 +152,9 @@ public final class ModItems {
     @RegistryEntry("glimmerroot")
     public static final Item GLIMMERROOT = new AliasedBlockItem(ModBlocks.GLIMMERROOT, new FabricItemSettings().group(MOD_SCIENCE).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 1200, 0), 1.0F).build()));
 
+    @RegistryEntry("clockwork")
+    public static final Item CLOCKWORK = new ClockworkItem(new FabricItemSettings().group(MOD_SCIENCE));
+
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
             if (itemEntity.getStack().isOf(MOLTEN_CORE)
