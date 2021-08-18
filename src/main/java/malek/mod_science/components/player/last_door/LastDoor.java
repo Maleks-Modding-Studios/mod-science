@@ -21,7 +21,7 @@ public class LastDoor implements LastDoorInterface, EntityComponentInitializer {
     public static final ComponentKey<LastDoor> LAST_DOOR = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "last_door"), LastDoor.class);
 
     private BlockPos lastDoorPos = new BlockPos(0, 0, 0);
-    private RegistryKey world = getServer().getOverworld().getRegistryKey();
+    private RegistryKey world = null;
 
     @Override
     public LastDoor getLastDoor(Entity entity){
@@ -70,6 +70,9 @@ public class LastDoor implements LastDoorInterface, EntityComponentInitializer {
 
     @Override
     public void writeToNbt(NbtCompound tag) {
+        if(world == null) {
+            world = getServer().getOverworld().getRegistryKey();
+        }
         tag.putIntArray("last_door", NBTUtil.writeBlockPosToList(lastDoorPos));
         tag.putString("last_world_namespace", world.getValue().getNamespace());
         tag.putString("last_world_path", world.getValue().getPath());
@@ -78,6 +81,6 @@ public class LastDoor implements LastDoorInterface, EntityComponentInitializer {
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(LAST_DOOR, player -> new LastDoor(), RespawnCopyStrategy.ALWAYS_COPY);
-
+        //world = getServer().getOverworld().getRegistryKey();
     }
 }

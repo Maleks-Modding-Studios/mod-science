@@ -40,6 +40,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -88,6 +89,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
 
         new Thread(ModScienceInit::initModCompat).start();
         // Yes -Platy
+        GeckoLib.initialize();
         ModItems.init();
         ModBlocks.init();
         ModBlockItems.init();
