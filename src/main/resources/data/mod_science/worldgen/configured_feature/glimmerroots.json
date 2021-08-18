@@ -1,0 +1,86 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "decorator": {
+      "type": "minecraft:count_extra",
+      "config": {
+        "count": 384,
+        "extra_count": 0,
+        "extra_chance": 200
+      }
+    },
+    "feature": {
+      "type": "minecraft:decorated",
+      "config": {
+        "decorator": {
+          "type": "minecraft:square",
+          "config": {}
+        },
+        "feature": {
+          "type": "minecraft:decorated",
+          "config": {
+            "decorator": {
+              "type": "minecraft:range",
+              "config": {
+                "height": {
+                  "type": "minecraft:uniform",
+                  "min_inclusive": {
+                    "absolute": 64
+                  },
+                  "max_inclusive": {
+                    "absolute": 114
+                  }
+                }
+              }
+            },
+            "feature": {
+              "type": "minecraft:simple_block",
+              "config": {
+                "to_place": {
+                  "type": "minecraft:weighted_state_provider",
+                  "entries": [
+                    {
+                      "weight": 1,
+                      "data": {
+                        "Name": "mod_science:glimmerroot",
+                        "Properties": {
+                          "age": "7",
+                          "lit": "true"
+                        }
+                      }
+                    },
+                    {
+                      "weight": 2,
+                      "data": {
+                        "Name": "mod_science:glimmerroot",
+                        "Properties": {
+                          "age": "4",
+                          "lit": "false"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "place_on": [
+                  {
+                    "Name": "minecraft:stone"
+                  }
+                ],
+                "place_in": [
+                  {
+                    "Name": "minecraft:air"
+                  }
+                ],
+                "place_under": [
+                  {
+                    "Name": "minecraft:air"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
