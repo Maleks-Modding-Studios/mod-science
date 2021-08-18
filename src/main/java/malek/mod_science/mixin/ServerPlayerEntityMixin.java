@@ -4,15 +4,12 @@ import com.mojang.authlib.GameProfile;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.components.player.madness.Whispers;
 import malek.mod_science.components.player.timeout.Timeout;
-import malek.mod_science.dimensions.LSpaceDimension;
-import malek.mod_science.dimensions.TheRoomDimension;
+import malek.mod_science.worlds.dimensions.LSpaceDimension;
+import malek.mod_science.worlds.dimensions.TheRoomDimension;
 import malek.mod_science.items.ModItems;
-import malek.mod_science.sounds.ModSounds;
+import malek.mod_science.client.sounds.ModSounds;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
@@ -21,11 +18,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -103,12 +97,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
             }
         }else{
             ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object) this;
-            playerEntity.getAbilities().invulnerable = false;
-            playerEntity.sendAbilitiesUpdate();
-            playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
-
-            playerEntity.getAbilities().invulnerable = true;
-            playerEntity.sendAbilitiesUpdate();
+            if(!playerEntity.getAbilities().creativeMode) {
+                playerEntity.getAbilities().invulnerable = false;
+                playerEntity.sendAbilitiesUpdate();
+                playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
+            }
 
         }
 
