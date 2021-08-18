@@ -1,6 +1,6 @@
 package malek.mod_science.items;
 
-import malek.mod_science.components.world.timepiece.TimePieceUtils;
+import malek.mod_science.components.player.timepiece.TimePieceUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
