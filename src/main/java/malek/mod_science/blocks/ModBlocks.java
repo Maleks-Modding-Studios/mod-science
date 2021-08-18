@@ -10,6 +10,8 @@ import malek.mod_science.blocks.basic.FlourcaneBlock;
 import malek.mod_science.blocks.basic.GlimmerrootBlock;
 import malek.mod_science.blocks.basic.PotatoOre;
 import malek.mod_science.blocks.power.SteamPipe;
+import malek.mod_science.blocks.redstone.BigLeverBlock;
+import malek.mod_science.blocks.redstone.RedstoneGemBlock;
 import malek.mod_science.blocks.strideblocks.LavaStride;
 import malek.mod_science.blocks.strideblocks.WaterStride;
 import malek.mod_science.power.*;
@@ -133,6 +135,12 @@ public final class ModBlocks {
 
     @RegistryEntry("glimmerroot")
     public static final Block GLIMMERROOT = new GlimmerrootBlock(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).luminance(stateBasedLuminance(10)));
+
+    @RegistryEntry("redstone_gem")
+    public static final Block REDSTONE_GEM = new RedstoneGemBlock(FabricBlockSettings.of(Material.STONE).luminance(3));
+
+    @RegistryEntry("big_lever")
+    public static final Block BIG_LEVER = new BigLeverBlock(FabricBlockSettings.of(Material.DECORATION).strength(0.5F).sounds(BlockSoundGroup.METAL));
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);

@@ -100,6 +100,11 @@ public class ModBlockItems {
     @RegistryEntry("reality_block/purple")
     public static final Item REALITY_BLOCK_PURPLE = new BlockItem(ModBlocks.REALITY_BLOCK_PURPLE, new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("redstone_gem")
+    public static final Item REDSTONE_GEM = new BlockItem(ModBlocks.REDSTONE_GEM, DEFAULT);
+
+    @RegistryEntry("big_lever")
+    public static final Item BIG_LEVER = new BlockItem(ModBlocks.BIG_LEVER, DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
