@@ -1,30 +1,31 @@
 package malek.mod_science;
 
-import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
-import malek.mod_science.biomes.ModBiomes;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
+import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import malek.mod_science.damagesources.ModDamageSources;
+import malek.mod_science.worlds.biomes.ModBiomes;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
-import malek.mod_science.commands.ModCommands;
-import malek.mod_science.components.world.timepiece.TimePieceComponent;
-import malek.mod_science.components.world.timepiece.TimePieceComponentImpl;
-import malek.mod_science.dimensions.AbyssDimension;
-import malek.mod_science.dimensions.LSpaceDimension;
+import malek.mod_science.client.commands.ModCommands;
+import malek.mod_science.components.player.timepiece.TimePieceComponent;
+import malek.mod_science.components.player.timepiece.TimePieceComponentImpl;
+import malek.mod_science.worlds.dimensions.AbyssDimension;
+import malek.mod_science.worlds.dimensions.LSpaceDimension;
 import malek.mod_science.entities.clank.Clanks;
-import malek.mod_science.dimensions.WyldsDimension;
-import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
+import malek.mod_science.worlds.dimensions.WyldsDimension;
 import malek.mod_science.recipes.ModRecipes;
-import malek.mod_science.dimensions.TheRoomDimension;
-import malek.mod_science.effects.ModEffects;
+import malek.mod_science.worlds.dimensions.TheRoomDimension;
+import malek.mod_science.statuseffects.ModStatusEffects;
 import malek.mod_science.entities.ModEntities;
 import malek.mod_science.fluids.ModBuckets;
 import malek.mod_science.fluids.ModFluidBlocks;
 import malek.mod_science.fluids.ModFluids;
-import malek.mod_science.generation.ModGeneration;
+import malek.mod_science.worlds.generation.ModGeneration;
 import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.screens.ModScreens;
-import malek.mod_science.sounds.ModSounds;
+import malek.mod_science.client.sounds.ModSounds;
 import malek.mod_science.tags.ModScienceTags;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MatterCavitationChamberScreenHandler;
@@ -48,7 +49,7 @@ import java.util.function.Supplier;
 import static malek.mod_science.ModScience.MOD_ID;
 import static malek.mod_science.blocks.ModBlockEntities.MATTER_CHAMBER;
 
-public class ModScienceInit implements ModInitializer, LoggerInterface, WorldComponentInitializer {
+public class ModScienceInit implements ModInitializer, LoggerInterface, EntityComponentInitializer {
     //Config Stuff
     private static final Supplier<Path> CONFIG_ROOT = () -> FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).toAbsolutePath();
     private static final ConfigHolder<ModConfig> CONFIG_MANAGER = AutoConfig.register(ModConfig.class, ModConfig.SubRootJanksonConfigSerializer::new);
@@ -93,7 +94,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, WorldCom
         ModGeneration.init();
         ModEntities.init();
         ModBlockEntities.init();
-        ModEffects.init();
+        ModStatusEffects.init();
         Clanks.init();
 
         //ModFluids
@@ -102,14 +103,11 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, WorldCom
         ModBuckets.init();
         ModSounds.init();
 
+
         ModScreens.init();
 
 
-
-
-
         ModRecipes.init();
-
 
 
         ModScienceTags.init();
@@ -120,11 +118,10 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, WorldCom
         WyldsDimension.init();
         AbyssDimension.init();
         ModCommands.init();
-
-
     }
-    public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
-        registry.register(TimePieceComponent.worldKey, TimePieceComponentImpl::new);
+
+    public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
+        registry.registerForPlayers(TimePieceComponent.entityKey, TimePieceComponentImpl::new, RespawnCopyStrategy.ALWAYS_COPY);
     }
 
     public static ModConfig getConfig() {
@@ -144,9 +141,4 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, WorldCom
     public Logger getLogger() {
         return LogManager.getLogger();
     }
-
-//    @Override
-//    public void onInitializeClient() {
-//
-//    }
 }

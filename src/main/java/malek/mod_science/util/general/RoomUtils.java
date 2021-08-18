@@ -1,21 +1,12 @@
 package malek.mod_science.util.general;
 
-import com.mojang.brigadier.Command;
-import io.netty.handler.codec.spdy.SpdyWindowUpdateFrame;
-import malek.mod_science.commands.DimTeleportCommand;
+import malek.mod_science.client.commands.DimTeleportCommand;
 import malek.mod_science.components.player.timeout.Timeout;
-import malek.mod_science.dimensions.ModDimensions;
-import malek.mod_science.dimensions.TheRoomDimension;
-import malek.mod_science.generation.genUtils.TheRoomFeature;
+import malek.mod_science.worlds.dimensions.ModDimensions;
+import malek.mod_science.worlds.generation.genUtils.TheRoomFeature;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
-
-import java.lang.reflect.Method;
-
-import static malek.mod_science.commands.DimTeleportCommand.teleport;
 
 public class RoomUtils {
     public static int commandSendToRoom(Entity entity, int time) {

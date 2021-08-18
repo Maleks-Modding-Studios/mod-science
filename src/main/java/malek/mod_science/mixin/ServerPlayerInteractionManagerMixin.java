@@ -3,7 +3,7 @@ package malek.mod_science.mixin;
 import malek.mod_science.ModScience;
 import malek.mod_science.components.player.last_door.LastDoor;
 import malek.mod_science.components.player.timeout.Timeout;
-import malek.mod_science.dimensions.TheRoomDimension;
+import malek.mod_science.worlds.dimensions.TheRoomDimension;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
