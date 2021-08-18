@@ -1,10 +1,10 @@
 package malek.mod_science.blocks;
 
 import malek.mod_science.ModScience;
-import malek.mod_science.blocks.CalderaCauldron.CalderaCauldronBlockEntity;
-import malek.mod_science.blocks.MAD.MADBlockEntity;
-import malek.mod_science.blocks.MatterCavitationChamber.MatterCavitationChamberBlockEntity;
-import malek.mod_science.blocks.ShadowSilkOre.ShadowSilkOreBlockEntity;
+import malek.mod_science.blocks.caldera_cauldron.CalderaCauldronBlockEntity;
+import malek.mod_science.blocks.mad.MADBlockEntity;
+import malek.mod_science.blocks.matter_cavitation_chamber.MatterCavitationChamberBlockEntity;
+import malek.mod_science.blocks.shadow_silk_ore.ShadowSilkOreBlockEntity;
 import malek.mod_science.blocks.Tesseract.TesseractBlockEntity;
 import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlockEntity;
 import malek.mod_science.blocks.strideblocks.LavaStrideBlockEntity;
