@@ -317,7 +317,20 @@
 					}
 				}
 			},
-			"sound_effects": {}
+          "sound_effects": {
+            "0.0": {
+              "effect": "music"
+            },
+            "0.5": {
+              "effect": "music"
+            },
+            "1.0": {
+              "effect": "music"
+            },
+            "1.5": {
+              "effect": "music"
+            }
+          }
 		},
 		"animation.clockworkblock.crank": {
 			"loop": true,

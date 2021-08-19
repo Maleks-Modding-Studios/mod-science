@@ -1,12 +1,20 @@
 package malek.mod_science.blocks.clockwork;
 
 import malek.mod_science.blocks.ModBlockEntities;
+import malek.mod_science.items.ClockworkItem;
+import malek.mod_science.items.ModItems;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -16,6 +24,7 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -31,6 +40,13 @@ public class ClockworkBlockEntity extends BlockEntity implements IAnimatable, Bl
     @Override
     public void tick(World world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         on = state.get(ClockworkBlock.ON);
+    }
+    private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
+        SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        player.playSound(SoundEvents.BLOCK_LEVER_CLICK, 0.2F, 1.75F);
+        //world.playSound((PlayerEntity)null, pos.getX(), pos.getY(), pos.getZ(), soundEventClick, SoundCategory.BLOCKS, 0.4F, 1.75F);
+
     }
 
 
@@ -50,8 +66,11 @@ public class ClockworkBlockEntity extends BlockEntity implements IAnimatable, Bl
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<ClockworkBlockEntity>(this, "controller", 0, this::predicate));
-        data.addAnimationController(new AnimationController<ClockworkBlockEntity>(this, "controller2", 0, this::predicate2));
+        AnimationController<ClockworkItem> controller = new AnimationController(this, "controller", 0, this::predicate);
+        controller.registerSoundListener(this::soundListener);
+        data.addAnimationController(controller);
+        AnimationController<ClockworkItem> controller2 = new AnimationController(this, "controller2", 0, this::predicate2);
+        data.addAnimationController(controller2);
     }
 
     @Override
