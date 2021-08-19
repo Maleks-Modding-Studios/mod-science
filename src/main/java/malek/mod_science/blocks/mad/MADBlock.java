@@ -1,7 +1,10 @@
-package malek.mod_science.blocks.ShadowSilkOre;
+package malek.mod_science.blocks.mad;
 
 import malek.mod_science.util.general.LoggerInterface;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -11,9 +14,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
-public class ShadowSilkOre extends BlockWithEntity implements BlockEntityProvider, LoggerInterface {
+public class MADBlock extends BlockWithEntity implements BlockEntityProvider, LoggerInterface {
 
-    public ShadowSilkOre(Settings settings) {
+    public MADBlock(Settings settings) {
         super(settings);
     }
     @Override
@@ -23,7 +26,7 @@ public class ShadowSilkOre extends BlockWithEntity implements BlockEntityProvide
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return ShadowSilkOreBlockEntity::tick;
+        return MADBlockEntity::tick;
     }
 
 
@@ -35,6 +38,6 @@ public class ShadowSilkOre extends BlockWithEntity implements BlockEntityProvide
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ShadowSilkOreBlockEntity(pos, state);
+        return new MADBlockEntity(pos, state);
     }
 }

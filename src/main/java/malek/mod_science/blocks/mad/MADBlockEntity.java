@@ -1,4 +1,4 @@
-package malek.mod_science.blocks.MAD;
+package malek.mod_science.blocks.mad;
 
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.util.general.LoggerInterface;
