@@ -1,6 +1,7 @@
 package malek.mod_science.items;
 
 import dev.architectury.platform.Mod;
+import malek.mod_science.blocks.ModBlockItemAnimated;
 import malek.mod_science.blocks.ModBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
@@ -107,7 +108,7 @@ public class ModBlockItems {
     public static final Item BIG_LEVER = new BlockItem(ModBlocks.BIG_LEVER, DEFAULT);
 
     @RegistryEntry("clockworkblock")
-    public static final Item CLOCKWORK_BLOCK = new BlockItem(ModBlocks.CLOCKWORK_BLOCK, DEFAULT);
+    public static final Item CLOCKWORK_BLOCK = new ModBlockItemAnimated(ModBlocks.CLOCKWORK_BLOCK, DEFAULT);
 
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);

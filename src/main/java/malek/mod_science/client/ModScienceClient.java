@@ -6,9 +6,11 @@ import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.caldera_cauldron.CalderaCauldronBlockEntityRenderer;
 import malek.mod_science.blocks.transfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.client.particle.ModParticles;
+import malek.mod_science.client.renderer.ClockworkBlockItemRender;
 import malek.mod_science.client.renderer.ClockworkBlockRenderer;
 import malek.mod_science.client.renderer.ClockworkRenderer;
 import malek.mod_science.fluids.ModFluids;
+import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.mechanics.NetworkingIds;
@@ -98,6 +100,7 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         ModScreensClient.init();
 
         //Geko
+        GeoItemRenderer.registerItemRenderer(ModBlocks.CLOCKWORK_BLOCK.asItem(), new ClockworkBlockItemRender());
         GeoItemRenderer.registerItemRenderer(ModItems.CLOCKWORK, new ClockworkRenderer());
         BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CLOCKWORK_BLOCK_ENTITY,(BlockEntityRendererFactory.Context rendererDispatcherIn) -> new ClockworkBlockRenderer());
         BlockRenderLayerMapImpl.INSTANCE.putBlock(ModBlocks.CLOCKWORK_BLOCK, RenderLayer.getCutout());
