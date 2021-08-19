@@ -57,8 +57,9 @@ public class ClockworkBlock extends HorizontalFacingBlock implements BlockEntity
         Direction direction1 = state.get(HORIZONTAL_FACING);
         if(direction == direction1){
             world.setBlockState(pos, state.with(ON, true));
+            return ActionResult.SUCCESS;
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
     @Override
     @Nullable
@@ -68,7 +69,7 @@ public class ClockworkBlock extends HorizontalFacingBlock implements BlockEntity
 
     private static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState blockState, T t) {
         SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
-        world.playSound((PlayerEntity)null, blockPos.getX(), blockPos.getX(), blockPos.getX(), soundEventClick, SoundCategory.PLAYERS, 0.4F, 1.75F);
+        //world.playSound((PlayerEntity)null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), soundEventClick, SoundCategory.PLAYERS, 0.4F, 1.75F);
         if(blockState.get(ON)){
             ticker ++;
             if(ticker >= 20){
