@@ -4,8 +4,9 @@ import malek.mod_science.ModScienceInit;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.caldera_cauldron.CalderaCauldronBlockEntityRenderer;
-import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
+import malek.mod_science.blocks.transfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.client.particle.ModParticles;
+import malek.mod_science.client.renderer.ClockworkBlockRenderer;
 import malek.mod_science.client.renderer.ClockworkRenderer;
 import malek.mod_science.fluids.ModFluids;
 import malek.mod_science.items.ModItems;
@@ -30,9 +31,11 @@ import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.InputUtil;
@@ -96,6 +99,11 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
 
         //Geko
         GeoItemRenderer.registerItemRenderer(ModItems.CLOCKWORK, new ClockworkRenderer());
+        BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CLOCKWORK_BLOCK_ENTITY,(BlockEntityRendererFactory.Context rendererDispatcherIn) -> new ClockworkBlockRenderer());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(ModBlocks.CLOCKWORK_BLOCK, RenderLayer.getCutout());
+
+
+
     }
 
     private static void initKeyBindings() {

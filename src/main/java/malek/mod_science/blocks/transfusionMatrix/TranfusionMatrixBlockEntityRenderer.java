@@ -1,7 +1,6 @@
-package malek.mod_science.blocks.TransfusionMatrix;
+package malek.mod_science.blocks.transfusionMatrix;
 
 import alexiil.mc.lib.attributes.fluid.render.FluidRenderFace;
-import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;

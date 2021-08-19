@@ -1,4 +1,4 @@
-package malek.mod_science.blocks.TransfusionMatrix.gui;
+package malek.mod_science.blocks.transfusionMatrix.gui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;

@@ -1,4 +1,4 @@
-package malek.mod_science.blocks.Tesseract.tesseractgui;
+package malek.mod_science.blocks.tesseract.tesseractgui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;

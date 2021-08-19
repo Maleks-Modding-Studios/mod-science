@@ -106,6 +106,9 @@ public class ModBlockItems {
     @RegistryEntry("big_lever")
     public static final Item BIG_LEVER = new BlockItem(ModBlocks.BIG_LEVER, DEFAULT);
 
+    @RegistryEntry("clockworkblock")
+    public static final Item CLOCKWORK_BLOCK = new BlockItem(ModBlocks.CLOCKWORK_BLOCK, DEFAULT);
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }
