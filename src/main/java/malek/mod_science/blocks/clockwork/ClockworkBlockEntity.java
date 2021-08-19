@@ -41,13 +41,6 @@ public class ClockworkBlockEntity extends BlockEntity implements IAnimatable, Bl
     public void tick(World world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         on = state.get(ClockworkBlock.ON);
     }
-    private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
-        SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        player.playSound(SoundEvents.BLOCK_LEVER_CLICK, 0.2F, 1.75F);
-        //world.playSound((PlayerEntity)null, pos.getX(), pos.getY(), pos.getZ(), soundEventClick, SoundCategory.BLOCKS, 0.4F, 1.75F);
-
-    }
 
 
     @SuppressWarnings("unchecked")
@@ -67,7 +60,6 @@ public class ClockworkBlockEntity extends BlockEntity implements IAnimatable, Bl
     @Override
     public void registerControllers(AnimationData data) {
         AnimationController<ClockworkItem> controller = new AnimationController(this, "controller", 0, this::predicate);
-        controller.registerSoundListener(this::soundListener);
         data.addAnimationController(controller);
         AnimationController<ClockworkItem> controller2 = new AnimationController(this, "controller2", 0, this::predicate2);
         data.addAnimationController(controller2);

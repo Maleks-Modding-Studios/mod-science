@@ -34,6 +34,7 @@ public class ClockworkBlock extends HorizontalFacingBlock implements BlockEntity
         setDefaultState(getStateManager().getDefaultState().with(ON, false));
     }
     static int ticker = 0;
+    static int sounder = 0;
     public static BooleanProperty ON = BooleanProperty.of("on");
 
     @Override
@@ -69,7 +70,11 @@ public class ClockworkBlock extends HorizontalFacingBlock implements BlockEntity
 
     private static <T extends BlockEntity> void tick(World world, BlockPos blockPos, BlockState blockState, T t) {
         SoundEvent soundEventClick = SoundEvents.BLOCK_LEVER_CLICK;
-        //world.playSound((PlayerEntity)null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), soundEventClick, SoundCategory.PLAYERS, 0.4F, 1.75F);
+        sounder++;
+        if(sounder >= 10){
+            world.playSound(null, blockPos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.4F, 1.75F);
+            sounder=0;
+        }
         if(blockState.get(ON)){
             ticker ++;
             if(ticker >= 20){
