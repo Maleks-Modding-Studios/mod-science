@@ -24,7 +24,7 @@ public class FlourcaneBlock extends Block {
     public static final IntProperty AGE;
     public static final VoxelShape SHAPE;
 
-    public FlourcaneBlock(AbstractBlock.Settings settings) {
+    public FlourcaneBlock(Settings settings) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(AGE, 0));
     }

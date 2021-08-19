@@ -36,7 +36,7 @@ public class OreMagnetRecipe extends SpecialCraftingRecipe {
     @Override
     public ItemStack craft(CraftingInventory inventory) {
         ItemStack stack = new ItemStack(ModItems.ORE_MAGNET);
-        NbtCompound compound = stack.getOrCreateTag();
+        NbtCompound compound = stack.getOrCreateNbt();
         BlockItem item = getBlockItemInInventory(inventory).get();
         compound.putString("block", Registry.BLOCK.getId(item.getBlock()).toString());
         return stack;

@@ -139,7 +139,7 @@ public class SpiracleOreFeature extends Feature<OreFeatureConfig> {
                                             if (!bitSet.get(am)) {
                                                 bitSet.set(am);
                                                 mutable.set(ag, ai, ak);
-                                                if (structureWorldAccess.method_37368(mutable)) {
+                                                if (structureWorldAccess.isValidForSetBlock(mutable)) {
                                                     ChunkSection chunkSection = chunkSectionCache.getSection(mutable);
                                                     if (chunkSection != WorldChunk.EMPTY_SECTION) {
                                                         int an = ChunkSectionPos.getLocalCoord(ag);

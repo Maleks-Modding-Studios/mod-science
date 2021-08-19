@@ -58,7 +58,7 @@ public class IronShoeaxel extends MiningToolItem {
 
         if (optional4.isPresent()) {
             if (playerEntity instanceof ServerPlayerEntity) {
-                Criteria.ITEM_USED_ON_BLOCK.test((ServerPlayerEntity)playerEntity, blockPos, itemStack);
+                Criteria.ITEM_USED_ON_BLOCK.trigger((ServerPlayerEntity)playerEntity, blockPos, itemStack);
             }
 
             world.setBlockState(blockPos, (BlockState)optional4.get(), 11);

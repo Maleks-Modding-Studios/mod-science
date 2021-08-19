@@ -126,6 +126,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
         WyldsDimension.init();
         AbyssDimension.init();
         ModCommands.init();
+        initFluidInteractions();
     }
 
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -145,6 +146,101 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
             }
         }
     }
+
+    public static void initFluidInteractions() {
+//        ArrayList<BlockState> realityBlockStates = new ArrayList<>();
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_WHITE.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_GREEN.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_PURPLE.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_CYAN.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_ORANGE.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_YELLOW.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_RED.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_BLUE.getDefaultState());
+//        Random random = new Random();
+//        FluidInteractionGroup stillWater = new FluidInteractionGroup(Fluids.WATER) {
+//            @Override
+//            public void doFluidCollisionFunction(World world, BlockPos pos) {
+//                int i = random.nextInt(7);
+//                if(i == 0) {
+//                    world.setBlockState(pos, realityBlockStates.get(i));
+//                }
+//            }
+//        };
+//        FluidInteractionGroup flowingWater = new FluidInteractionGroup(Fluids.FLOWING_WATER) {
+//            @Override
+//            public void doFluidCollisionFunction(World world, BlockPos pos) {
+//                int i = random.nextInt(7);
+//                if(i == 0) {
+//                    world.setBlockState(pos, realityBlockStates.get(i));
+//                }
+//            }
+//        };
+//
+//        FluidInteractionGroup stillLava = new FluidInteractionGroup(Fluids.FLOWING_WATER) {
+//            @Override
+//            public void doFluidCollisionFunction(World world, BlockPos pos) {
+//                int i = random.nextInt(7);
+//                if(i == 0) {
+//                    world.setBlockState(pos, realityBlockStates.get(i));
+//                }
+//            }
+//        };
+//
+//        FluidInteractionGroup flowingLava = new FluidInteractionGroup(Fluids.FLOWING_WATER) {
+//            @Override
+//            public void doFluidCollisionFunction(World world, BlockPos pos) {
+//                int i = random.nextInt(7);
+//                if(i == 0) {
+//                    world.setBlockState(pos, realityBlockStates.get(i));
+//                }
+//            }
+//        };
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, flowingLava);
+//
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, flowingLava);
+//
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, flowingLava);
+//
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, flowingLava);
+    }
+
     @Override
     public Logger getLogger() {
         return LogManager.getLogger();
