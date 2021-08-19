@@ -93,11 +93,11 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
         // Yes -Platy
         GeckoLib.initialize();
         ModItems.init();
+        ModBlockEntities.init();
         ModBlocks.init();
         ModBlockItems.init();
         ModGeneration.init();
         ModEntities.init();
-        ModBlockEntities.init();
         ModStatusEffects.init();
         Clanks.init();
 

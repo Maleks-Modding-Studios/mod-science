@@ -1,4 +1,4 @@
-package malek.mod_science.blocks.TransfusionMatrix;
+package malek.mod_science.blocks.transfusionMatrix;
 
 import alexiil.mc.lib.attributes.AttributeList;
 import alexiil.mc.lib.attributes.AttributeProvider;

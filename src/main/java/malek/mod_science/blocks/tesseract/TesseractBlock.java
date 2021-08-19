@@ -1,4 +1,4 @@
-package malek.mod_science.blocks.Tesseract;
+package malek.mod_science.blocks.tesseract;
 
 import malek.mod_science.blocks.ModBlockWithEntity;
 import net.minecraft.block.BlockEntityProvider;

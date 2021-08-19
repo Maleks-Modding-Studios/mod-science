@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "y": 0,
+      "model": "mod_science:block/clockworkblock"
+    },
+    "facing=south": {
+      "y": 180,
+      "model": "mod_science:block/clockworkblock"
+    },
+    "facing=east": {
+      "y": 90,
+      "model": "mod_science:block/clockworkblock"
+    },
+    "facing=west": {
+      "y": 270,
+      "model": "mod_science:block/clockworkblock"
+    },
+    "facing=up": {
+      "y": 0,
+      "model": "mod_science:block/clockworkblock"
+    },
+    "facing=down": {
+      "y": 0,
+      "model": "mod_science:block/clockworkblock"
+    }
+  }
+}

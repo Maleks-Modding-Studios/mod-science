@@ -1,4 +1,4 @@
-package malek.mod_science.blocks.TransfusionMatrix;
+package malek.mod_science.blocks.transfusionMatrix;
 
 import alexiil.mc.lib.attributes.Simulation;
 import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
@@ -16,7 +16,7 @@ import malek.mod_science.items.ModItems;
 import malek.mod_science.items.item_nbt.ChargeableItem;
 import malek.mod_science.power.*;
 import malek.mod_science.properties.ModProperties;
-import malek.mod_science.blocks.TransfusionMatrix.gui.TranfusionMatrixGuiDescription;
+import malek.mod_science.blocks.transfusionMatrix.gui.TranfusionMatrixGuiDescription;
 import malek.mod_science.util.TranfusionMatrixMode;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.LoggerInterface;

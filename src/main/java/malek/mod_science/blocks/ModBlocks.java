@@ -1,10 +1,11 @@
 package malek.mod_science.blocks;
 
 import malek.mod_science.blocks.caldera_cauldron.*;
+import malek.mod_science.blocks.clockwork.ClockworkBlock;
 import malek.mod_science.blocks.mad.MADBlock;
 import malek.mod_science.blocks.shadow_silk_ore.ShadowSilkOre;
-import malek.mod_science.blocks.Tesseract.TesseractBlock;
-import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlock;
+import malek.mod_science.blocks.tesseract.TesseractBlock;
+import malek.mod_science.blocks.transfusionMatrix.TransfusionMatrixBlock;
 import malek.mod_science.blocks.basic.CrystalGrowthBlock;
 import malek.mod_science.blocks.basic.FlourcaneBlock;
 import malek.mod_science.blocks.basic.GlimmerrootBlock;
@@ -141,6 +142,9 @@ public final class ModBlocks {
 
     @RegistryEntry("big_lever")
     public static final Block BIG_LEVER = new BigLeverBlock(FabricBlockSettings.of(Material.DECORATION).strength(0.5F).sounds(BlockSoundGroup.METAL));
+
+    @RegistryEntry("clockworkblock")
+    public static final Block CLOCKWORK_BLOCK = new ClockworkBlock();
 
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
