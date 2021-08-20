@@ -1,7 +1,7 @@
 package malek.mod_science.worlds.generation;
 
 import com.mojang.serialization.Codec;
-import malek.mod_science.components.world.ley_knots.LeyKnot;
+import malek.mod_science.components.world.ley_knots.BlockState;
 import malek.mod_science.components.world.ley_knots.LeyKnotMap;
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.server.world.ServerWorld;
@@ -66,9 +66,9 @@ public class LeyKnotFeature extends Feature<DefaultFeatureConfig> implements Log
 
     private void generateLeyKnot(BlockPos targetPos, FeatureContext<DefaultFeatureConfig> context) {
         ServerWorld world = context.getWorld().toServerWorld();
-        Map<BlockPos, LeyKnot> leyKnotMap = LeyKnotMap.get(world);
+        Map<BlockPos, BlockState> leyKnotMap = LeyKnotMap.get(world);
         ArrayList<BlockPos> lastPosList = lastPos.get(world);
-        LeyKnot leyKnot = new LeyKnot();
+        BlockState leyKnot = new BlockState();
         leyKnot.setFields(targetPos.getX(), targetPos.getZ(), 100, 1, 1, false);
         leyKnotMap.put(new BlockPos(targetPos.getX(), 0, targetPos.getZ()), leyKnot);
         if (lastPosList.size() == 3) {

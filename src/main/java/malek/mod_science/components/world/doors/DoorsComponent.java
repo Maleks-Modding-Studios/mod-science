@@ -1,10 +1,12 @@
-package malek.mod_science.components.world.ley_knots;
+package malek.mod_science.components.world.doors;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
+import malek.mod_science.components.world.ley_knots.BlockState;
+import malek.mod_science.components.world.ley_knots.LeyKnotMapInterface;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -17,31 +19,29 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import static malek.mod_science.ModScience.MOD_ID;
 
-public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitializer, AutoSyncedComponent {
-    public static final ComponentKey<LeyKnotMap> LEY_KNOT_MAP = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "ley_knot_map"), LeyKnotMap.class);
-    private Map<BlockPos, BlockState> leyKnots = new HashMap<>();
+public class DoorsComponent implements LeyKnotMapInterface, WorldComponentInitializer, AutoSyncedComponent {
+    public static final ComponentKey<DoorsComponent> DOORS = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "doors"), DoorsComponent.class);
+    private HashSet<BlockPos> doors = new HashSet<>();
 
-    public static Map<BlockPos, BlockState> get(World world) {
-        return LEY_KNOT_MAP.get(world).leyKnots;
+    public static HashSet<BlockPos> get(World world) {
+        System.out.println(world);
+        return DOORS.get(world).doors;
     }
 
     @Override
     public void readFromNbt(NbtCompound tag) {
-        leyKnots = new HashMap<>();
-        NbtList list = tag.getList("ley_knot_map", NbtType.COMPOUND);
+        doors = new HashSet<>();
+        NbtList list = tag.getList("doors_list", NbtType.COMPOUND);
         for (NbtElement element : list) {
-            if (element instanceof NbtCompound) {
-                NbtCompound compound = (NbtCompound) element;
-
+            if (element instanceof NbtCompound compound) {
                 BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("block_pos")).getOrThrow(false, pog -> {}).getFirst();
-                BlockState knot = new BlockState();
-                knot.readFromNbt(compound.getCompound("ley_knot"));
-                leyKnots.put(blockPos, knot);
+                doors.add(blockPos);
             }
         }
     }
@@ -54,20 +54,19 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
      */
     @Override
     public void writeToNbt(NbtCompound tag) {
+
         NbtList listTag;
-        listTag = leyKnots.entrySet().stream().parallel().map(blockPos -> {
+        listTag = doors.stream().parallel().map(blockPos -> {
             NbtCompound mappingTag = new NbtCompound();
-            mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos.getKey(), NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
-            mappingTag.put("ley_knot", leyKnots.get(blockPos.getKey()).writeToNbt(new NbtCompound()));
+            mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos, NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
             return mappingTag;
         }).collect(Collectors.toCollection(NbtList::new));
-        tag.put("ley_knot_map", listTag);
+        tag.put("doors_list", listTag);
 
     }
-
     @Override
     public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
-        registry.register(LEY_KNOT_MAP, world -> new LeyKnotMap());
+        registry.register(DOORS, world -> new DoorsComponent());
     }
 
     @Override
@@ -84,4 +83,6 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
     public void applySyncPacket(PacketByteBuf buf) {
         AutoSyncedComponent.super.applySyncPacket(buf);
     }
+
+
 }

@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
  * Ley Knots are positions in the world that hold sap and are some amount unstable, they generate ley lines by
  * playing connect the dots. They passivly regenerate sap.
  */
-public class LeyKnot implements LeyKnotInterface {
+public class BlockState implements LeyKnotInterface {
     private int x;
     private int z;
     private double sap = 0.0;
