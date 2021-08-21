@@ -16,7 +16,8 @@
     "EntityTickMixin",
     "ArmorItemMixin",
     "InGameHudMixin",
-    "SheepEntityMixin"
+    "SheepEntityMixin",
+    "DoorBlockMixin"
   ],
   "client": [
     "ClientPlayerInteractionManagerMixin",

@@ -147,16 +147,7 @@ public class VoidChunkGenerator extends ChunkGenerator {
                     }
                 }
             }
-            /*
-            for(int i = 0; i < 10; i++) {
-                int ladderIndex = random.nextInt(ladderYPos.size() - 2);
-                for (int y1 = ladderYPos.get(ladderIndex); y1 < ladderYPos.get(ladderIndex + 1); y1++) {
-                    buildLadderSec(chunk, y1);
-                    System.out.println("x" + x + "y" + y1 + "z" + z);
-                }
-            }
 
-             */
         }
         catch (Exception e) {
             e.printStackTrace();

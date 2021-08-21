@@ -16,6 +16,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -27,10 +28,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 
 public class DoorsComponent implements LeyKnotMapInterface, WorldComponentInitializer, AutoSyncedComponent {
     public static final ComponentKey<DoorsComponent> DOORS = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "doors"), DoorsComponent.class);
-    private HashSet<BlockPos> doors = new HashSet<>();
+    private HashSet<DimPos> doors = new HashSet<>();
 
-    public static HashSet<BlockPos> get(World world) {
-        System.out.println(world);
+    public static HashSet<DimPos> get(World world) {
         return DOORS.get(world).doors;
     }
 
@@ -41,7 +41,8 @@ public class DoorsComponent implements LeyKnotMapInterface, WorldComponentInitia
         for (NbtElement element : list) {
             if (element instanceof NbtCompound compound) {
                 BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("block_pos")).getOrThrow(false, pog -> {}).getFirst();
-                doors.add(blockPos);
+                Identifier worldID = new Identifier(tag.getString("last_world_namespace"), tag.getString("last_world_path"));
+                doors.add(new DimPos(blockPos, RegistryKey.of(RegistryKey.ofRegistry(worldID), worldID)));
             }
         }
     }
@@ -59,6 +60,9 @@ public class DoorsComponent implements LeyKnotMapInterface, WorldComponentInitia
         listTag = doors.stream().parallel().map(blockPos -> {
             NbtCompound mappingTag = new NbtCompound();
             mappingTag.put("block_pos", BlockPos.CODEC.encode(blockPos, NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
+            RegistryKey world = blockPos.dimension;
+            tag.putString("last_world_namespace", world.getValue().getNamespace());
+            tag.putString("last_world_path", world.getValue().getPath());
             return mappingTag;
         }).collect(Collectors.toCollection(NbtList::new));
         tag.put("doors_list", listTag);

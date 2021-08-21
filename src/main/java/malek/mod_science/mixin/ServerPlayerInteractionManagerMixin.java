@@ -3,7 +3,9 @@ package malek.mod_science.mixin;
 import malek.mod_science.ModScience;
 import malek.mod_science.components.player.last_door.LastDoor;
 import malek.mod_science.components.player.timeout.Timeout;
+import malek.mod_science.components.world.doors.DimPos;
 import malek.mod_science.components.world.doors.DoorsComponent;
+import malek.mod_science.worlds.dimensions.LSpaceDimension;
 import malek.mod_science.worlds.dimensions.TheRoomDimension;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -25,8 +27,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
 @Mixin(ServerPlayerInteractionManager.class)
 public class ServerPlayerInteractionManagerMixin {
+
+    private static final float CHANCE_TO_ENTER_WORLDSPINE = 0.00F;
+
     @Shadow
     protected ServerWorld world;
 
@@ -53,6 +64,17 @@ public class ServerPlayerInteractionManagerMixin {
 
     @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
     public void interactBlock(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+        if (world.getRegistryKey().equals(LSpaceDimension.WORLD_KEY)) {
+            Random random = new Random();
+            List<DimPos> dimPosArrayList = DoorsComponent.get(world).stream().toList();
+            if(random.nextFloat() <= CHANCE_TO_ENTER_WORLDSPINE) {
+                //worldspine teleport code here
+            }
+            else {
+                DimPos pos1 = dimPosArrayList.get(random.nextInt(dimPosArrayList.size()));
+                player.teleport((ServerWorld) pos1.getWorld(), pos1.getX(), pos1.getY(), pos1.getZ(), player.getYaw(), player.getPitch());
+            }
+        }
         if (world.getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
             if (world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof DoorBlock && Timeout.TIMEOUT.get(player).isTimeToLetOut(player)) {
                 if(LastDoor.LAST_DOOR.get(player).isVoid()){

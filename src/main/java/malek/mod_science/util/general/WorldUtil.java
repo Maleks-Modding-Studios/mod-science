@@ -1,5 +1,7 @@
 package malek.mod_science.util.general;
 
+import net.minecraft.block.DoorBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,6 +40,10 @@ public class WorldUtil {
             }
         }
         return true;
+    }
+
+    public static BlockPos getDoorBlockPos(World world, BlockPos pos) {
+        return world.getBlockState(pos).getBlock() instanceof DoorBlock ? world.getBlockState(pos).get(DoorBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.add(0, 1, 0) : pos;
     }
 
 }

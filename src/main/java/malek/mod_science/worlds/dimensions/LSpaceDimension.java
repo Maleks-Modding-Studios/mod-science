@@ -35,8 +35,9 @@ public class LSpaceDimension {
         WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, new Identifier(MOD_ID, "l_space"));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-           /* ServerWorld overworld = server.getWorld(World.OVERWORLD);
             world = server.getWorld(WORLD_KEY);
+           /* ServerWorld overworld = server.getWorld(World.OVERWORLD);
+
             server.getWorlds().forEach( (world1) -> System.out.println(world1.getRegistryKey()));
             if (world == null) throw new AssertionError("Test world doesn't exist.");
 
