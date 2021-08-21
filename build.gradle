@@ -157,7 +157,7 @@ dependencies {
     modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:3346861"
 
 
-    //modImplementation "com.example:MaleksFluidInteractionAPI:1.0.0"
+    modImplementation "com.example:MaleksFluidInteractionAPI:1.0.0"
 
 //    datagenImplementation sourceSets.main.output
 //    datagenImplementation sourceSets.main.compileClasspath
