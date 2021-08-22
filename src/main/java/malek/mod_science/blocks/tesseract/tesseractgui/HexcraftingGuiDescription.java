@@ -11,11 +11,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 
-public class TesseractGuiDescription extends SyncedGuiDescription {
+public class HexcraftingGuiDescription extends SyncedGuiDescription {
     private static final int INVENTORY_SIZE = 17;
     BlockEntity blockEntity;
-    public TesseractGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(ModScreens.TESSERACT_SCREEN_HANDLER, syncId, playerInventory, getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context, 3));
+    public HexcraftingGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ModScreens.TESSERACT_SCREEN_HANDLER_1, syncId, playerInventory, getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context, 3));
         WPlainPanel root = new WPlainPanel();
         setRootPanel(root);
         int sizeX = 170;
@@ -45,7 +45,7 @@ public class TesseractGuiDescription extends SyncedGuiDescription {
         root.add(itemSlot5, x-diagonal, y-diagonalY);
 
         root.add(outputSlot, x, y);
-
+/** this comment block is for slots other than ones we need for Hexcrafting
         WItemSlot m1 = WItemSlot.of(blockInventory, 7);
         WItemSlot m2 = WItemSlot.of(blockInventory, 8);
         WItemSlot m3 = WItemSlot.of(blockInventory, 9);
@@ -75,7 +75,7 @@ public class TesseractGuiDescription extends SyncedGuiDescription {
         root.add(a1, (int) (x - (sizeOfSlot * 3.75)), (int) (y - (sizeOfSlot * 3.75)));
         root.add(a2, (int) (x + (sizeOfSlot * 3.75)), (int) (y - (sizeOfSlot * 3.75)));
         root.add(a3, (int) (x + (sizeOfSlot * 3.75)), (int) (y + (sizeOfSlot * 3.75)));
-        root.add(a4, (int) (x - (sizeOfSlot * 3.75)), (int) (y + (sizeOfSlot * 3.75)));
+        root.add(a4, (int) (x - (sizeOfSlot * 3.75)), (int) (y + (sizeOfSlot * 3.75)));**/
 
 
 

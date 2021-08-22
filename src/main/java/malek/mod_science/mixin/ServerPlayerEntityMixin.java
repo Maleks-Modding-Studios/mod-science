@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements LoggerInterface {
@@ -40,7 +41,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
 
     boolean play = false;
     long time = System.currentTimeMillis();
-    private static int CHECK = 10;
+    private static final int CHECK = 10;
     int check = 0;
     boolean playedSound = false;
     long musicTime = System.currentTimeMillis();
@@ -54,7 +55,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
             player.setNoGravity(true);
             player.setOnGround(true);
             //player.setSwimming(true);
-            //player.setPose(EntityPose.SWIMMING);
+            //player.setPose(EntityPose.SWIMMING); again w h y
         }
         if (this.getMainHandStack().isOf(ModItems.DARKWYN_INGOT)) {
             this.setFireTicks(1);//no touchy
@@ -66,7 +67,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
         if (Madness.get(MixinUtil.cast(this)).isMedium()) {
             Box whisperRadius = new Box(this.getX() - 5, this.getY() - 5, this.getZ() - 5, this.getX() + 5, this.getY() + 5, this.getZ() + 5);
             // Ignore the MixinUtil.cast used here. With God as my witness I shall commit terrible sins.
-            List<ServerPlayerEntity> eavesdroppingPlayers = MixinUtil.cast(this.getServerWorld().getOtherEntities(null, whisperRadius, e -> e instanceof ServerPlayerEntity && e != this));
+            List<ServerPlayerEntity> eavesdroppingPlayers = MixinUtil.cast(this.getServerWorld().getOtherEntities(null, whisperRadius, e -> e instanceof ServerPlayerEntity));
 
             for (ServerPlayerEntity entity : eavesdroppingPlayers) {
                 if (this.random.nextInt(10000) == 0) {
@@ -76,9 +77,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
         }
         if (getServerWorld().getRegistryKey().equals(TheRoomDimension.WORLD_KEY)) {
             ServerPlayerEntity playerEntity = (ServerPlayerEntity) (Object) this;
-            playerEntity.getAbilities().invulnerable = true;
-            playerEntity.sendAbilitiesUpdate();
-            playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
+            if(!playerEntity.getAbilities().creativeMode) {
+                playerEntity.getAbilities().invulnerable = true;
+                playerEntity.sendAbilitiesUpdate();
+                Objects.requireNonNull(playerEntity.getServer()).getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, playerEntity));
+            }
             check++;
             if (check == CHECK) {
                 if (!playedSound && play) {
@@ -100,15 +103,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
             if(!playerEntity.getAbilities().creativeMode) {
                 playerEntity.getAbilities().invulnerable = false;
                 playerEntity.sendAbilitiesUpdate();
-                playerEntity.getServer().getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, new ServerPlayerEntity[]{playerEntity}));
+                Objects.requireNonNull(playerEntity.getServer()).getPlayerManager().sendToAll(new PlayerListS2CPacket(PlayerListS2CPacket.Action.UPDATE_GAME_MODE, playerEntity));
             }
 
         }
+//a <-- in memoriam to the "a" that I bug fixed for like an hour - gamma
 
     }
-    public int getSign(int value) {
-        return value < 0 ? -1 : 1;
-    }
+
     @Inject(method = "teleport", at = @At("HEAD"), cancellable = true)
     public void teleportMixin(ServerWorld targetWorld, double x, double y, double z, float yaw, float pitch, CallbackInfo ci) {
         ServerPlayerEntity player = MixinUtil.cast(this);
@@ -133,7 +135,4 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
 
     }
 
-    private boolean isTimeToLetOut(ServerPlayerEntity player) {
-        return Timeout.TIMEOUT.get(player).getTimeOut() * 1000 <= System.currentTimeMillis() - time;
-    }
 }

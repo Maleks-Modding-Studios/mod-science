@@ -6,9 +6,9 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class Type implements RecipeType<BasicHexcraftingRecipe> {
-    private Type(){}
-    public static final Type INSTANCE=new Type();
+public class BasicType implements RecipeType<BasicHexcraftingRecipe> {
+    private BasicType(){}
+    public static final BasicType INSTANCE = new BasicType();
     public static final String ID="basic_hexcrafting_recipe";
 
     @Override
