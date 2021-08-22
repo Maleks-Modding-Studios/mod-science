@@ -126,6 +126,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
             time = System.currentTimeMillis();
             musicTime = System.currentTimeMillis();
         }
+        if(player.getServerWorld().getRegistryKey() == LSpaceDimension.WORLD_KEY) {
+            player.setNoGravity(false);
+        }
 
 
     }

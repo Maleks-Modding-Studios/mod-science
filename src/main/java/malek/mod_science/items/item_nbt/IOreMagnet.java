@@ -4,9 +4,9 @@ import net.minecraft.item.ItemStack;
 
 public interface IOreMagnet {
     static boolean hasString(ItemStack stack) {
-        return stack.getTag() != null;
+        return stack.getNbt() != null;
     }
     static String getString(ItemStack stack) {
-        return stack.getTag().getString("block");
+        return stack.getNbt().getString("block");
     }
 }

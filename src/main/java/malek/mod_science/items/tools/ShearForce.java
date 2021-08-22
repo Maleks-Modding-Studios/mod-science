@@ -13,7 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 
 public class ShearForce extends ShearsItem {
-    public ShearForce(Item.Settings settings) {
+    public ShearForce(Settings settings) {
         super(settings);
     }
 

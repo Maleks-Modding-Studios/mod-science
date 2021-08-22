@@ -12,7 +12,7 @@ public class Type implements RecipeType<BasicHexcraftingRecipe> {
     public static final String ID="basic_hexcrafting_recipe";
 
     @Override
-    public <C extends Inventory> Optional<BasicHexcraftingRecipe> get(Recipe<C> recipe, World world, C inventory) {
-        return RecipeType.super.get(recipe, world, inventory);
+    public <C extends Inventory> Optional<BasicHexcraftingRecipe> match(Recipe<C> recipe, World world, C inventory) {
+        return RecipeType.super.match(recipe, world, inventory);
     }
 }

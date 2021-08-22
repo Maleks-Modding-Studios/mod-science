@@ -2,11 +2,12 @@ package malek.mod_science.blocks;
 
 import malek.mod_science.ModScience;
 import malek.mod_science.blocks.caldera_cauldron.CalderaCauldronBlockEntity;
+import malek.mod_science.blocks.clockwork.ClockworkBlockEntity;
 import malek.mod_science.blocks.mad.MADBlockEntity;
 import malek.mod_science.blocks.matter_cavitation_chamber.MatterCavitationChamberBlockEntity;
 import malek.mod_science.blocks.shadow_silk_ore.ShadowSilkOreBlockEntity;
-import malek.mod_science.blocks.Tesseract.TesseractBlockEntity;
-import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlockEntity;
+import malek.mod_science.blocks.tesseract.TesseractBlockEntity;
+import malek.mod_science.blocks.transfusionMatrix.TransfusionMatrixBlockEntity;
 import malek.mod_science.blocks.strideblocks.LavaStrideBlockEntity;
 import malek.mod_science.blocks.strideblocks.WaterStrideBlockEntity;
 import malek.mod_science.power.FireReceiverBlockEntity;
@@ -31,6 +32,7 @@ public class ModBlockEntities {
     public static BlockEntityType<MADBlockEntity> MAD_BLOCK_ENTITY;
     public static BlockEntityType<LavaStrideBlockEntity> LAVA_STRIDE_BLOCK_ENTITY;
     public static BlockEntityType<WaterStrideBlockEntity> WATER_STRIDE_BLOCK_ENTITY;
+    public static BlockEntityType<ClockworkBlockEntity> CLOCKWORK_BLOCK_ENTITY;
 
     public static void init() {
         SHADOW_SILK_STONE_ORE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "shadowsilk_stone_ore_blockentity"), FabricBlockEntityTypeBuilder.create(ShadowSilkOreBlockEntity::new, ModBlocks.SHADOWSILK_STONE_ORE, ModBlocks.SHADOWSILK_DEEPSLATE_ORE).build(null));
@@ -42,6 +44,6 @@ public class ModBlockEntities {
         MAD_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ModScienceId("mad_block_entity"), FabricBlockEntityTypeBuilder.create(MADBlockEntity::new, ModBlocks.MAD).build(null));
         LAVA_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ModScienceId("lava_stride_block_entity"), FabricBlockEntityTypeBuilder.create(LavaStrideBlockEntity::new, ModBlocks.LAVA_STRIDE_BLOCK).build(null));
         WATER_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ModScienceId("water_stride_block_entity"), FabricBlockEntityTypeBuilder.create(WaterStrideBlockEntity::new, ModBlocks.WATER_STRIDE_BLOCK).build(null));
-
+        CLOCKWORK_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ModScienceId("clockworkblock_entity"), FabricBlockEntityTypeBuilder.create(ClockworkBlockEntity::new, ModBlocks.CLOCKWORK_BLOCK).build(null));
     }
 }

@@ -25,6 +25,7 @@ public class ModBuckets {
     public static Item ENDER_DEW_BUCKET;
     public static Item GLIMMER_BUCKET;
     public static Item WYLD_WATER_BUCKET;
+    public static Item MAGNETICITE_BUCKET;
 
     public static void init() {
         REWATER_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "rewater_bucket"), new BucketItem(STILL_REWATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
@@ -32,6 +33,7 @@ public class ModBuckets {
         GLIMMER_BUCKET = Registry.register(Registry.ITEM, ModScienceId("glimmer_bucket"), new BucketItem(STILL_GLIMMER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
         WYLD_WATER_BUCKET = Registry.register(Registry.ITEM, ModScienceId("wyld_water_bucket"), new BucketItem(STILL_WYLD_WATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
         OIL_BUCKET = Registry.register(Registry.ITEM, ModScienceId("oil_bucket"), new BucketItem(STILL_OIL, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
+        MAGNETICITE_BUCKET = Registry.register(Registry.ITEM, ModScienceId("magneticite_bucket"), new BucketItem(STILL_MAGNETICITE, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ModItems.MOD_SCIENCE)));
     }
 
 }

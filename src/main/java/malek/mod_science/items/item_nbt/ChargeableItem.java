@@ -7,12 +7,12 @@ import static malek.mod_science.util.item.ItemNbt.charged;
 
 public interface ChargeableItem {
     static boolean isCharged(ItemStack stack) {
-        NbtCompound nbtCompound = stack.getTag();
+        NbtCompound nbtCompound = stack.getNbt();
         return nbtCompound != null && nbtCompound.getBoolean(charged);
     }
 
     static void setCharged(ItemStack stack, boolean isCharged) {
-        NbtCompound nbtCompound = stack.getOrCreateTag();
+        NbtCompound nbtCompound = stack.getOrCreateNbt();
         nbtCompound.putBoolean(charged, isCharged);
     }
 }

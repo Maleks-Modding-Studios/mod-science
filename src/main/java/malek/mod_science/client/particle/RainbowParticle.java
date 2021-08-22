@@ -34,7 +34,7 @@ public class RainbowParticle extends AnimatedParticle {
         }
 
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new malek.mod_science.client.particle.RainbowParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new RainbowParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

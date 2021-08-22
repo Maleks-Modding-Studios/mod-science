@@ -24,9 +24,9 @@ import static malek.mod_science.ModScience.MOD_ID;
 
 public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitializer, AutoSyncedComponent {
     public static final ComponentKey<LeyKnotMap> LEY_KNOT_MAP = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MOD_ID, "ley_knot_map"), LeyKnotMap.class);
-    private Map<BlockPos, LeyKnot> leyKnots = new HashMap<>();
+    private Map<BlockPos, BlockState> leyKnots = new HashMap<>();
 
-    public static Map<BlockPos, LeyKnot> get(World world) {
+    public static Map<BlockPos, BlockState> get(World world) {
         return LEY_KNOT_MAP.get(world).leyKnots;
     }
 
@@ -39,7 +39,7 @@ public class LeyKnotMap implements LeyKnotMapInterface, WorldComponentInitialize
                 NbtCompound compound = (NbtCompound) element;
 
                 BlockPos blockPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("block_pos")).getOrThrow(false, pog -> {}).getFirst();
-                LeyKnot knot = new LeyKnot();
+                BlockState knot = new BlockState();
                 knot.readFromNbt(compound.getCompound("ley_knot"));
                 leyKnots.put(blockPos, knot);
             }

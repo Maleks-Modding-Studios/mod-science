@@ -8,14 +8,14 @@ import static malek.mod_science.util.item.ItemNbt.powerLevel;
 
 public interface PowerLevel {
     static int getPowerLevel(ItemStack stack) {
-        NbtCompound nbtCompound = stack.getTag();
+        NbtCompound nbtCompound = stack.getNbt();
         if(nbtCompound == null)
             return 0;
         return nbtCompound.getInt(powerLevel);
     }
 
     static void setPowerLevel(ItemStack stack, int power_level) {
-        NbtCompound nbtCompound = stack.getOrCreateTag();
+        NbtCompound nbtCompound = stack.getOrCreateNbt();
         nbtCompound.putInt(powerLevel, power_level);
     }
 }

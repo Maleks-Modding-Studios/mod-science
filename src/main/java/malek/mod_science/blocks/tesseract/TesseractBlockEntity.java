@@ -1,9 +1,9 @@
-package malek.mod_science.blocks.Tesseract;
+package malek.mod_science.blocks.tesseract;
 
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.blocks.ModBlockEntities;
-import malek.mod_science.blocks.Tesseract.tesseractgui.TesseractGuiDescription;
+import malek.mod_science.blocks.tesseract.tesseractgui.TesseractGuiDescription;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.block.BlockState;

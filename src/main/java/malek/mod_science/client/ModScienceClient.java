@@ -4,10 +4,13 @@ import malek.mod_science.ModScienceInit;
 import malek.mod_science.blocks.ModBlocks;
 import malek.mod_science.blocks.ModBlockEntities;
 import malek.mod_science.blocks.caldera_cauldron.CalderaCauldronBlockEntityRenderer;
-import malek.mod_science.blocks.TransfusionMatrix.TranfusionMatrixBlockEntityRenderer;
+import malek.mod_science.blocks.transfusionMatrix.TranfusionMatrixBlockEntityRenderer;
 import malek.mod_science.client.particle.ModParticles;
+import malek.mod_science.client.renderer.ClockworkBlockItemRender;
+import malek.mod_science.client.renderer.ClockworkBlockRenderer;
 import malek.mod_science.client.renderer.ClockworkRenderer;
 import malek.mod_science.fluids.ModFluids;
+import malek.mod_science.items.ModBlockItems;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.ore_magnet.ModScienceItemRegistrar;
 import malek.mod_science.mechanics.NetworkingIds;
@@ -30,9 +33,11 @@ import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.InputUtil;
@@ -87,7 +92,11 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF, "fluid");
         setupFluidRendering(ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER, new Identifier(MOD_ID, "glimmer"), 0xE7F1F3, "fluid");
         setupFluidRendering(ModFluids.STILL_WYLD_WATER, ModFluids.FLOWING_WYLD_WATER, new Identifier("minecraft", "water"), 0x00DBAE, "block");
+
         setupFluidRendering(ModFluids.STILL_OIL, ModFluids.FLOWING_OIL, new Identifier("minecraft", "water"), 0xDFC42A, "block");
+
+        setupFluidRendering(ModFluids.STILL_MAGNETICITE, ModFluids.FLOWING_MAGNETICITE, new Identifier("minecraft", "lava"), 0xeb3434, "block");
+
 
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
 
@@ -97,7 +106,13 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         ModScreensClient.init();
 
         //Geko
+        GeoItemRenderer.registerItemRenderer(ModBlocks.CLOCKWORK_BLOCK.asItem(), new ClockworkBlockItemRender());
         GeoItemRenderer.registerItemRenderer(ModItems.CLOCKWORK, new ClockworkRenderer());
+        BlockEntityRendererRegistry.INSTANCE.register(ModBlockEntities.CLOCKWORK_BLOCK_ENTITY,(BlockEntityRendererFactory.Context rendererDispatcherIn) -> new ClockworkBlockRenderer());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(ModBlocks.CLOCKWORK_BLOCK, RenderLayer.getCutout());
+
+
+
     }
 
     private static void initKeyBindings() {

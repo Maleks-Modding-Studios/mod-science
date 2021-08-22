@@ -44,8 +44,8 @@ public class UnderlainChildItemRenderer implements BuiltinItemRendererRegistry.D
         matrices.push();
         matrices.translate(-0.3f, 0, -0.3);
         matrices.scale(0.4f, 0.4f, 0.4f);
-        if(stack.getTag() != null) {
-            if(Registry.ITEM.get(Identifier.tryParse(stack.getTag().getString("block"))) instanceof BlockItem blockItem) {
+        if(stack.getNbt() != null) {
+            if(Registry.ITEM.get(Identifier.tryParse(stack.getNbt().getString("block"))) instanceof BlockItem blockItem) {
                 matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(0.5f, 0.5F, 0f), 90, true)));
                 //        matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(0f, 1F, 0f), 90, true)));
                 //        matrices.method_34425(new Matrix4f(new Quaternion(new Vec3f(1f, 0F, 0f), 90, true)));

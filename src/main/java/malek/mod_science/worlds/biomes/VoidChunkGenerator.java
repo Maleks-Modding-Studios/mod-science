@@ -9,6 +9,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
@@ -88,6 +90,7 @@ public class VoidChunkGenerator extends ChunkGenerator {
             int randomStartY = random.nextInt(chunk.getTopY());
             boolean doY = false;
             boolean endY = false;
+            ArrayList<BlockPos> pos = new ArrayList<>();
             for (int yt = chunk.getBottomY(); yt < chunk.getTopY(); yt++) {
                 int y = yt;
                 boolean passes = true;
@@ -97,6 +100,10 @@ public class VoidChunkGenerator extends ChunkGenerator {
                             if (fullyPassesTest(x1+testX, y1+y, z1+testZ)) {
                                 mutable.set(x1 + testX, y1 + y, z1 + testZ);
                                 chunk.setBlockState(mutable, SHELF, false);
+                                if(y1+y < 128) {
+                                    pos.add(mutable.mutableCopy());
+                                    pos.add(mutable.mutableCopy().add(0, 1, 0));
+                                }
                             }
                             if (fullyPassesTest(x1+testX, y1+y, z1+testZ) && !fullyPassesTest(x1+testX+1, y1+y, z1+testZ)) {
                                 //chunk.setBlockState(mutable.add(1, 0, 0), Blocks.LADDER.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
@@ -123,16 +130,24 @@ public class VoidChunkGenerator extends ChunkGenerator {
                     }
                 }
             }
-            /*
-            for(int i = 0; i < 10; i++) {
-                int ladderIndex = random.nextInt(ladderYPos.size() - 2);
-                for (int y1 = ladderYPos.get(ladderIndex); y1 < ladderYPos.get(ladderIndex + 1); y1++) {
-                    buildLadderSec(chunk, y1);
-                    System.out.println("x" + x + "y" + y1 + "z" + z);
+            for (int yt = chunk.getBottomY(); yt < chunk.getTopY(); yt++) {
+                int y = yt;
+                boolean passes = true;
+                for (int x1 = 0; x1 < num; x1++) {
+                    for (int z1 = 0; z1 < num; z1++) {
+                        for (int y1 = 0; y1 < num; y1++) {
+                            if (fullyPassesTest(x1+testX, y1+y, z1+testZ) && !fullyPassesTest(x1+testX+1, y1+y, z1+testZ) && random.nextFloat() <= 0.0001F && y1+y < 128) {
+                                mutable.set(x1 + testX, y1 + y, z1 + testZ);
+                                if(pos.contains(mutable)) {
+                                    chunk.setBlockState(mutable.toImmutable().add(0, -1, 0), Blocks.DARK_OAK_DOOR.getDefaultState().rotate(BlockRotation.CLOCKWISE_90), false);
+                                    chunk.setBlockState(mutable.toImmutable(), Blocks.DARK_OAK_DOOR.getDefaultState().rotate(BlockRotation.CLOCKWISE_90).with(DoorBlock.HALF, DoubleBlockHalf.UPPER), false);
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-             */
         }
         catch (Exception e) {
             e.printStackTrace();

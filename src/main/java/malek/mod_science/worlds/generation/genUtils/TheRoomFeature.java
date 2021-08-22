@@ -29,7 +29,7 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
 
     @Override
     public StructureStartFactory<DefaultFeatureConfig> getStructureStartFactory() {
-        return TheRoomFeature.Start::new;
+        return Start::new;
     }
 
     private boolean generatedOnce = false;
@@ -118,7 +118,7 @@ public class TheRoomFeature extends StructureFeature<DefaultFeatureConfig> {
 
             // All a structure has to do is call this method to turn it into a jigsaw based structure!
 
-            StructurePoolBasedGenerator.method_30419(
+            StructurePoolBasedGenerator.generate(
                     dynamicRegistryManager,
                     structureSettingsAndStartPool,
                     PoolStructurePiece::new,

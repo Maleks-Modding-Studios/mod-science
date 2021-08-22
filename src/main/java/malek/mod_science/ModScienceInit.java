@@ -35,14 +35,23 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+//import net.malek.fluidinteractionapiluid .FluidInteractionGroup;
+//import net.malek.fluidinteractionapi.FluidInteractionsRegistry;
+//import net.malek.fluidinteractionapi.FluidSetBlockInteraction;
+import net.minecraft.block.BlockState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -93,11 +102,11 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
         // Yes -Platy
         GeckoLib.initialize();
         ModItems.init();
+        ModBlockEntities.init();
         ModBlocks.init();
         ModBlockItems.init();
         ModGeneration.init();
         ModEntities.init();
-        ModBlockEntities.init();
         ModStatusEffects.init();
         Clanks.init();
 
@@ -126,6 +135,7 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
         WyldsDimension.init();
         AbyssDimension.init();
         ModCommands.init();
+        //initFluidInteractions();
     }
 
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -145,6 +155,95 @@ public class ModScienceInit implements ModInitializer, LoggerInterface, EntityCo
             }
         }
     }
+
+//    public static void initFluidInteractions() {
+//        ArrayList<BlockState> realityBlockStates = new ArrayList<>();
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_WHITE.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_GREEN.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_PURPLE.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_CYAN.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_ORANGE.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_YELLOW.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_RED.getDefaultState());
+//        realityBlockStates.add(ModBlocks.REALITY_BLOCK_BLUE.getDefaultState());
+////        FluidInteractionGroup flowingWater = new FluidSetBlockInteraction(Fluids.FLOWING_WATER, (world, pos) -> {
+////            Random random = new Random();
+////            int i = random.nextInt(7);
+////            if(i == 0) {
+////                ((World)world).setBlockState((BlockPos) pos, realityBlockStates.get(i));
+////            }
+////        });
+////        FluidInteractionGroup stillWater = new FluidSetBlockInteraction(Fluids.WATER, (world, pos) -> {
+////            Random random = new Random();
+////            int i = random.nextInt(7);
+////            if(i == 0) {
+////                ((World)world).setBlockState((BlockPos) pos, realityBlockStates.get(i));
+////            }
+////        });
+////
+////        FluidInteractionGroup flowingLava = new FluidSetBlockInteraction(Fluids.FLOWING_LAVA, (world, pos) -> {
+////            Random random = new Random();
+////            int i = random.nextInt(7);
+////            if(i == 0) {
+////                ((World)world).setBlockState((BlockPos) pos, realityBlockStates.get(i));
+////            }
+////        });
+////
+////        FluidInteractionGroup stillLava = new FluidSetBlockInteraction(Fluids.LAVA, (world, pos) -> {
+////            Random random = new Random();
+////            int i = random.nextInt(7);
+////            if(i == 0) {
+////                ((World)world).setBlockState((BlockPos) pos, realityBlockStates.get(i));
+////            }
+////        });
+//        FluidInteractionGroup flowingWater = new FluidSetBlockInteraction(Fluids.FLOWING_WATER, ModBlocks.REALITY_BLOCK_BLUE.getDefaultState());
+//        FluidInteractionGroup stillWater = new FluidSetBlockInteraction(Fluids.WATER, ModBlocks.REALITY_BLOCK_BLUE.getDefaultState());
+//        FluidInteractionGroup stillLava = new FluidSetBlockInteraction(Fluids.LAVA, ModBlocks.REALITY_BLOCK_BLUE.getDefaultState());
+//        FluidInteractionGroup flowingLava = new FluidSetBlockInteraction(Fluids.FLOWING_LAVA, ModBlocks.REALITY_BLOCK_BLUE.getDefaultState());
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_GLIMMER, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_GLIMMER, flowingLava);
+//
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_REWATER, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_REWATER, flowingLava);
+//
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_ENDER_DEW, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_ENDER_DEW, flowingLava);
+//
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.FLOWING_WYLD_WATER, flowingLava);
+//
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, stillWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, flowingWater);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, stillLava);
+//        FluidInteractionsRegistry.addInteraction(ModFluids.STILL_WYLD_WATER, flowingLava);
+//    }
+
     @Override
     public Logger getLogger() {
         return LogManager.getLogger();

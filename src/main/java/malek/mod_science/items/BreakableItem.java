@@ -26,7 +26,7 @@ public class BreakableItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        NbtCompound tag = stack.getOrCreateTag();
+        NbtCompound tag = stack.getOrCreateNbt();
 
         // TODO spark check the player here and break the item if they fail.
         if (false) {

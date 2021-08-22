@@ -2,6 +2,7 @@ package malek.mod_science.fluids;
 
 import malek.mod_science.fluids.ender_dew.EnderDew;
 import malek.mod_science.fluids.glimmer.Glimmer;
+import malek.mod_science.fluids.magneticite.Magneticite;
 import malek.mod_science.fluids.oil.Oil;
 import malek.mod_science.fluids.rewater.Rewater;
 import malek.mod_science.fluids.wyldwater.WyldWater;
@@ -28,6 +29,9 @@ public class ModFluids {
     public static WyldWater STILL_WYLD_WATER;
     public static WyldWater FLOWING_WYLD_WATER;
 
+    public static Magneticite STILL_MAGNETICITE;
+    public static Magneticite FLOWING_MAGNETICITE;
+
     public static void init() {
         FLOWING_REWATER = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_rewater"), new Rewater.Flowing());
         STILL_REWATER = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "rewater"), new Rewater.Still());
@@ -43,5 +47,8 @@ public class ModFluids {
 
         STILL_OIL = Registry.register(Registry.FLUID, ModScienceId("still_oil"), new Oil.Still());
         FLOWING_OIL = Registry.register(Registry.FLUID, ModScienceId("flowing_oil"), new Oil.Flowing());
+
+        STILL_MAGNETICITE = Registry.register(Registry.FLUID, ModScienceId("still_magneticite"), new Magneticite.Still());
+        FLOWING_MAGNETICITE = Registry.register(Registry.FLUID, ModScienceId("flowing_magneticite"), new Magneticite.Flowing());
     }
 }

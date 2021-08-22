@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "crc",
+    "rpr",
+    "cpc"
+  ],
+  "key": {
+    "c": {
+      "tag": "minecraft:planks"
+    },
+    "r": {
+      "item": "minecraft:glass"
+    },
+    "p": {
+      "item": "mod_science:clockwork"
+    }
+  },
+  "result": {
+    "item": "mod_science:clockworkblock"
+  }
+}

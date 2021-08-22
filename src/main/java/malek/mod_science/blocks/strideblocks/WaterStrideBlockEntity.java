@@ -1,7 +1,6 @@
 package malek.mod_science.blocks.strideblocks;
 
 import malek.mod_science.blocks.ModBlockEntities;
-import malek.mod_science.blocks.TransfusionMatrix.TransfusionMatrixBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;

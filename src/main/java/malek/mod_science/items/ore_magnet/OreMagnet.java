@@ -2,6 +2,7 @@ package malek.mod_science.items.ore_magnet;
 
 import malek.mod_science.items.ModItems;
 import malek.mod_science.items.item_nbt.IOreMagnet;
+import malek.mod_science.items.ore_magnet.OreMagnet.Temp;
 import malek.mod_science.tags.ModScienceTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.math.MatrixStack;
