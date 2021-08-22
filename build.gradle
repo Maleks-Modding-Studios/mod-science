@@ -53,6 +53,9 @@ repositories {
         name "Siphalor's Maven"
         url "https://maven.siphalor.de"
     }
+    repositories {
+        maven { url 'https://maven.blamejared.com' }
+    }
 
 }
 
@@ -155,7 +158,10 @@ dependencies {
 //    modRuntime "worldedit:worldedit:7.2.6"
 
     modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:3346861"
-
+    dependencies {
+        // 1.14+
+        modImplementation "vazkii.patchouli:Patchouli:1.17.1-55-FABRIC-SNAPSHOT"
+    }
 
     //modImplementation "com.example:MaleksFluidInteractionAPI:1.0.0"
 
