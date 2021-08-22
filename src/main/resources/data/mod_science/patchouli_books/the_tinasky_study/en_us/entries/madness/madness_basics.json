@@ -1,0 +1,18 @@
+{
+  "name": "Madness Basics",
+  "icon": "minecraft:iron_ingot",
+  "category": "mod_science:madness",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "While knowledge is an important aspect of science, no real progress can be achieved without a measure of imagination. By subjecting a mind to a continuous influx of information, the mind will shed its deep rooted preconceptions and increase the ability to perform leaps of logic required to understand the more esoteric types of natural phenomena."
+    },
+    {
+      "type": "text",
+      "text": "The human mind is a well of seldom tapped potential just waiting to be uncovered. Certain rumors even claim that certain individuals can sharpen their mind to the point where their conviction can subtly influence the very laws of reality, allowing them to use machines that any sane man would not even dare to try with surprising reliability."
+    }
+  ]
+}

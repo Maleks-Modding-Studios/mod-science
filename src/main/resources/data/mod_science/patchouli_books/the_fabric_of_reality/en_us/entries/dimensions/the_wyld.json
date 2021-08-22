@@ -1,0 +1,14 @@
+{
+  "name": "The Wyld",
+  "icon": "mod_science:exotic_materials",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This dimension of dubious existence and limitless potential, made from raw undefined reality seems to be highly unstable, shaping itself into a reflection of the mind of whoever enters it’s domain.\nIt seems to be filled with unstable matter and wyld magic."
+    }
+  ]
+}

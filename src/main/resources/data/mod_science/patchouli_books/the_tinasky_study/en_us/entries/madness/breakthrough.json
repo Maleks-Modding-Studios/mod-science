@@ -1,0 +1,18 @@
+{
+  "name": "Breakthrough",
+  "icon": "minecraft:diamond_pickaxe",
+  "category": "mod_science:madness",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A human mind is born fragile, so it develops an ability to see things as they should be instead of how they really are. While this is quite useful for dealing with everyday problems, a scientific mind should endeavour to pick at the scabs of reality and find the faultlines in the brick wall of nature."
+    },
+    {
+      "type": "text",
+      "text": "This process is usually not a gradual one, as the mind will tend to rationalise whatever it is subjected to until it fails. This transition tends to be quite dramatic as the mind is overwhelmed by the sudden influx of unfiltered information, causing a mix of clarity, euphoria and severe dyschronometria, commonly accompanied by a strong fixation on improving anything they come across."
+    }
+  ]
+}

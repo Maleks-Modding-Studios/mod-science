@@ -1,0 +1,14 @@
+{
+  "name": "Tinkering",
+  "icon": "mod_science:keystone",
+  "category": "mod_science:madness",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Yeah its blank again, watcha gonna do about it?"
+    }
+  ]
+}

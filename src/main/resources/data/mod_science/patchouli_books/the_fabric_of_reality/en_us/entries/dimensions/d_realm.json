@@ -1,0 +1,18 @@
+{
+  "name": "D. Realm",
+  "icon": "minecraft:skeleton_skull",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A sprawling labyrinth of twisting passageways filled with dark creatures that made their home there, promising endless adventure for those who are brave enough to enter and hordes of loot left behind by those less fortunate."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This dimension seems to enforce unusual laws upon any who enter, making it a challenge for even the most seasoned adventurer. As far as you heard no one has ever seen the source of this realm’s power, and if they did, they never left to tell the tale…"
+    }
+  ]
+}

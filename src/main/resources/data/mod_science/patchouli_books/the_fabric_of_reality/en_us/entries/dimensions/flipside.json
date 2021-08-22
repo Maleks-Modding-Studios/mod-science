@@ -1,0 +1,18 @@
+{
+  "name": "Flipside",
+  "icon": "minecraft:diamond_ore",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A world similar to the one we reside in, but appears to reside in a dimension intertwined with the overworld. Due to its proximity to our realm, the passage between them seems to be quite wide, often appearing above strange stone platforms made by an unknown hand."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While the bottom of the world is encrusted with impervious minerals and the horizon stretches on beyond one’s reach, these two worlds share but a single sky."
+    }
+  ]
+}

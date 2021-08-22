@@ -1,0 +1,18 @@
+{
+  "name": "Mirror Dimension",
+  "icon": "minecraft:glass",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "By constructing a special mirror, you have managed to enter the dimension that exists inside of it. At first glance it appears like an infinite flat mirror, the only landmark in sight is the gateway you entered through."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "As you continue to explore this dimension you suddenly find yourself back at the entrance. At first you think you were simply walking in circles, but even when you walk in a completely straight line, you still arrive at a gate. Does it mean there are a large number of gates spread evenly across this dimension?"
+    }
+  ]
+}

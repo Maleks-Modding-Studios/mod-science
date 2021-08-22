@@ -1,0 +1,14 @@
+{
+  "name": "Common Symptoms",
+  "icon": "minecraft:glass_bottle",
+  "category": "mod_science:madness",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Yeah its blank, watcha gonna do about it?"
+    }
+  ]
+}
