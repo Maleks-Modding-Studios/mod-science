@@ -4,10 +4,8 @@ import io.github.cottonmc.cotton.gui.GuiDescription;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
-import io.github.cottonmc.cotton.gui.widget.WItemSlot;
-import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
-import io.github.cottonmc.cotton.gui.widget.WSprite;
-import io.github.cottonmc.cotton.gui.widget.WWidget;
+import io.github.cottonmc.cotton.gui.widget.*;
+import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import malek.mod_science.ModScience;
 import malek.mod_science.screens.ModScreens;
@@ -31,9 +29,8 @@ public class HexcraftingGuiDescription extends SyncedGuiDescription {
         setRootPanel(root);
         root.setSize(sizeX, sizeY);
         root.setInsets(Insets.ROOT_PANEL);
-
         WSprite sprite = new WSprite(new Identifier(ModScience.MOD_ID, "textures/gui/tesseract/tesseract_ui_tier1.png"));
-
+        this.titleVisible = false;
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
         WItemSlot itemSlot1 = WItemSlot.of(blockInventory, 2);
         WItemSlot itemSlot2 = WItemSlot.of(blockInventory, 3);
@@ -115,7 +112,7 @@ public class HexcraftingGuiDescription extends SyncedGuiDescription {
 
         //WSprite fluidSprite = new WSprite(new Identifier(MOD_ID, "textures/block/water_flow.png"));
         //root.add(fluidSprite, 1, 1);
-        root.add(this.createPlayerInventoryPanel(), (halfSlot/2), 175);
+        root.add(this.createPlayerInventoryPanel(WPlayerInvPanel.createInventoryLabel(playerInventory).setHorizontalAlignment(HorizontalAlignment.CENTER)), (halfSlot/2), 175);
 
         root.validate(this);
     }
@@ -129,6 +126,7 @@ public class HexcraftingGuiDescription extends SyncedGuiDescription {
 
         }).get();
     }
+
 //    @Override
 //    public void addPainters() {
 ////        root.setBackgroundPainter(new BackgroundPainter() {
