@@ -1,27 +1,38 @@
 package malek.mod_science.blocks.tesseract.tesseractgui;
 
+import io.github.cottonmc.cotton.gui.GuiDescription;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
+import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.WSprite;
+import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
+import malek.mod_science.ModScience;
 import malek.mod_science.screens.ModScreens;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.util.Identifier;
 
 public class HexcraftingGuiDescription extends SyncedGuiDescription {
     private static final int INVENTORY_SIZE = 17;
     BlockEntity blockEntity;
+    WPlainPanel root;
+    int sizeX = 170;
+    int sizeY = 240;
     public HexcraftingGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(ModScreens.TESSERACT_SCREEN_HANDLER_1, syncId, playerInventory, getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context, 3));
-        WPlainPanel root = new WPlainPanel();
+        root = new WPlainPanel();
         setRootPanel(root);
-        int sizeX = 170;
-        int sizeY = 240;
         root.setSize(sizeX, sizeY);
         root.setInsets(Insets.ROOT_PANEL);
+
+        WSprite sprite = new WSprite(new Identifier(ModScience.MOD_ID, "textures/gui/tesseract/tesseract_ui_tier1.png"));
 
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
         WItemSlot itemSlot1 = WItemSlot.of(blockInventory, 2);
@@ -45,6 +56,7 @@ public class HexcraftingGuiDescription extends SyncedGuiDescription {
         root.add(itemSlot5, x-diagonal, y-diagonalY);
 
         root.add(outputSlot, x, y);
+        root.add(sprite, 0, -10, sizeX, sizeY);
 /** this comment block is for slots other than ones we need for Hexcrafting
         WItemSlot m1 = WItemSlot.of(blockInventory, 7);
         WItemSlot m2 = WItemSlot.of(blockInventory, 8);
@@ -117,4 +129,13 @@ public class HexcraftingGuiDescription extends SyncedGuiDescription {
 
         }).get();
     }
+//    @Override
+//    public void addPainters() {
+////        root.setBackgroundPainter(new BackgroundPainter() {
+////            @Override
+////            public void paintBackground(MatrixStack matrices, int left, int top, WWidget panel) {
+////                //ScreenDrawing.texturedGuiRect(matrices, left, top, 200, 400, new Identifier(ModScience.MOD_ID, "textures/gui/tesseract/tesseract_ui_tier1.png"), 0xFF_FFFFFF);
+////            }
+////        });
+//    }
 }

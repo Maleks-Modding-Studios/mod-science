@@ -88,7 +88,7 @@ public final class ModBlocks {
     @RegistryEntry("mad")
     public static final Block MAD = new MADBlock(DEFAULT);
 
-    @RegistryEntry("tesseract_block")
+    @RegistryEntry("tesseract")
     public static final Block TESSERACT_BLOCK = new TesseractBlock(DEFAULT);
 
     @RegistryEntry("fractal_ore")

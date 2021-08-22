@@ -84,13 +84,15 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        if (getVaildUpgradedHexcraftingStructure(this)) {
-            return new UpgradedHexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-        }else if(getVaildUpgradedHexcraftingStructure(this) && isInWylds(this)){
-            return new WyldTesseractCraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-        }else{
-            return new HexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-        }
+        return new HexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        //this doesn't work yet lul
+//        if (getVaildUpgradedHexcraftingStructure(this)) {
+//            return new UpgradedHexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+//        }else if(getVaildUpgradedHexcraftingStructure(this) && isInWylds(this)){
+//            return new WyldTesseractCraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+//        }else{
+//            return new HexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+//        }
     }
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
@@ -209,7 +211,7 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     public static Boolean getVaildUpgradedHexcraftingStructure(BlockEntity block){
         //here we get if there is a valid upgraded hexcrafting structure around the block, will be implimented later, so now it just returns true lol
 
-        return true;
+        return false;
     }
     public static Boolean isInWylds(BlockEntity block){
         return block.getWorld().getRegistryKey().equals(WyldsDimension.WORLD_KEY);
