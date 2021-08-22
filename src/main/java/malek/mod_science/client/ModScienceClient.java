@@ -91,6 +91,7 @@ public class ModScienceClient implements ClientModInitializer, LoggerInterface {
         setupFluidRendering(ModFluids.STILL_REWATER, ModFluids.FLOWING_REWATER, new Identifier(MOD_ID, "water"), 0x5555FF, "fluid");
         setupFluidRendering(ModFluids.STILL_GLIMMER, ModFluids.FLOWING_GLIMMER, new Identifier(MOD_ID, "glimmer"), 0xE7F1F3, "fluid");
         setupFluidRendering(ModFluids.STILL_WYLD_WATER, ModFluids.FLOWING_WYLD_WATER, new Identifier("minecraft", "water"), 0x00DBAE, "block");
+        setupFluidRendering(ModFluids.STILL_MAGNETICITE, ModFluids.FLOWING_MAGNETICITE, new Identifier("minecraft", "lava"), 0xeb3434, "block");
 
         ScreenRegistry.register(ModScienceInit.MATTER_CAVITATION_CHAMBER_SCREEN, MatterCavitationChamberScreen::new);
 

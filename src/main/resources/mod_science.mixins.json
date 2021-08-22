@@ -17,7 +17,8 @@
     "ArmorItemMixin",
     "InGameHudMixin",
     "SheepEntityMixin",
-    "DoorBlockMixin"
+    "DoorBlockMixin",
+    "FlowableFluidAccessor"
   ],
   "client": [
     "ClientPlayerInteractionManagerMixin",
