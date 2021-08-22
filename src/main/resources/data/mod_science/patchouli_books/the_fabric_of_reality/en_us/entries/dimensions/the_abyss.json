@@ -1,0 +1,18 @@
+{
+  "name": "The Abyss",
+  "icon": "minecraft:prismarine",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Beyond the lake he called home, there lied a deeper, darker ocean green. A dimension that can easily accessed through cracks in reality burrowed under the deepest oceans by the high water pressure. Entering this dimension welcomes you to a rocky cavernous world, dug up by the churning of oceans across the eons in the fabric of reality itself."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Though not many have entered this world in this age, there are myths of sailors and explorers finding a world where the sun never shines filled with wonders and horrors, home to life that flowed there from the upper oceans in times long forgotten, having evolved into creatures never seen before."
+    }
+  ]
+}

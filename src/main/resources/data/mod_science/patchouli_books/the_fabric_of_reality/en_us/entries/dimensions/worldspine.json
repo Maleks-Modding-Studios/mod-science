@@ -1,0 +1,14 @@
+{
+  "name": "Worldspine",
+  "icon": "mod_science:amalgametal",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A mysterious nexus of power, this dimension is a secret room located between dimensions that seems to hold sway over the rules of reality itself."
+    }
+  ]
+}

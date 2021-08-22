@@ -1,0 +1,14 @@
+{
+  "name": "L-Space",
+  "icon": "minecraft:bookshelf",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A strange dimension that seems to be connected to every door in existence, demonstrating the latent power of knowledge. Though it's mostly empty, besides it's bookshelves, it's filled with mirror images of doors found in the overworld and provide a one-way portal to the door they connect to. There are also special doors that provide a way to enter and exit this dimension, but are very rare."
+    }
+  ]
+}

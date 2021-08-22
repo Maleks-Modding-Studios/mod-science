@@ -1,0 +1,8 @@
+{
+  "name": "The Tinasky Study",
+  "landing_text": "An overview of Madness and Impossible Items",
+  "version": 1,
+  "book_texture": "patchouli:textures/gui/book_green.png",
+  "model": "mod_science:books/tinasky_study",
+  "creative_tab": "modscience.mod_science"
+}

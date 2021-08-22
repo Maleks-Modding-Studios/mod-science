@@ -1,0 +1,14 @@
+{
+  "name": "Spark",
+  "icon": "mod_science:calamity_star",
+  "category": "mod_science:madness",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Yeah its also blank, watcha gonna do about it?"
+    }
+  ]
+}

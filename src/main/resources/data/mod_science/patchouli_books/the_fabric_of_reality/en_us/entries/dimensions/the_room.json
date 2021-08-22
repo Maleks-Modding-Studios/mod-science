@@ -1,0 +1,14 @@
+{
+  "name": "The Room",
+  "icon": "minecraft:quartz_block",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A mysterious waiting room, it seems to act as a prison for whoever tries to play with powers beyond their understanding. Fortunately whatever entity controls this mysterious realm seems to be quite lenient with the duration of your sentence."
+    }
+  ]
+}

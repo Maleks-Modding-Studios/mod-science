@@ -1,0 +1,18 @@
+{
+  "name": "Pocket Dimension",
+  "icon": "mod_science:orb_of_potential",
+  "category": "mod_science:dimensions",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "By bending space itself you have managed to make items that are bigger on the inside. With this knowledge you have created a small orb that holds a wormhole to a small dimension of your own creation. With it you can travel back and forth through it at any time, allowing you to shape it as you wish."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The only problem with this is that the orb itself will always stay outside when you enter. Exiting the dimension can be simply achieved by falling off the island, and out of the orb, which can hurt."
+    }
+  ]
+}

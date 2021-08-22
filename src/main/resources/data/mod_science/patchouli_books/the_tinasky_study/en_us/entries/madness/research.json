@@ -1,0 +1,14 @@
+{
+  "name": "Research",
+  "icon": "minecraft:book",
+  "category": "mod_science:madness",
+  "priority": true,
+  "read_by_default": false,
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mad geniuses love knitting, it combines math, allergens and stabby things."
+    }
+  ]
+}
