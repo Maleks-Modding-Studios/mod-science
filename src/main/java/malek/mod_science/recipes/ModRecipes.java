@@ -12,6 +12,7 @@ public class ModRecipes {
     public static SpecialRecipeSerializer<OreMagnetRecipe> ORE_MAGNET_SERIALIZER;
     public static void init() {
         //TODO FIX THIS SHIT SO IT DOESN"T SOMEHOW PREVENT CLIENTS FROM LOGGING ONTO SERVERS
+        //B R U H
 //        Registry.register(Registry.RECIPE_SERIALIZER, MassHammerRecipeSerializer.ID, MassHammerRecipeSerializer.INSTANCE);
 //        Registry.register(Registry.RECIPE_TYPE, MassHammerRecipeSerializer.ID, MassHammerType.INSTANCE);
         ORE_MAGNET_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(ModScience.MOD_ID, "ore_magnet_recipe_serializer"), new SpecialRecipeSerializer<>(OreMagnetRecipe::new));

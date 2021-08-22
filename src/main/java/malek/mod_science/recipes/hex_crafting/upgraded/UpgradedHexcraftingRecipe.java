@@ -1,7 +1,6 @@
-package malek.mod_science.recipes.hex_crafting.basic;
+package malek.mod_science.recipes.hex_crafting.upgraded;
 
 import malek.mod_science.inventories.TesseractInventory;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
@@ -12,13 +11,13 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-public class BasicHexcraftingRecipe implements Recipe<TesseractInventory> {
+public class UpgradedHexcraftingRecipe implements Recipe<TesseractInventory> {
     public final ArrayList<Ingredient> ingredients;
     public final ItemStack result;
     public final int TICKS;
     private final Identifier id;
 
-    public BasicHexcraftingRecipe(ArrayList<Ingredient> ingredients,  ItemStack result, int ticks, Identifier id) {
+    public UpgradedHexcraftingRecipe(ArrayList<Ingredient> ingredients,  ItemStack result, int ticks, Identifier id) {
         this.ingredients = ingredients;
 
         this.result = result;
@@ -64,12 +63,12 @@ public class BasicHexcraftingRecipe implements Recipe<TesseractInventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BasicHexcraftingRecipeSerializer.INSTANCE;
+        return UpgradedHexcraftingRecipeSerializer.INSTANCE;
     }
 
 
     @Override
     public RecipeType<?> getType() {
-        return BasicType.INSTANCE;
+        return UpgradedType.INSTANCE;
     }
 }

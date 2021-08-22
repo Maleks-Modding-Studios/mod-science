@@ -3,9 +3,19 @@ package malek.mod_science.blocks.tesseract;
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.blocks.ModBlockEntities;
-import malek.mod_science.blocks.tesseract.tesseractgui.TesseractGuiDescription;
+
+import malek.mod_science.blocks.tesseract.tesseractgui.HexcraftingGuiDescription;
+import malek.mod_science.blocks.tesseract.tesseractgui.UpgradedHexcraftingGuiDescription;
+import malek.mod_science.blocks.tesseract.tesseractgui.WyldTesseractCraftingGuiDescription;
+import malek.mod_science.recipes.hex_crafting.basic.BasicHexcraftingRecipe;
+import malek.mod_science.recipes.hex_crafting.basic.BasicType;
+import malek.mod_science.recipes.hex_crafting.upgraded.UpgradedHexcraftingRecipe;
+import malek.mod_science.recipes.hex_crafting.upgraded.UpgradedType;
+import malek.mod_science.recipes.hex_crafting.wylds.WyldsHexcraftingRecipe;
+import malek.mod_science.recipes.hex_crafting.wylds.WyldsType;
 import malek.mod_science.util.general.ImplementedInventory;
 import malek.mod_science.util.general.LoggerInterface;
+import malek.mod_science.worlds.dimensions.WyldsDimension;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,9 +36,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class TesseractBlockEntity extends BlockEntity implements LoggerInterface, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory, SidedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(17, ItemStack.EMPTY);
-    private static final int MAX_PROGRESS = 20;
+    private static final int MAX_PROGRESS = 20;//why
+    private int currentCraftingTicks = 0;
     private int currentProgress = 0;
     int x = 0;
     int y = 0;
@@ -71,7 +84,13 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new TesseractGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        if (getVaildUpgradedHexcraftingStructure(this)) {
+            return new UpgradedHexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        }else if(getVaildUpgradedHexcraftingStructure(this) && isInWylds(this)){
+            return new WyldTesseractCraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        }else{
+            return new HexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        }
     }
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
@@ -100,6 +119,41 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
             return 3;
         }
     };
+    public void testCraft(){
+        List<BasicHexcraftingRecipe> matchBasic = world.getRecipeManager().getAllMatches(BasicType.INSTANCE, this::getItems, world);
+        List<UpgradedHexcraftingRecipe> matchUpgraded = world.getRecipeManager().getAllMatches(UpgradedType.INSTANCE, this::getItems, world);
+        List<WyldsHexcraftingRecipe> matchWylds = world.getRecipeManager().getAllMatches(WyldsType.INSTANCE, this::getItems, world);
+        for(int i = 0; 1 < matchBasic.size(); i++){
+            if(matchBasic.get(i).matches(this::getItems, world)){
+                currentCraftingTicks++;
+                if(currentCraftingTicks >= matchBasic.get(i).TICKS){
+                    currentCraftingTicks = 0;
+                    doCraft(matchBasic.get(i));
+
+                }
+            }
+        }
+        for(int i = 0; 1 < matchUpgraded.size(); i++){
+            if(matchUpgraded.get(i).matches(this::getItems, world)){
+                currentCraftingTicks++;
+                if(currentCraftingTicks >= matchUpgraded.get(i).TICKS){
+                    currentCraftingTicks = 0;
+                    doCraft(matchUpgraded.get(i));
+
+                }
+            }
+        }
+        for(int i = 0; 1 < matchWylds.size(); i++){
+            if(matchWylds.get(i).matches(this::getItems, world)){
+                currentCraftingTicks++;
+                if(currentCraftingTicks >= matchWylds.get(i).TICKS){
+                    currentCraftingTicks = 0;
+                    doCraft(matchWylds.get(i));
+
+                }
+            }
+        }
+    }
 
     @Override
     public int[] getAvailableSlots(Direction var1) {
@@ -122,5 +176,42 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
         return true;
     }
 
+    public void doCraft(BasicHexcraftingRecipe recipe){
+        if(this.getItems().get(1).getCount() == 1){
+            for(int i2 = 0; i2 < this.size(); i2++){
+                if(!this.getItems().get(i2).isEmpty()){
+                    this.getItems().get(i2).decrement(1);
+                }
+            }
+            this.getItems().set(12, recipe.craft(this::getItems));
+        }
+    }
+    public void doCraft(UpgradedHexcraftingRecipe recipe){
+        if(this.getItems().get(1).getCount() == 1){
+            for(int i2 = 0; i2 < this.size(); i2++){
+                if(!this.getItems().get(i2).isEmpty()){
+                    this.getItems().get(i2).decrement(1);
+                }
+            }
+            this.getItems().set(12, recipe.craft(this::getItems));
+        }
+    }
+    public void doCraft(WyldsHexcraftingRecipe recipe){
+        if(this.getItems().get(1).getCount() == 1){
+            for(int i2 = 0; i2 < this.size(); i2++){
+                if(!this.getItems().get(i2).isEmpty()){
+                    this.getItems().get(i2).decrement(1);
+                }
+            }
+            this.getItems().set(12, recipe.craft(this::getItems));
+        }
+    }
+    public static Boolean getVaildUpgradedHexcraftingStructure(BlockEntity block){
+        //here we get if there is a valid upgraded hexcrafting structure around the block, will be implimented later, so now it just returns true lol
 
+        return true;
+    }
+    public static Boolean isInWylds(BlockEntity block){
+        return block.getWorld().getRegistryKey().equals(WyldsDimension.WORLD_KEY);
+    }
 }
