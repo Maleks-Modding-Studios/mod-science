@@ -110,6 +110,9 @@ public class ModBlockItems {
     @RegistryEntry("clockworkblock")
     public static final Item CLOCKWORK_BLOCK = new ModBlockItemAnimated(ModBlocks.CLOCKWORK_BLOCK, DEFAULT);
 
+    @RegistryEntry("fractal_ore")
+    public static final Item FRACTAL_ORE = new BlockItem(ModBlocks.FRACTAL_ORE, DEFAULT);
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

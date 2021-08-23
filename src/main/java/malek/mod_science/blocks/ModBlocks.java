@@ -1,15 +1,14 @@
 package malek.mod_science.blocks;
 
+import malek.mod_science.blocks.basic.*;
+import malek.mod_science.blocks.basic.FlourcaneBlock;
+import malek.mod_science.blocks.basic.PotatoOre;
 import malek.mod_science.blocks.caldera_cauldron.*;
 import malek.mod_science.blocks.clockwork.ClockworkBlock;
 import malek.mod_science.blocks.mad.MADBlock;
 import malek.mod_science.blocks.shadow_silk_ore.ShadowSilkOre;
 import malek.mod_science.blocks.tesseract.TesseractBlock;
 import malek.mod_science.blocks.transfusionMatrix.TransfusionMatrixBlock;
-import malek.mod_science.blocks.basic.CrystalGrowthBlock;
-import malek.mod_science.blocks.basic.FlourcaneBlock;
-import malek.mod_science.blocks.basic.GlimmerrootBlock;
-import malek.mod_science.blocks.basic.PotatoOre;
 import malek.mod_science.blocks.power.SteamPipe;
 import malek.mod_science.blocks.redstone.BigLeverBlock;
 import malek.mod_science.blocks.redstone.RedstoneGemBlock;
@@ -92,10 +91,7 @@ public final class ModBlocks {
     public static final Block TESSERACT_BLOCK = new TesseractBlock(DEFAULT);
 
     @RegistryEntry("fractal_ore")
-    public static final Block FRACTAL_ORE = new Block(FabricBlockSettings.of(Material.STONE));
-
-    @RegistryEntry("deepslate_fractal_ore")
-    public static final Block DEEPSLATE_FRACTAL_ORE = new Block(FabricBlockSettings.of(Material.STONE));
+    public static final Block FRACTAL_ORE = new FractalOre(FabricBlockSettings.of(Material.STONE).strength(3.0F, 3.0F).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 
     @RegistryEntry("crystal_growth")
     public static final Block CRYSTAL_GROWTH = new CrystalGrowthBlock(7, 3, FabricBlockSettings.of(Material.AMETHYST).nonOpaque().ticksRandomly().sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5F));
