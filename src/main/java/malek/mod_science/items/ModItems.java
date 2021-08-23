@@ -218,6 +218,9 @@ public final class ModItems {
     @RegistryEntry("vulgar_quartz")
     public static final Item VULGAR_QUARTZ = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
+    @RegistryEntry("fractal")
+    public static final Item FRACTAL = new Item(DEFAULT);
+
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
             if (itemEntity.getStack().isOf(MOLTEN_CORE)
