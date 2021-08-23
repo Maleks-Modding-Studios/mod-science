@@ -5,6 +5,7 @@ import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import malek.mod_science.blocks.ModBlockEntities;
 
 import malek.mod_science.blocks.tesseract.tesseractgui.HexcraftingGuiDescription;
+import malek.mod_science.blocks.tesseract.tesseractgui.HexcraftingScreen;
 import malek.mod_science.blocks.tesseract.tesseractgui.UpgradedHexcraftingGuiDescription;
 import malek.mod_science.blocks.tesseract.tesseractgui.WyldTesseractCraftingGuiDescription;
 import malek.mod_science.recipes.hex_crafting.basic.BasicHexcraftingRecipe;
