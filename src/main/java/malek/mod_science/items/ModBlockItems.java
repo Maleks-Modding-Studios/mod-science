@@ -113,6 +113,9 @@ public class ModBlockItems {
     @RegistryEntry("fractal_ore")
     public static final Item FRACTAL_ORE = new BlockItem(ModBlocks.FRACTAL_ORE, DEFAULT);
 
+    @RegistryEntry("fractal_block")
+    public static final Item FRACTAL_BLOCK = new BlockItem(ModBlocks.FRACTAL_BLOCK, DEFAULT);
+
     public static void init() {
         Matrix.register(ModBlockItems.class, Registry.ITEM);
     }

@@ -24,6 +24,7 @@ repositories {
         content {
             includeGroup 'com.github.DimensionalDevelopment'
             includeGroup 'com.github.Draylar'
+            includeGroup('com.github.Maleks-Modding-Studios')
         }
     }
     maven { url = 'https://maven.jamieswhiteshirt.com/libs-release/' }
@@ -146,7 +147,6 @@ dependencies {
     modRuntime("com.terraformersmc:modmenu:2.0.0-beta.7") {
         exclude module: "fabric-api"
     }
-
     modRuntime('mcp.mobius.waila:wthit:fabric-3.5.2') {
         exclude module: "modmenu"
         exclude module: "fabric-api"
@@ -162,6 +162,7 @@ dependencies {
         // 1.14+
         modImplementation "vazkii.patchouli:Patchouli:1.17.1-55-FABRIC-SNAPSHOT"
     }
+    modImplementation 'com.github.Maleks-Modding-Studios:MaleksPipes:1.17-SNAPSHOT'
 
     //modImplementation "com.example:MaleksFluidInteractionAPI:1.0.0"
 

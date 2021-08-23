@@ -142,6 +142,12 @@ public final class ModBlocks {
     @RegistryEntry("clockworkblock")
     public static final Block CLOCKWORK_BLOCK = new ClockworkBlock();
 
+    @RegistryEntry("l_space_portal_block")
+    public static final Block L_SPACE_PORTAL_BLOCK = new LSpacePortalBlock(DEFAULT.resistance(2000).strength(2000));
+
+    @RegistryEntry("fractal_block")
+    public static final Block FRACTAL_BLOCK = new Block(DEFAULT);
+
     public static void init() {
         Matrix.register(ModBlocks.class, Registry.BLOCK);
     }

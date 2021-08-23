@@ -218,7 +218,7 @@ public class VoidChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world) {
-        return 0;
+        return 320;
     }
 
     @Override

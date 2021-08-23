@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ifi",
+    "fef",
+    "ifi"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    },
+    "f": {
+      "item": "mod_science:fractal_block"
+    },
+    "e": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "mod_science:tesseract"
+  }
+}
