@@ -24,6 +24,9 @@ public class Distortion implements LeyKnotMapInterface, ChunkComponentInitialize
     public static int get(Chunk chunk) {
         return DISTORTION.get(chunk).distortion;
     }
+    public static void set(Chunk chunk, int distortion) {
+        DISTORTION.get(chunk).distortion = distortion;
+    }
 
     public static int getTrueDistortion(World world, Chunk chunk) {
         int c1 = get(world.getChunk(chunk.getPos().x+1, chunk.getPos().z+1));

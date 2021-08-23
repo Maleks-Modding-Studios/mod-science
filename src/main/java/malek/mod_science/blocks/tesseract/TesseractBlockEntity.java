@@ -8,6 +8,7 @@ import malek.mod_science.blocks.tesseract.tesseractgui.HexcraftingGuiDescription
 import malek.mod_science.blocks.tesseract.tesseractgui.HexcraftingScreen;
 import malek.mod_science.blocks.tesseract.tesseractgui.UpgradedHexcraftingGuiDescription;
 import malek.mod_science.blocks.tesseract.tesseractgui.WyldTesseractCraftingGuiDescription;
+import malek.mod_science.components.chunk.distortion.Distortion;
 import malek.mod_science.recipes.hex_crafting.basic.BasicHexcraftingRecipe;
 import malek.mod_science.recipes.hex_crafting.basic.BasicType;
 import malek.mod_science.recipes.hex_crafting.upgraded.UpgradedHexcraftingRecipe;
@@ -85,15 +86,13 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        if(isInWylds(this)) {
+            return new WyldTesseractCraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        }
+        if(getVaildUpgradedHexcraftingStructure(this)) {
+            return new UpgradedHexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
+        }
         return new HexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-        //this doesn't work yet lul
-//        if (getVaildUpgradedHexcraftingStructure(this)) {
-//            return new UpgradedHexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-//        }else if(getVaildUpgradedHexcraftingStructure(this) && isInWylds(this)){
-//            return new WyldTesseractCraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-//        }else{
-//            return new HexcraftingGuiDescription(syncId, inv, ScreenHandlerContext.create(world, pos));
-//        }
     }
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
@@ -210,9 +209,7 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
         }
     }
     public static Boolean getVaildUpgradedHexcraftingStructure(BlockEntity block){
-        //here we get if there is a valid upgraded hexcrafting structure around the block, will be implimented later, so now it just returns true lol
-
-        return false;
+        return Distortion.getTrueDistortion(block.getWorld(), block.getWorld().getChunk(block.getPos())) > 100;
     }
     public static Boolean isInWylds(BlockEntity block){
         return block.getWorld().getRegistryKey().equals(WyldsDimension.WORLD_KEY);

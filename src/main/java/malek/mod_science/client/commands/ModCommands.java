@@ -8,6 +8,8 @@ public class ModCommands {
             DimTeleportCommand.register(dispatcher);
             MadnessCommand.register(dispatcher);
             TheRoomTeleportCommmand.register(dispatcher);
+            GetDistortionCommand.register(dispatcher);
+            SetDistortionCommand.register(dispatcher);
         });
     }
 }
