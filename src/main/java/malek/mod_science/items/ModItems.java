@@ -39,7 +39,7 @@ public final class ModItems {
     @RegistryEntry("golem_repair_kit")
     public static final Item GOLEM_REPAIR_KIT = new GolemRepairKit(new FabricItemSettings().group(MOD_SCIENCE));
 
-    @RegistryEntry("test_scythe")
+    @RegistryEntry("scythe")
     public static final Item TEST_SCYTHE = new ScytheItem(ToolMaterials.IRON, 1, -2.8F, new FabricItemSettings().group(MOD_SCIENCE));
 
 
@@ -211,9 +211,6 @@ public final class ModItems {
 
     @RegistryEntry("scissors")
     public static final Item SCISSORS = new Item(new FabricItemSettings().group(MOD_SCIENCE));
-
-    @RegistryEntry("scythe")
-    public static final Item SCYTHE = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
     @RegistryEntry("shadow")
     public static final Item SHADOW = new Item(new FabricItemSettings().group(MOD_SCIENCE));
