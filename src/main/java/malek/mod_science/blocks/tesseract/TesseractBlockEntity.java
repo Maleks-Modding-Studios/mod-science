@@ -28,6 +28,9 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.structure.Structure;
+import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -62,7 +65,6 @@ public class TesseractBlockEntity extends BlockEntity implements LoggerInterface
     private void tick(World world, BlockPos blockPos, BlockState state){
 
     }
-
 
 
     @Override

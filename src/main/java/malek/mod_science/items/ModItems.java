@@ -91,7 +91,7 @@ public final class ModItems {
     @RegistryEntry("octiron_ingot")
     public static final Item OCTIRON_INGOT = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
-    @RegistryEntry("moonsliver")
+    @RegistryEntry("moonsilver")
     public static final Item MOONSILVER = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
     @RegistryEntry("impervium_chunk")

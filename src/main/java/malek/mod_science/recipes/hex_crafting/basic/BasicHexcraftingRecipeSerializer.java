@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class BasicHexcraftingRecipeSerializer implements RecipeSerializer<BasicHexcraftingRecipe> {
     public static final BasicHexcraftingRecipeSerializer INSTANCE = new BasicHexcraftingRecipeSerializer();
 
-    public static final Identifier ID = ModScience.ModScienceId("basic_infuser_recipe");
+    public static final Identifier ID = ModScience.ModScienceId("basic_hexcrafting_recipe");
 
 
     @Override

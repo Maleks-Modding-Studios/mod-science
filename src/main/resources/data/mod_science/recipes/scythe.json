@@ -1,0 +1,19 @@
+{
+  "type": "mod_science:basic_hexcrafting_recipe",
+  "ingredients" : [
+    {
+      "item" :  "minecraft:stick"
+    }, {
+      "item" : "minecraft:iron_ingot"
+    },
+    {
+      "item" :  "minecraft:iron_ingot"
+    },
+    {
+      "item" :  "minecraft:iron_ingot"
+    }
+  ],
+  "outputItem" : "mod_science:quicksilver_timepiece",
+  "outputAmount" : "1",
+  "ticks" : 200
+}
