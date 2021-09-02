@@ -26,6 +26,7 @@ import org.dimdev.matrix.Registrar;
 import org.dimdev.matrix.RegistryEntry;
 
 import static malek.mod_science.ModScience.MOD_ID;
+import static malek.mod_science.fluids.ModFluids.STILL_SHADOW;
 
 @Registrar(element = Item.class, modid = MOD_ID)
 public final class ModItems {
@@ -212,14 +213,17 @@ public final class ModItems {
     @RegistryEntry("scissors")
     public static final Item SCISSORS = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
-    @RegistryEntry("shadow")
-    public static final Item SHADOW = new Item(new FabricItemSettings().group(MOD_SCIENCE));
-
     @RegistryEntry("vulgar_quartz")
     public static final Item VULGAR_QUARTZ = new Item(new FabricItemSettings().group(MOD_SCIENCE));
 
     @RegistryEntry("fractal")
     public static final Item FRACTAL = new Item(DEFAULT);
+
+    @RegistryEntry("shadow")
+    public static final BucketItem SHADOW = new Shadow(STILL_SHADOW, new FabricItemSettings().group(MOD_SCIENCE).maxCount(64));
+
+    @RegistryEntry("livid_shadow")
+    public static final BucketItem LIVID_SHADOW = new LividShadow(STILL_SHADOW, new FabricItemSettings().group(MOD_SCIENCE).maxCount(64), null);
 
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {

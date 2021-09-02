@@ -5,8 +5,8 @@ import malek.mod_science.fluids.glimmer.Glimmer;
 import malek.mod_science.fluids.magneticite.Magneticite;
 import malek.mod_science.fluids.oil.Oil;
 import malek.mod_science.fluids.rewater.Rewater;
+import malek.mod_science.fluids.shadow_fluid.ShadowFluid;
 import malek.mod_science.fluids.wyldwater.WyldWater;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -32,6 +32,8 @@ public class ModFluids {
     public static Magneticite STILL_MAGNETICITE;
     public static Magneticite FLOWING_MAGNETICITE;
 
+    public static ShadowFluid STILL_SHADOW;
+    public static ShadowFluid FLOWING_SHADOW;
     public static void init() {
         FLOWING_REWATER = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_rewater"), new Rewater.Flowing());
         STILL_REWATER = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "rewater"), new Rewater.Still());
@@ -50,5 +52,8 @@ public class ModFluids {
 
         STILL_MAGNETICITE = Registry.register(Registry.FLUID, ModScienceId("still_magneticite"), new Magneticite.Still());
         FLOWING_MAGNETICITE = Registry.register(Registry.FLUID, ModScienceId("flowing_magneticite"), new Magneticite.Flowing());
+
+        FLOWING_SHADOW = Registry.register(Registry.FLUID, ModScienceId("flowing_shadow"), new ShadowFluid.Flowing());
+        STILL_SHADOW = Registry.register(Registry.FLUID, ModScienceId("still_shadow"), new ShadowFluid.Still());
     }
 }
