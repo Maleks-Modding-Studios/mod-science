@@ -1,0 +1,19 @@
+{
+  "display": {
+      "icon": {
+          "item": "mod_science:golem_repair_kit"
+      },
+      "title": "Mod Science",
+      "description": "Goat was here",
+      "frame": "challenge",
+      "background": "mod_science:block/clockwork_side",
+      "show_toast": false,
+      "announce_to_chat": false,
+      "hidden": false
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

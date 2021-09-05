@@ -1,0 +1,28 @@
+{
+    "display": {
+        "icon": {
+            "item": "mod_science:clockwork"
+        },
+        "title": "Creating Wonders",
+        "description": "Push reality to it's limits",
+        "announce_to_chat": false,
+        "show_toast": false,
+        "hidden": false,
+        "frame": "goal"
+    },
+    "criteria": {
+        "extradimensional_crafting": {
+            "trigger": "tick",
+            "conditions": {
+                "player": {
+                    "player": {
+                        "advancements": {
+                            "mod_science:creating_wonders/extradimensional_crafting": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "parent": "mod_science:root"
+}

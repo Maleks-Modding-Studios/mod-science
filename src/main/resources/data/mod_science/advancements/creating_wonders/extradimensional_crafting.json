@@ -1,0 +1,24 @@
+{
+    "display": {
+        "icon": {
+            "item": "mod_science:tesseract"
+        },
+        "title": "Extradimensional Crafting",
+        "description": "Activate a tesseract"
+    },
+    "parent": "mod_science:creating_wonders",
+    "criteria": {
+        "hold_tesseract": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "mod_science:tesseract"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
